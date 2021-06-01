@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WMS">
-        <activity android:name=".GenerateIncomingPOActivity"></activity>
+        <activity android:name=".HomePageActivityRec"></activity>
+        <activity android:name=".HomePageActivityPP" />
+        <activity android:name=".HomePageActivitySup" />
+        <activity android:name=".GenerateIncomingPOActivity" />
         <activity android:name=".ViewPOActivity" />
         <activity android:name=".ManageAccountsActivity" />
         <activity android:name=".ViewInventoryReportsActivity" />

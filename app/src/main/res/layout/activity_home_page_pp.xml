@@ -22,14 +22,12 @@
             android:columnCount="2">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/productMngWM"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
+                android:id="@+id/trackShipmentStat"
                 android:layout_gravity="fill"
-                android:layout_margin="10sp"
-                app:cardCornerRadius="10sp">
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="10sp"
+                android:layout_margin="10sp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -37,14 +35,14 @@
                     android:layout_gravity="center"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"
-                    android:text="Product Management"
+                    android:text="Track Shipment Status "
                     android:textAlignment="center"
                     android:textSize="15sp" />
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/viewInvRpts"
+                android:id="@+id/viewOrders"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
@@ -54,7 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Inventory Reports"
+                    android:text="View Orders "
                     android:textSize="15sp"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"
@@ -64,7 +62,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/mngAcc"
+                android:id="@+id/productMngSup"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
@@ -74,7 +72,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Manage Accounts"
+                    android:text="Product Management"
                     android:textSize="15sp"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"
@@ -84,7 +82,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/viewPO"
+                android:id="@+id/genDO"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
@@ -94,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View PO"
+                    android:text="Generate Delivery \norder"
                     android:textSize="15sp"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"

@@ -16,7 +16,7 @@ public class HomePageActivityWM extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page_wm);
 
-        c1 = (CardView) findViewById(R.id.viewProducts);
+        c1 = (CardView) findViewById(R.id.productMngWM);
         c2 = (CardView) findViewById(R.id.viewInvRpts);
         c3 = (CardView) findViewById(R.id.mngAcc);
         c4 = (CardView) findViewById(R.id.viewPO);
@@ -34,7 +34,7 @@ public class HomePageActivityWM extends AppCompatActivity implements View.OnClic
         Intent i;
 
         switch(v.getId()){
-            case R.id.viewProducts :
+            case R.id.productMngWM:
                 i = new Intent(this, ViewProductsActivity.class);
                 startActivity(i);
                 break;
