@@ -19,7 +19,7 @@ public class HomePageActivityWM extends AppCompatActivity implements View.OnClic
         c1 = (CardView) findViewById(R.id.productMngWM);
         c2 = (CardView) findViewById(R.id.viewInvRpts);
         c3 = (CardView) findViewById(R.id.mngAcc);
-        c4 = (CardView) findViewById(R.id.viewPO);
+        c4 = (CardView) findViewById(R.id.viewPoWM);
         c5 = (CardView) findViewById(R.id.genIncPO);
 
         c1.setOnClickListener(this);
@@ -49,7 +49,7 @@ public class HomePageActivityWM extends AppCompatActivity implements View.OnClic
                 startActivity(i);
                 break;
 
-            case R.id.viewPO :
+            case R.id.viewPoWM:
                 i = new Intent(this, ViewPOActivity.class);
                 startActivity(i);
                 break;
