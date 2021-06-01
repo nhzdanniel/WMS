@@ -33,8 +33,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (inputName.isEmpty() || inputPassword.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Username or Password is empty", Toast.LENGTH_SHORT).show();
                 }
-                else {
+                else if (inputName.equals("wm")){
                     Intent intent = new Intent(LoginActivity.this, HomePageActivityWM.class);
+                    startActivity(intent);
+                }
+                else if (inputName.equals("sup")){
+                    Intent intent = new Intent (LoginActivity.this, HomePageActivitySup.class);
                     startActivity(intent);
                 }
             }

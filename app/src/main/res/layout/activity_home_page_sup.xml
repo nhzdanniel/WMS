@@ -82,7 +82,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/genDO"
+                android:id="@+id/genDo"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
@@ -198,6 +198,27 @@
                     android:paddingBottom="30sp"
                     android:layout_gravity="center"
                     android:textAlignment="center"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/logout"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:layout_margin="10sp"
+                app:cardBackgroundColor="#00BCD4"
+                app:cardCornerRadius="10sp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="30sp"
+                    android:paddingBottom="30sp"
+                    android:text="Logout"
+                    android:textAlignment="center"
+                    android:textSize="15sp" />
 
             </androidx.cardview.widget.CardView>
 

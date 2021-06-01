@@ -9,14 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WMS">
-        <activity android:name=".HomePageActivityRec"></activity>
+        <activity android:name=".PrintDoActivity"></activity>
+        <activity android:name=".StorageMngActivity" />
+        <activity android:name=".EditIncomingPoActivity" />
+        <activity android:name=".GeneratePickingListActivity" />
+        <activity android:name=".GenerateDoActivity" />
+        <activity android:name=".ViewOrdersActivity" />
+        <activity android:name=".TrackShipmentStatActivity" />
+        <activity android:name=".HomePageActivityRec" />
         <activity android:name=".HomePageActivityPP" />
         <activity android:name=".HomePageActivitySup" />
-        <activity android:name=".GenerateIncomingPOActivity" />
+        <activity android:name=".GenerateIncomingPoActivity" />
         <activity android:name=".ViewPOActivity" />
         <activity android:name=".ManageAccountsActivity" />
         <activity android:name=".ViewInventoryReportsActivity" />
-        <activity android:name=".ViewProductsActivity" />
+        <activity android:name=".ProductMngActivity" />
         <activity android:name=".HomePageActivityWM" />
         <activity android:name=".LoginActivity">
             <intent-filter>

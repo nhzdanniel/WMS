@@ -1,10 +1,14 @@
 package com.example.wms;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class HomePageActivityWM extends AppCompatActivity implements View.OnClickListener {
@@ -35,7 +39,7 @@ public class HomePageActivityWM extends AppCompatActivity implements View.OnClic
 
         switch(v.getId()){
             case R.id.productMngWM:
-                i = new Intent(this, ViewProductsActivity.class);
+                i = new Intent(this, ProductMngActivity.class);
                 startActivity(i);
                 break;
 
@@ -55,10 +59,28 @@ public class HomePageActivityWM extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.genIncPO :
-                i = new Intent(this, GenerateIncomingPOActivity.class);
+                i = new Intent(this, GenerateIncomingPoActivity.class);
                 startActivity(i);
                 break;
         }
-
     }
+
+    //logout
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                Intent intent = new Intent (HomePageActivityWM.this, LoginActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
