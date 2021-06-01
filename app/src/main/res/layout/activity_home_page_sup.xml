@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageActivityWM"
+    tools:context=".HomePageActivitySup"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
@@ -198,27 +198,6 @@
                     android:paddingBottom="30sp"
                     android:layout_gravity="center"
                     android:textAlignment="center"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/logout"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill"
-                android:layout_margin="10sp"
-                app:cardBackgroundColor="#00BCD4"
-                app:cardCornerRadius="10sp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingTop="30sp"
-                    android:paddingBottom="30sp"
-                    android:text="Logout"
-                    android:textAlignment="center"
-                    android:textSize="15sp" />
 
             </androidx.cardview.widget.CardView>
 

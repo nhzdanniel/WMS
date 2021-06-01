@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class HomePageActivityPP extends AppCompatActivity {
+public class ScanBarcodeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page_pp);
+        setContentView(R.layout.activity_scan_barcode);
     }
 }

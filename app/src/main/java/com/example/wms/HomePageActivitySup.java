@@ -5,6 +5,9 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class HomePageActivitySup extends AppCompatActivity implements View.OnClickListener{
@@ -88,5 +91,23 @@ public class HomePageActivitySup extends AppCompatActivity implements View.OnCli
                 break;
 
         }
+    }
+
+    //logout
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                Intent intent = new Intent (HomePageActivitySup.this, LoginActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.wms;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -11,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-public class HomePageActivityWM extends AppCompatActivity implements View.OnClickListener {
+public class HomePageActivityWm extends AppCompatActivity implements View.OnClickListener {
 
     public CardView c1, c2, c3, c4, c5;
 
@@ -76,7 +75,7 @@ public class HomePageActivityWM extends AppCompatActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-                Intent intent = new Intent (HomePageActivityWM.this, LoginActivity.class);
+                Intent intent = new Intent (HomePageActivityWm.this, LoginActivity.class);
                 startActivity(intent);
                 return true;
         }

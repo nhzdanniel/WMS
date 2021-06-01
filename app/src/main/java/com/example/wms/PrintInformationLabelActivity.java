@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ProductMngActivity extends AppCompatActivity {
+public class PrintInformationLabelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_mng);
+        setContentView(R.layout.activity_print_information_label);
     }
 }
