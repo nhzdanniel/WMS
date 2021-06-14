@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PickingPP"
+    android:orientation="vertical"
+    android:id="@+id/drawer_layout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/mainToolbar"
+            layout="@layout/main_toolbar"/>
+
+        <EditText
+            android:id="@+id/barcodeET"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="UPC"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainToolbar" />
+
+        <Button
+            android:id="@+id/scanButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="SCAN"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/barcodeET"
+            app:layout_constraintTop_toBottomOf="@+id/mainToolbar" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Quantity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/barcodeET" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:layout_marginEnd="320dp"
+            android:layout_marginRight="320dp"
+            android:text="Add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scanButton" />
+
+        <Button
+            android:id="@+id/submitListPP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit List"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addButton"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity= "start"
+        android:background="@android:color/white">
+
+        <include
+            layout="@layout/main_nav_drawer"/>
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

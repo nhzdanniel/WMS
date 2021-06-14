@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wms">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.Camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WMS">
-        <activity android:name=".OutboundPurchaseOrdersSUP"></activity>
-        <activity android:name=".InboundPurchaseOrdersSUP" />
+        <activity android:name=".PickedListPP"></activity>
+        <activity android:name=".ScanCode" />
+        <activity android:name=".PickingPP" />
+        <activity
+            android:name=".OutboundPurchaseOrdersSUP"
+            android:parentActivityName=".ViewPoSUP" />
+        <activity
+            android:name=".InboundPurchaseOrdersSUP"
+            android:parentActivityName=".ViewPoSUP" />
         <activity
             android:name=".SummaryInventoryReportsWM"
             android:parentActivityName=".ViewReportsActivityWM" />

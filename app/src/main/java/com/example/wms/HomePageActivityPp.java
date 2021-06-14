@@ -11,9 +11,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 public class HomePageActivityPp extends AppCompatActivity implements View.OnClickListener {
@@ -27,7 +24,7 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_home_page_pp);
 
         c1 = (CardView) findViewById(R.id.viewPickingList);
-        c2 = (CardView) findViewById(R.id.scanBarcodePp);
+        c2 = (CardView) findViewById(R.id.pickingPp);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = findViewById(R.id.mainToolbar);
@@ -112,10 +109,10 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
                 startActivity(i);
                 break;
 
-/*            case R.id.viewRptsWM:
-                i = new Intent(this, ViewReportsActivityWM.class);
+            case R.id.pickingPp:
+                i = new Intent(this, PickingPP.class);
                 startActivity(i);
-                break;*/
+                break;
         }
     }
 
