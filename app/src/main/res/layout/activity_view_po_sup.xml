@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePageActivityWm"
-    android:fitsSystemWindows="true"
+    tools:context=".ViewPoSUP"
+    android:orientation="vertical"
     android:id="@+id/drawer_layout">
 
     <LinearLayout
@@ -17,7 +17,6 @@
             android:id="@+id/mainToolbar"
             layout="@layout/main_toolbar"/>
 
-
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +27,7 @@
             android:columnCount="1">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/viewProductsWM"
+                android:id="@+id/inboundPoSUP"
                 android:layout_row="0"
                 android:layout_rowWeight="1"
                 android:layout_column="0"
@@ -44,14 +43,14 @@
                     android:layout_gravity="center"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"
-                    android:text="View Products"
+                    android:text="Inbound Purchase Orders"
                     android:textAlignment="center"
                     android:textSize="25sp" />
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/viewRptsWM"
+                android:id="@+id/outboundPoSUP"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
@@ -62,28 +61,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Reports"
-                    android:textSize="25sp"
-                    android:paddingTop="30sp"
-                    android:paddingBottom="30sp"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/approvalSystemWM"
-                android:layout_gravity="fill"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="10sp"
-                android:layout_margin="10sp"
-                app:cardBackgroundColor="#FFC107">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Approval System"
+                    android:text="Outbound Purchase Orders"
                     android:textSize="25sp"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"
