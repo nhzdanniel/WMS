@@ -3,15 +3,10 @@ package com.example.wms;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +17,7 @@ import java.util.ArrayList;
 public class ViewProductsWM extends AppCompatActivity {
 
     RecyclerView recyclerviewProductsWM;
-    ViewProductsRecyclerViewAdapterWM viewProductsRecyclerViewAdapterWM;
+    ViewProductsRecyclerViewAdapter viewProductsRecyclerViewAdapter;
     DrawerLayout drawerLayout;
 
     @Override
@@ -69,8 +64,8 @@ public class ViewProductsWM extends AppCompatActivity {
     private void setRecyclerView(){
         recyclerviewProductsWM.setHasFixedSize(true);
         recyclerviewProductsWM.setLayoutManager(new LinearLayoutManager(this));
-        viewProductsRecyclerViewAdapterWM = new ViewProductsRecyclerViewAdapterWM(this,getList());
-        recyclerviewProductsWM.setAdapter(viewProductsRecyclerViewAdapterWM);
+        viewProductsRecyclerViewAdapter = new ViewProductsRecyclerViewAdapter(this,getList());
+        recyclerviewProductsWM.setAdapter(viewProductsRecyclerViewAdapter);
     }
 
     private ArrayList<Product> getList(){
@@ -97,7 +92,7 @@ public class ViewProductsWM extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                viewProductsRecyclerViewAdapterWM.getFilter().filter(newText);
+                viewProductsRecyclerViewAdapter.getFilter().filter(newText);
                 return false;
             }
         });

@@ -2,7 +2,9 @@ package com.example.wms;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 
 public class PickingPP extends AppCompatActivity{
 
+    DrawerLayout drawerLayout;
     Button scanBtn;
     Button submitListBtn;
     Button addBtn;
@@ -33,6 +36,11 @@ public class PickingPP extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picking_pp);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        Toolbar toolbar = findViewById(R.id.mainToolbar);
+        setSupportActionBar(toolbar);
 
         resultsET = findViewById(R.id.barcodeET);
         //quantityET = findViewById(R.id.quantityET);
@@ -99,6 +107,32 @@ public class PickingPP extends AppCompatActivity{
             }
         });
 
+    }
+    //drawer settings
+    public void ClickMenu (View view){
+        //HomePageActivityWm.openDrawer(drawerLayout);
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
 
+    public void ClickLogo (View view){
+        HomePageActivityPp.closeDrawer(drawerLayout);
+    }
+
+    public void ClickHome (View view){
+        HomePageActivityPp.redirectActivity(this, HomePageActivityPp.class);
+    }
+
+    public void ClickAboutUs (View view){
+        HomePageActivityPp.redirectActivity(this, AboutUsActivity.class);
+    }
+
+    public void ClickLogout (View view){
+        HomePageActivityPp.Logout(this);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        HomePageActivityPp.closeDrawer(drawerLayout);
     }
 }

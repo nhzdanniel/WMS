@@ -91,7 +91,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+           <!-- <androidx.cardview.widget.CardView
                 android:id="@+id/scanBarcodeRec"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
@@ -110,7 +110,7 @@
                     android:layout_gravity="center"
                     android:textAlignment="center"/>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/viewPoRec"

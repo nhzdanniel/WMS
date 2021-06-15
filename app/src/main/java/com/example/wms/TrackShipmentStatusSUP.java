@@ -12,7 +12,7 @@ import android.view.View;
 public class TrackShipmentStatusSUP extends AppCompatActivity {
 
     RecyclerView recyclerviewProductsWM;
-    ViewProductsRecyclerViewAdapterWM viewProductsRecyclerViewAdapterWM;
+    ViewProductsRecyclerViewAdapter viewProductsRecyclerViewAdapter;
     DrawerLayout drawerLayout;
 
     @Override

@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ViewProductsRecyclerViewAdapterWM extends RecyclerView.Adapter<ViewProductsRecyclerViewAdapterWM.ViewHolder> implements Filterable {
+public class ViewProductsRecyclerViewAdapter extends RecyclerView.Adapter<ViewProductsRecyclerViewAdapter.ViewHolder> implements Filterable {
 
     Context context;
-    private static final String TAG = "ViewProductsRecyclerViewAdapterWM";
+    private static final String TAG = "ViewProductsRecyclerViewAdapter";
 
     ArrayList<Product> productlist;
     ArrayList<Product> masterProductList;
 
-    public ViewProductsRecyclerViewAdapterWM(Context context, ArrayList<Product> productlist) {
+    public ViewProductsRecyclerViewAdapter(Context context, ArrayList<Product> productlist) {
         this.context = context;
         this.masterProductList = productlist;
         this.productlist = new ArrayList<>(masterProductList);
@@ -36,7 +36,7 @@ public class ViewProductsRecyclerViewAdapterWM extends RecyclerView.Adapter<View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewProductsRecyclerViewAdapterWM.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewProductsRecyclerViewAdapter.ViewHolder holder, int position) {
         if (productlist != null && productlist.size() > 0) {
             Product product = productlist.get(position);
             holder.tv_name.setText(product.getName());

@@ -26,8 +26,7 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         c1 = (CardView) findViewById(R.id.viewProductsREC);
         c2 = (CardView) findViewById(R.id.receivingItemsRec);
         c3 = (CardView) findViewById(R.id.printInformationLabel);
-        c4 = (CardView) findViewById(R.id.scanBarcodeRec);
-        c5 = (CardView) findViewById(R.id.viewPoRec);
+        c4 = (CardView) findViewById(R.id.viewPoRec);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = findViewById(R.id.mainToolbar);
@@ -37,7 +36,6 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         c2.setOnClickListener(this);
         c3.setOnClickListener(this);
         c4.setOnClickListener(this);
-        c5.setOnClickListener(this);
     }
 
     //drawer settings

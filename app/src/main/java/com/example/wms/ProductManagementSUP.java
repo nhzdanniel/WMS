@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ProductManagementSUP extends AppCompatActivity {
 
     RecyclerView recyclerProductMngSUP;
-    ViewProductsRecyclerViewAdapterWM viewProductsRecyclerViewAdapterWM;
+    ViewProductsRecyclerViewAdapter viewProductsRecyclerViewAdapter;
     DrawerLayout drawerLayout;
 
     @Override
@@ -66,8 +66,8 @@ public class ProductManagementSUP extends AppCompatActivity {
     private void setRecyclerView() {
         recyclerProductMngSUP.setHasFixedSize(true);
         recyclerProductMngSUP.setLayoutManager(new LinearLayoutManager(this));
-        viewProductsRecyclerViewAdapterWM = new ViewProductsRecyclerViewAdapterWM(this,getList());
-        recyclerProductMngSUP.setAdapter(viewProductsRecyclerViewAdapterWM);
+        viewProductsRecyclerViewAdapter = new ViewProductsRecyclerViewAdapter(this,getList());
+        recyclerProductMngSUP.setAdapter(viewProductsRecyclerViewAdapter);
     }
 
     private ArrayList<Product> getList(){
@@ -94,7 +94,7 @@ public class ProductManagementSUP extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                viewProductsRecyclerViewAdapterWM.getFilter().filter(newText);
+                viewProductsRecyclerViewAdapter.getFilter().filter(newText);
                 return false;
             }
         });
