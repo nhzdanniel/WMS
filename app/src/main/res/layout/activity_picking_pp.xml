@@ -9,7 +9,6 @@
     android:id="@+id/drawer_layout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -22,10 +21,20 @@
             android:id="@+id/barcodeET"
             android:layout_width="149dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="259dp"
+            android:layout_marginRight="259dp"
+            android:layout_marginBottom="627dp"
             android:ems="10"
+            android:hint="UPC"
             android:inputType="textPersonName"
-            android:text="UPC"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mainToolbar" />
 
@@ -33,29 +42,42 @@
             android:id="@+id/scanButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="157dp"
+            android:layout_marginLeft="157dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="628dp"
             android:text="SCAN"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/barcodeET"
             app:layout_constraintTop_toBottomOf="@+id/mainToolbar" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName7"
+<!--        <EditText
+            android:id="@+id/quantityET"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="198dp"
+            android:layout_marginRight="198dp"
+            android:layout_marginBottom="581dp"
             android:ems="10"
+            android:hint="Quantity"
             android:inputType="textPersonName"
-            android:text="Quantity"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/barcodeET" />
+            app:layout_constraintTop_toBottomOf="@+id/barcodeET" />-->
 
         <Button
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="320dp"
             android:layout_marginRight="320dp"
             android:text="Add"
@@ -64,15 +86,30 @@
 
         <Button
             android:id="@+id/submitListPP"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="278dp"
+            android:layout_marginLeft="278dp"
+            android:layout_marginBottom="568dp"
             android:text="Submit List"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/addButton" />
+
+        <ListView
+            android:id="@+id/listviewPickedList"
+            android:layout_width="match_parent"
+            android:layout_height="490dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addButton"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/submitListPP" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
