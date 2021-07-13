@@ -8,15 +8,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
 
-public class ViewPickingListPP extends AppCompatActivity {
+import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
+import com.example.wms.util.VerticalSpacingItemDecorator;
 
+public class ViewPickingListPP extends AppCompatActivity implements ViewPickingListsRecyclerViewAdapterPP.OnPickingListListener {
+
+    private static final String TAG = "ppactivity";
     RecyclerView recyclerviewPickingListPP;
     ViewPickingListsRecyclerViewAdapterPP viewPickingListsRecyclerViewAdapterPP;
     DrawerLayout drawerLayout;
@@ -66,15 +72,19 @@ public class ViewPickingListPP extends AppCompatActivity {
     private void setRecyclerView(){
         recyclerviewPickingListPP.setHasFixedSize(true);
         recyclerviewPickingListPP.setLayoutManager(new LinearLayoutManager(this));
-        viewPickingListsRecyclerViewAdapterPP = new ViewPickingListsRecyclerViewAdapterPP(this,getList());
+        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
+        recyclerviewPickingListPP.addItemDecoration(itemDecorator);
+        viewPickingListsRecyclerViewAdapterPP = new ViewPickingListsRecyclerViewAdapterPP(this,getList(), this);
         recyclerviewPickingListPP.setAdapter(viewPickingListsRecyclerViewAdapterPP);
+
     }
 
     private ArrayList<PickingList> getList(){
         ArrayList <PickingList> pickingList = new ArrayList<>();
-        pickingList.add(new PickingList("76839", "ABC Co.", "290920"));
-        pickingList.add(new PickingList("35532", "GBI Limited", "240220"));
-        pickingList.add(new PickingList("23532", "Ah Beng Automotive.", "080220"));
+        pickingList.add(new PickingList("GBI Limited", 12348, "290920"));
+        pickingList.add(new PickingList("ABC CO.", 12423, "010220"));
+        pickingList.add(new PickingList("GBI Limited", 56744, "240220"));
+        pickingList.add(new PickingList("Ah Beng Automotive.", 56365, "080220"));
         return pickingList;
     }
 
@@ -97,5 +107,14 @@ public class ViewPickingListPP extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    public void onPickingListClick(int position) {
+        Log.d (TAG, "onPPClick: clicked" + position);
+
+        Intent intent = new Intent (this, IndividualPickingList.class);
+        intent.putExtra("selectedPickingList", getList().get(position));
+        startActivity(intent);
     }
 }

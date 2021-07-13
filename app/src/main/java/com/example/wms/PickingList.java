@@ -1,36 +1,70 @@
 package com.example.wms;
 
-public class PickingList {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    public String poNumber, companyName, Date;
+public class PickingList implements Parcelable {
 
-    public PickingList(String poNumber, String companyName, String date) {
-        this.poNumber = poNumber;
+    public String companyName,date;
+    public int poNumber;
+
+    public PickingList(String companyName, int poNumber, String date) {
         this.companyName = companyName;
-        Date = date;
+        this.poNumber = poNumber;
+        this.date = date;
     }
 
-    public String getPoNumber() {
-        return poNumber;
+    protected PickingList(Parcel in) {
+        companyName = in.readString();
+        date = in.readString();
+        poNumber = in.readInt();
     }
+
+    public static final Creator<PickingList> CREATOR = new Creator<PickingList>() {
+        @Override
+        public PickingList createFromParcel(Parcel in) {
+            return new PickingList(in);
+        }
+
+        @Override
+        public PickingList[] newArray(int size) {
+            return new PickingList[size];
+        }
+    };
 
     public String getCompanyName() {
         return companyName;
     }
 
-    public String getDate() {
-        return Date;
+    public int getPoNumber() {
+        return poNumber;
     }
 
-    public void setPoNumber(String poNumber) {
-        this.poNumber = poNumber;
+    public String getDate() {
+        return date;
     }
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 
+    public void setPoNumber(int poNumber) {
+        this.poNumber = poNumber;
+    }
+
     public void setDate(String date) {
-        Date = date;
+        this.date = date;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(companyName);
+        dest.writeString(date);
+        dest.writeInt(poNumber);
     }
 }

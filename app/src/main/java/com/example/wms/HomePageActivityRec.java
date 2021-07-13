@@ -76,8 +76,10 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                activity.finishAffinity();
-                System.exit(0);
+/*                activity.finishAffinity();
+                System.exit(0);*/
+                Intent intent = new Intent (activity, LoginActivity.class);
+                activity.startActivity(intent);
             }
         });
 

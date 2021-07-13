@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.wms">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -13,8 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WMS">
-        <activity android:name=".PickedListPP"></activity>
-        <activity android:name=".ScanCode" />
+        <activity android:name=".IndividualPickingList"></activity>
+        <activity android:name=".PickedListPP" />
+        <activity
+            android:name=".ScanCode"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
         <activity android:name=".PickingPP" />
         <activity
             android:name=".OutboundPurchaseOrdersSUP"

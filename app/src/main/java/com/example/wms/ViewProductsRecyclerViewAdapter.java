@@ -68,7 +68,7 @@ public class ViewProductsRecyclerViewAdapter extends RecyclerView.Adapter<ViewPr
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (Product product : masterProductList){
-                    if (product.id.toLowerCase().contains(filterPattern) || product.name.toLowerCase().contains(filterPattern) ||
+                    if (product.id.toLowerCase().contains(constraint) || product.name.toLowerCase().contains(filterPattern) ||
                             product.location.toLowerCase().contains(filterPattern)||product.quantity.toLowerCase().contains(filterPattern) ||
                             product.uom.toLowerCase().contains(filterPattern) || product.weight.toLowerCase().contains(filterPattern) ||
                             product.dimension.toLowerCase().contains(filterPattern)){

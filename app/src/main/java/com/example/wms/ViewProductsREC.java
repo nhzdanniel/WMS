@@ -72,11 +72,13 @@ public class ViewProductsREC extends AppCompatActivity {
 
     private ArrayList<Product> getList(){
         ArrayList <Product> productList = new ArrayList<>();
-        productList.add(new Product("Brake Pads", "87998", "3A", "200", "pieces", "500g", "20x20"));
-        productList.add(new Product("Clutch Disks", "56754", "2H", "674", "pieces", "1020g", "30x30"));
-        productList.add(new Product("Yellow Rim", "34562", "6A", "16", "pieces", "15000g", "60x60"));
-        productList.add(new Product("Black Rim", "34579", "6B", "16", "pieces", "15000g", "70x70"));
-        productList.add(new Product("Spark Plug", "72346", "1CA", "800", "pieces", "10g", "2X4"));
+        productList.add(new Product("87998", "200", "500", "pcs", "Brake Pad", "3B", "20x20"));
+        productList.add(new Product("45323", "563", "1500", "pcs", "Bride Bucket Seat", "6G", "57x23"));
+        productList.add(new Product("53358", "747", "200", "pcs", "Cat Converter", "3H", "78x54"));
+        productList.add(new Product("34522", "34", "200", "pcs", "Brake Caliper", "9H", "23x27"));
+        productList.add(new Product("45398", "578", "577", "pcs", "Silencer", "13F", "27x29"));
+        productList.add(new Product("34532", "7534", "346", "pcs", "Brake Pad", "15H", "23x29"));
+        productList.add(new Product("45634", "645", "23", "pcs", "Steering Wheel", "3D", "23x26"));
         return productList;
     }
 

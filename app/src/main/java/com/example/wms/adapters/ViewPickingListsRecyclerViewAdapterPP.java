@@ -1,4 +1,4 @@
-package com.example.wms;
+package com.example.wms.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.wms.PickingList;
+import com.example.wms.R;
 
 import java.util.ArrayList;
 
@@ -22,26 +24,36 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     ArrayList<PickingList> pickingList;
     ArrayList<PickingList> masterPickingList;
 
-    public ViewPickingListsRecyclerViewAdapterPP (Context context, ArrayList<PickingList> pickingList){
+    private OnPickingListListener mOnPickingListListener;
+
+    public ViewPickingListsRecyclerViewAdapterPP (Context context, ArrayList<PickingList> pickingList, OnPickingListListener onPickingListListener){
         this.context = context;
         this.masterPickingList = pickingList;
         this.pickingList = new ArrayList<>(masterPickingList);
+        this.mOnPickingListListener = onPickingListListener;
     }
 
     @NonNull
     @Override
     public ViewPickingListsRecyclerViewAdapterPP.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.picking_list_layout,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnPickingListListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewPickingListsRecyclerViewAdapterPP.ViewHolder holder, int position) {
         if (pickingList != null && pickingList.size() > 0) {
             PickingList pl = pickingList.get(position);
-            holder.tv_po_number.setText(pl.getPoNumber());
+            holder.tv_po_number.setText(String.valueOf(pl.getPoNumber()));
             holder.tv_company_name.setText(pl.getCompanyName());
             holder.tv_date.setText(pl.getDate());
+
+/*            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, )
+                }
+            });*/
         }
     }
 
@@ -64,8 +76,8 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (PickingList pickingList : masterPickingList){
-                    if (pickingList.poNumber.toLowerCase().contains(filterPattern) || pickingList.companyName.toLowerCase().contains(filterPattern) ||
-                            pickingList.Date.toLowerCase().contains(filterPattern)){
+                    if (String.valueOf(pickingList.poNumber).contains(filterPattern) || pickingList.companyName.toLowerCase().contains(filterPattern) ||
+                            String.valueOf(pickingList.date).contains(filterPattern)){
                         filteredPickingList.add(pickingList);
                     }
                 }
@@ -85,17 +97,32 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
         }
     };
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tv_po_number, tv_company_name, tv_date;
+        OnPickingListListener onPickingListListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        //ConstraintLayout parentLayout;
+
+        public ViewHolder(@NonNull View itemView, OnPickingListListener onPickingListListener) {
             super(itemView);
 
             tv_po_number = itemView.findViewById(R.id.tv_po_number);
             tv_company_name = itemView.findViewById(R.id.tv_company_name);
             tv_date = itemView.findViewById(R.id.tv_date);
+            this.onPickingListListener = onPickingListListener;
+            //parentLayout = itemView.findViewById(R.id.pickingListLayout);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onPickingListListener.onPickingListClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnPickingListListener{
+        void onPickingListClick(int position);
     }
 
 }

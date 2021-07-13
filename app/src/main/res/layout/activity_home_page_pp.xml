@@ -60,7 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Picking"
+                    android:text="Picking (scanning function in here, need to transfer to picking list and remove this button)"
                     android:textSize="25sp"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"

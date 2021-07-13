@@ -25,16 +25,23 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
         scannerview = new ZXingScannerView(this);
         setContentView(scannerview);
 
+
     }
 
     @Override
     public void handleResult(Result result) {
-        if (PickingPP.resultsET.callOnClick()){
+/*        if (PickingPP.resultsET.callOnClick()){
             PickingPP.resultsET.setText(result.getText());
-            onBackPressed();
         }else{
             ReceivingItemsREC.resultsET.setText(result.getText());
         }
+        onBackPressed();*/
+
+/*        ReceivingItemsREC.resultsET.setText(result.getText());
+        onBackPressed();*/
+
+        PickingPP.resultsET.setText(result.getText());
+        onBackPressed();
 
     }
 

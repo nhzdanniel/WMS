@@ -1,9 +1,9 @@
 package com.example.wms;
 
 public class Product {
-    public String id, name, location, quantity, uom, weight, dimension;
+    public String id, quantity, weight, name, location, dimension, uom;
 
-    public Product(String name, String id, String location, String quantity, String uom, String weight, String dimension) {
+    public Product(String id, String quantity, String weight, String uom, String name, String location, String dimension) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -17,6 +17,14 @@ public class Product {
         return id;
     }
 
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
     public String getName() {
         return name;
     }
@@ -25,24 +33,24 @@ public class Product {
         return location;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getDimension() {
+        return dimension;
     }
 
     public String getUom() {
         return uom;
     }
 
-    public String getWeight() {
-        return weight;
-    }
-
-    public String getDimension() {
-        return dimension;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
     public void setName(String name) {
@@ -53,19 +61,11 @@ public class Product {
         this.location = location;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
     }
 
     public void setUom(String uom) {
         this.uom = uom;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-
-    public void setDimension(String dimension) {
-        this.dimension = dimension;
     }
 }
