@@ -10,35 +10,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.wms.adapters.ViewAllApprovedReceivedListsAdapter;
 import com.example.wms.adapters.ViewAllReceivingListAdapter;
-import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
+import com.example.wms.models.ApprovedReceivedList;
 import com.example.wms.models.ReceivingList;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 
 import java.util.ArrayList;
 
-public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAllReceivingListAdapter.OnReceivingListListener{
+public class ViewAllApprovedReceivedLists extends AppCompatActivity implements ViewAllApprovedReceivedListsAdapter.OnApprovedReceivedListListener {
 
-    RecyclerView recyclerviewReceivingList;
-    ViewAllReceivingListAdapter viewAllReceivingListAdapter;
+    RecyclerView recyclerviewApprovedReceivedList;
+    ViewAllApprovedReceivedListsAdapter viewAllApprovedReceivedListsAdapter;
     DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_all_receiving_list_rec);
+        setContentView(R.layout.activity_view_all_approved_received_lists);
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
-        recyclerviewReceivingList = findViewById(R.id.recyclerviewReceivingList);
+        recyclerviewApprovedReceivedList = findViewById(R.id.recyclerviewApprovedReceivedList);
         setRecyclerView();
     }
 
@@ -71,21 +71,18 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     }
 
     private void setRecyclerView(){
-        recyclerviewReceivingList.setHasFixedSize(true);
-        recyclerviewReceivingList.setLayoutManager(new LinearLayoutManager(this));
+        recyclerviewApprovedReceivedList.setHasFixedSize(true);
+        recyclerviewApprovedReceivedList.setLayoutManager(new LinearLayoutManager(this));
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
-        recyclerviewReceivingList.addItemDecoration(itemDecorator);
-        viewAllReceivingListAdapter = new ViewAllReceivingListAdapter(this,getList(), this);
-        recyclerviewReceivingList.setAdapter(viewAllReceivingListAdapter);
+        recyclerviewApprovedReceivedList.addItemDecoration(itemDecorator);
+        viewAllApprovedReceivedListsAdapter = new ViewAllApprovedReceivedListsAdapter(this,getList(), this);
+        recyclerviewApprovedReceivedList.setAdapter(viewAllApprovedReceivedListsAdapter);
     }
 
-    private ArrayList<ReceivingList> getList(){
-        ArrayList <ReceivingList> receivingList = new ArrayList<>();
-        receivingList.add(new ReceivingList(1,87998, "ABC CO", "12/07/20", "Not Received"));
-        receivingList.add(new ReceivingList(2,23452, "DFG CO", "24/07/20", "Not Received"));
-        receivingList.add(new ReceivingList(3,34634, "GHF CO", "16/07/20", "Not Received"));
-        receivingList.add(new ReceivingList(4,57633, "HTT CO", "05/07/20", "Not Received"));
-        return receivingList;
+    private ArrayList<ApprovedReceivedList> getList(){
+        ArrayList <ApprovedReceivedList> approvedReceivedLists = new ArrayList<>();
+        approvedReceivedLists.add(new ApprovedReceivedList(1,87998, 84759, "ABC CO", "Not Received"));
+        return approvedReceivedLists;
     }
 
     @Override
@@ -102,7 +99,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                viewAllReceivingListAdapter.getFilter().filter(newText);
+                viewAllApprovedReceivedListsAdapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -110,11 +107,11 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     }
 
     @Override
-    public void onReceivingListClick(int position) {
+    public void onApprovedReceivedListClick(int position) {
         //Log.d (TAG, "onPPClick: clicked" + position);
 
-        Intent intent = new Intent (this, IndividualReceivingList.class);
-        intent.putExtra("selectedReceivingList", getList().get(position));
+        Intent intent = new Intent (this, IndividualApprovedReceivedList.class);
+        intent.putExtra("selectedApprovedReceivedList", getList().get(position));
         startActivity(intent);
     }
 }

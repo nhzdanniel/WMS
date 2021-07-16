@@ -3,31 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pickingListLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:stretchColumns="1, 2, 3, 4"
     android:background="#ffffb3">
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
             <TextView
                 android:id="@+id/tv_sn"
                 android:layout_column="1"
-                android:gravity="center" />
+                android:gravity="left" />
 
             <TextView
                 android:id="@+id/tv_po_number"
                 android:layout_column="1"
-                android:gravity="center"/>
+                android:gravity="left"/>
 
             <TextView
                 android:id="@+id/tv_company_name"
                 android:layout_column="1"
-                android:gravity="center" />
+                android:gravity="left" />
 
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_column="1"
-                android:gravity="center" />
+                android:gravity="left" />
 
         </TableRow>
 

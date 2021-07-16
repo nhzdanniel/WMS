@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WMS">
-        <activity android:name=".IndividualReceivingList"></activity>
+        <activity android:name=".IndividualApprovedReceivedList"></activity>
+        <activity android:name=".ViewAllApprovedReceivedLists" />
+        <activity android:name=".IndividualReceivingList" />
         <activity android:name=".IndividualPickingList" />
         <activity android:name=".PickedListPP" />
         <activity
