@@ -1,8 +1,6 @@
 package com.example.wms;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -12,26 +10,41 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
-public class HomePageActivityRec extends AppCompatActivity implements View.OnClickListener{
+import com.example.wms.models.PickingList;
+import com.example.wms.models.ReceivingList;
 
-    public CardView c1, c2;
+public class IndividualReceivingList extends AppCompatActivity {
+
+    private static final String TAG = "individualpickinglist";
+    private TextView poText, supplierText, etaText;
+    private ReceivingList receivingList;
+    private boolean existingPickingList;
+
     DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page_rec);
-
-        c1 = (CardView) findViewById(R.id.viewAllReceivingLists);
-        c2 = (CardView) findViewById(R.id.viewApprovedReceivedList);
+        setContentView(R.layout.activity_individual_receiving_list);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        Toolbar toolbar = findViewById(R.id.mainToolbar);
-        setSupportActionBar(toolbar);
+        poText = findViewById(R.id.po_text);
+        supplierText = findViewById(R.id.supplier_text);
+        etaText = findViewById(R.id.eta_text);
 
-        c1.setOnClickListener(this);
-        c2.setOnClickListener(this);
+        if (getIntent().hasExtra("selectedReceivingList")) {
+            receivingList = getIntent().getParcelableExtra("selectedReceivingList");
+        }
+
+        setReceivingListProperties();
+    }
+
+    private void setReceivingListProperties() {
+        poText.setText(String.valueOf(receivingList.getPoNumber()));
+        supplierText.setText(receivingList.getSupplierName());
+        etaText.setText(receivingList.getEta());
     }
 
     //drawer settings
@@ -54,7 +67,7 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
     }
 
     public void ClickHome(View view){
-        recreate();
+        HomePageActivityPp.redirectActivity(this, HomePageActivityPp.class);
     }
 
     public void ClickAboutUs (View view){
@@ -100,39 +113,4 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         super.onPause();
         closeDrawer(drawerLayout);
     }
-
-    @Override
-    public void onClick(View v) {
-        Intent i;
-
-        switch(v.getId()) {
-            case R.id.viewAllReceivingLists:
-                i = new Intent(this, ViewAllReceivingListREC.class);
-                startActivity(i);
-                break;
-
-            case R.id.viewApprovedReceivedList:
-                i = new Intent(this, ReceivingItemsREC.class);
-                startActivity(i);
-                break;
-       }
-    }
-
-/*    //logout
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.logout:
-                Intent intent = new Intent (HomePageActivityRec.this, LoginActivity.class);
-                startActivity(intent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 }

@@ -18,6 +18,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
+import com.example.wms.models.PickingList;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 
 public class ViewPickingListPP extends AppCompatActivity implements ViewPickingListsRecyclerViewAdapterPP.OnPickingListListener {
@@ -81,10 +82,10 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
     private ArrayList<PickingList> getList(){
         ArrayList <PickingList> pickingList = new ArrayList<>();
-        pickingList.add(new PickingList("GBI Limited", 12348, "290920"));
-        pickingList.add(new PickingList("ABC CO.", 12423, "010220"));
-        pickingList.add(new PickingList("GBI Limited", 56744, "240220"));
-        pickingList.add(new PickingList("Ah Beng Automotive.", 56365, "080220"));
+        pickingList.add(new PickingList(1, "GBI Limitedddddddddddddd", 123481234, "290920"));
+        pickingList.add(new PickingList(2, "ABC CO.", 12423, "010220"));
+        pickingList.add(new PickingList(3, "GBI Limited", 56744, "240220"));
+        pickingList.add(new PickingList(4, "Ah Beng Automotive.", 56365, "080220"));
         return pickingList;
     }
 

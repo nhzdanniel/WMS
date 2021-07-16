@@ -4,28 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewPickingListPP"
+    tools:context=".IndividualPickingList"
     android:orientation="vertical"
     android:id="@+id/drawer_layout">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <include
             android:id="@+id/mainToolbar"
-            layout="@layout/main_toolbar"/>
+            layout="@layout/main_toolbar"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="150dp" />
 
         <TableLayout
+            android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:stretchColumns="1, 2, 3, 4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            android:stretchColumns="1, 2, 3, 4, 5"
+            app:layout_constraintTop_toBottomOf="@+id/mainToolbar">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -33,37 +33,44 @@
 
                 <TextView
                     android:layout_column="1"
-                    android:text="S/N"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="S/N" />
 
                 <TextView
                     android:layout_column="1"
-                    android:text="PO Number"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="PO Number" />
 
                 <TextView
                     android:layout_column="1"
-                    android:text="Company Name"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="Supplier Name" />
 
                 <TextView
                     android:layout_column="1"
-                    android:text="Date Created"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:text="ETA" />
+
+                <TextView
+                    android:layout_column="1"
+                    android:gravity="center"
+                    android:text="Status" />
 
             </TableRow>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewPickingListPP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </TableLayout>
 
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewReceivingList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -8,30 +8,37 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.wms.adapters.ViewAllReceivingListAdapter;
+import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
+import com.example.wms.models.ReceivingList;
+import com.example.wms.util.VerticalSpacingItemDecorator;
+
 import java.util.ArrayList;
 
-public class ViewProductsREC extends AppCompatActivity {
+public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAllReceivingListAdapter.OnReceivingListListener{
 
-    RecyclerView recyclerviewProductsREC;
-    ViewProductsRecyclerViewAdapter viewProductsRecyclerViewAdapter;
+    RecyclerView recyclerviewReceivingList;
+    ViewAllReceivingListAdapter viewAllReceivingListAdapter;
     DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_products_rec);
+        setContentView(R.layout.activity_view_all_receiving_list_rec);
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
-        recyclerviewProductsREC = findViewById(R.id.recyclerviewProductsREC);
+        recyclerviewReceivingList = findViewById(R.id.recyclerviewReceivingList);
         setRecyclerView();
     }
 
@@ -64,22 +71,22 @@ public class ViewProductsREC extends AppCompatActivity {
     }
 
     private void setRecyclerView(){
-        recyclerviewProductsREC.setHasFixedSize(true);
-        recyclerviewProductsREC.setLayoutManager(new LinearLayoutManager(this));
-        viewProductsRecyclerViewAdapter = new ViewProductsRecyclerViewAdapter(this,getList());
-        recyclerviewProductsREC.setAdapter(viewProductsRecyclerViewAdapter);
+        recyclerviewReceivingList.setHasFixedSize(true);
+        recyclerviewReceivingList.setLayoutManager(new LinearLayoutManager(this));
+        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
+        recyclerviewReceivingList.addItemDecoration(itemDecorator);
+        viewAllReceivingListAdapter = new ViewAllReceivingListAdapter(this,getList(), this);
+        recyclerviewReceivingList.setAdapter(viewAllReceivingListAdapter);
+
     }
 
-    private ArrayList<Product> getList(){
-        ArrayList <Product> productList = new ArrayList<>();
-        productList.add(new Product("87998", "200", "500", "pcs", "Brake Pad", "3B", "20x20"));
-        productList.add(new Product("45323", "563", "1500", "pcs", "Bride Bucket Seat", "6G", "57x23"));
-        productList.add(new Product("53358", "747", "200", "pcs", "Cat Converter", "3H", "78x54"));
-        productList.add(new Product("34522", "34", "200", "pcs", "Brake Caliper", "9H", "23x27"));
-        productList.add(new Product("45398", "578", "577", "pcs", "Silencer", "13F", "27x29"));
-        productList.add(new Product("34532", "7534", "346", "pcs", "Brake Pad", "15H", "23x29"));
-        productList.add(new Product("45634", "645", "23", "pcs", "Steering Wheel", "3D", "23x26"));
-        return productList;
+    private ArrayList<ReceivingList> getList(){
+        ArrayList <ReceivingList> receivingList = new ArrayList<>();
+        receivingList.add(new ReceivingList(1,87998, "ABC CO", "12/07/20", "Not Received"));
+        receivingList.add(new ReceivingList(2,23452, "DFG CO", "24/07/20", "Not Received"));
+        receivingList.add(new ReceivingList(3,34634, "GHF CO", "16/07/20", "Not Received"));
+        receivingList.add(new ReceivingList(4,57633, "HTT CO", "05/07/20", "Not Received"));
+        return receivingList;
     }
 
     @Override
@@ -96,10 +103,19 @@ public class ViewProductsREC extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                viewProductsRecyclerViewAdapter.getFilter().filter(newText);
+                viewAllReceivingListAdapter.getFilter().filter(newText);
                 return false;
             }
         });
         return true;
+    }
+
+    @Override
+    public void onReceivingListClick(int position) {
+        //Log.d (TAG, "onPPClick: clicked" + position);
+
+        Intent intent = new Intent (this, IndividualReceivingList.class);
+        intent.putExtra("selectedReceivingList", getList().get(position));
+        startActivity(intent);
     }
 }

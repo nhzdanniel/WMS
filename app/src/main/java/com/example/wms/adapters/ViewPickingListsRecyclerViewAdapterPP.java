@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wms.PickingList;
+import com.example.wms.models.PickingList;
 import com.example.wms.R;
 
 import java.util.ArrayList;
@@ -44,6 +44,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull ViewPickingListsRecyclerViewAdapterPP.ViewHolder holder, int position) {
         if (pickingList != null && pickingList.size() > 0) {
             PickingList pl = pickingList.get(position);
+            holder.tv_sn.setText(String.valueOf(pl.getSn()));
             holder.tv_po_number.setText(String.valueOf(pl.getPoNumber()));
             holder.tv_company_name.setText(pl.getCompanyName());
             holder.tv_date.setText(pl.getDate());
@@ -99,7 +100,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tv_po_number, tv_company_name, tv_date;
+        TextView tv_sn, tv_po_number, tv_company_name, tv_date;
         OnPickingListListener onPickingListListener;
 
         //ConstraintLayout parentLayout;
@@ -107,6 +108,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
         public ViewHolder(@NonNull View itemView, OnPickingListListener onPickingListListener) {
             super(itemView);
 
+            tv_sn = itemView.findViewById(R.id.tv_sn);
             tv_po_number = itemView.findViewById(R.id.tv_po_number);
             tv_company_name = itemView.findViewById(R.id.tv_company_name);
             tv_date = itemView.findViewById(R.id.tv_date);

@@ -1,4 +1,4 @@
-package com.example.wms;
+package com.example.wms.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,9 +6,10 @@ import android.os.Parcelable;
 public class PickingList implements Parcelable {
 
     public String companyName,date;
-    public int poNumber;
+    public int poNumber, sn;
 
-    public PickingList(String companyName, int poNumber, String date) {
+    public PickingList(int sn, String companyName, int poNumber, String date) {
+        this.sn = sn;
         this.companyName = companyName;
         this.poNumber = poNumber;
         this.date = date;
@@ -32,6 +33,10 @@ public class PickingList implements Parcelable {
         }
     };
 
+    public int getSn() {
+        return sn;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
@@ -42,6 +47,10 @@ public class PickingList implements Parcelable {
 
     public String getDate() {
         return date;
+    }
+
+    public void setSn(int sn) {
+        this.sn = sn;
     }
 
     public void setCompanyName(String companyName) {

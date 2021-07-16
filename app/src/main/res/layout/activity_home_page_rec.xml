@@ -27,7 +27,7 @@
             android:columnCount="1">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/viewProductsREC"
+                android:id="@+id/viewAllReceivingLists"
                 android:layout_rowWeight="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
@@ -42,14 +42,14 @@
                     android:layout_gravity="center"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"
-                    android:text="View Products"
+                    android:text="View All Receiving Lists"
                     android:textAlignment="center"
                     android:textSize="25sp" />
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/receivingItemsRec"
+                android:id="@+id/viewApprovedReceivedList"
                 android:layout_rowWeight="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
@@ -64,34 +64,13 @@
                     android:layout_gravity="center"
                     android:paddingTop="30sp"
                     android:paddingBottom="30sp"
-                    android:text="Receiving"
+                    android:text="View Approved Received List"
                     android:textAlignment="center"
                     android:textSize="25sp" />
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/printInformationLabel"
-                android:layout_gravity="fill"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="10sp"
-                android:layout_margin="10sp"
-                app:cardBackgroundColor="#FFC107">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Print Information Label"
-                    android:textSize="25sp"
-                    android:paddingTop="30sp"
-                    android:paddingBottom="30sp"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"/>
-
-            </androidx.cardview.widget.CardView>
-
-           <!-- <androidx.cardview.widget.CardView
+            <!-- <androidx.cardview.widget.CardView
                 android:id="@+id/scanBarcodeRec"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
@@ -111,27 +90,6 @@
                     android:textAlignment="center"/>
 
             </androidx.cardview.widget.CardView>-->
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/viewPoRec"
-                android:layout_gravity="fill"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="10sp"
-                android:layout_margin="10sp"
-                app:cardBackgroundColor="#FFC107">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View PO"
-                    android:textSize="25sp"
-                    android:paddingTop="30sp"
-                    android:paddingBottom="30sp"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"/>
-
-            </androidx.cardview.widget.CardView>
 
         </GridLayout>
 

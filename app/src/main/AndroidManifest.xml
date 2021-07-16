@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WMS">
-        <activity android:name=".IndividualPickingList"></activity>
+        <activity android:name=".IndividualReceivingList"></activity>
+        <activity android:name=".IndividualPickingList" />
         <activity android:name=".PickedListPP" />
         <activity
             android:name=".ScanCode"
@@ -33,7 +34,7 @@
         <activity android:name=".ViewPoREC" />
         <activity android:name=".PrintLabelREC" />
         <activity android:name=".ReceivingItemsREC" />
-        <activity android:name=".ViewProductsREC" />
+        <activity android:name=".ViewAllReceivingListREC" />
         <activity android:name=".ViewPickingListPP" />
         <activity
             android:name=".SummaryPoInboundWM"
