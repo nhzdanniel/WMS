@@ -9,22 +9,74 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText eName;
-    private EditText ePassword;
-    private Button eLogin;
+    private EditText eName, ePassword;
+    private String username, password;
+    private String URL = "http://13.59.50.74/android_connect/login.php";
+    //private Button eLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        username = password = "";
         eName = findViewById(R.id.eTName);
         ePassword = findViewById(R.id.eTPassword);
-        eLogin = findViewById(R.id.btnLogin);
+        //eLogin = findViewById(R.id.btnLogin);
+    }
 
-        eLogin.setOnClickListener(new View.OnClickListener() {
+    public void login(View view) {
+        username = eName.getText().toString().trim();
+        password = ePassword.getText().toString().trim();
+
+        if(!username.equals("") && !password.equals("")){
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (response.equals("pp")) {
+                        Intent intent = new Intent(LoginActivity.this, HomePageActivityPp.class);
+                        startActivity(intent);
+                    }
+                    else if (response.equals("rec")) {
+                        Intent intent = new Intent(LoginActivity.this, HomePageActivityRec.class);
+                        startActivity(intent);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(LoginActivity.this, error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    error.printStackTrace();
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> data = new HashMap<String, String>();
+                    data.put("name", username);
+                    data.put("password", password);
+                    return data;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            requestQueue.add(stringRequest);
+        }
+    }
+
+/*        eLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String inputName = eName.getText().toString();
@@ -53,6 +105,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Username or Password is wrong", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
-    }
+        });*/
+
 }

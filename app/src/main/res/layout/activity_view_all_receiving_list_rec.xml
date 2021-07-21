@@ -18,47 +18,6 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="150dp" />
 
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            android:stretchColumns="1, 2, 3, 4, 5"
-            app:layout_constraintTop_toBottomOf="@+id/mainToolbar">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="S/N" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="PO Number" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Supplier Name" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="ETA" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Status" />
-
-            </TableRow>
-
-        </TableLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewReceivingList"
@@ -68,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/mainToolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
