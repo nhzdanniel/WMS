@@ -29,12 +29,6 @@
             tools:replace="screenOrientation" />
         <activity android:name=".PickingPP" />
         <activity
-            android:name=".OutboundPurchaseOrdersSUP"
-            android:parentActivityName=".ViewPoSUP" />
-        <activity
-            android:name=".InboundPurchaseOrdersSUP"
-            android:parentActivityName=".ViewPoSUP" />
-        <activity
             android:name=".SummaryInventoryReportsWM"
             android:parentActivityName=".ViewReportsActivityWM" />
         <activity android:name=".ViewPoREC" />
@@ -49,17 +43,10 @@
             android:name=".SummaryDoOutboundWM"
             android:parentActivityName=".ViewReportsActivityWM" />
         <activity android:name=".AboutUsActivity" />
-        <activity android:name=".ViewPoSUP" />
         <activity android:name=".TrackShipmentStatusSUP" />
         <activity android:name=".ProductManagementSUP" />
-        <activity android:name=".ApprovalSystemSUP" />
-        <activity android:name=".ApprovalSystemWM" />
         <activity android:name=".HomePageActivityRec" />
         <activity android:name=".HomePageActivityPp" />
-        <activity android:name=".HomePageActivitySup" />
-        <activity android:name=".ViewReportsActivityWM" />
-        <activity android:name=".ViewProductsWM" />
-        <activity android:name=".HomePageActivityWm" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
