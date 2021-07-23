@@ -138,4 +138,3 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
     }*/
 }
 
-//Testing

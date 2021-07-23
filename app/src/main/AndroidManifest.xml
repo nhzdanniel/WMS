@@ -28,23 +28,12 @@
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity android:name=".PickingPP" />
-        <activity
-            android:name=".SummaryInventoryReportsWM"
-            android:parentActivityName=".ViewReportsActivityWM" />
         <activity android:name=".ViewPoREC" />
         <activity android:name=".PrintLabelREC" />
         <activity android:name=".ReceivingItemsREC" />
         <activity android:name=".ViewAllReceivingListREC" />
         <activity android:name=".ViewPickingListPP" />
-        <activity
-            android:name=".SummaryPoInboundWM"
-            android:parentActivityName=".ViewReportsActivityWM" />
-        <activity
-            android:name=".SummaryDoOutboundWM"
-            android:parentActivityName=".ViewReportsActivityWM" />
         <activity android:name=".AboutUsActivity" />
-        <activity android:name=".TrackShipmentStatusSUP" />
-        <activity android:name=".ProductManagementSUP" />
         <activity android:name=".HomePageActivityRec" />
         <activity android:name=".HomePageActivityPp" />
         <activity android:name=".LoginActivity">
