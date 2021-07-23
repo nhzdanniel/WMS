@@ -104,7 +104,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
-            <TableRow
+            <!--<TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -138,10 +138,10 @@
                     android:gravity="center"
                     android:text="Qty \nRemaining" />
 
-            </TableRow>
+            </TableRow>-->
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recyclerViewReceivingListDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"

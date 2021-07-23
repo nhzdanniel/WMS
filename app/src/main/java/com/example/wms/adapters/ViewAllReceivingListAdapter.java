@@ -78,7 +78,7 @@ public class ViewAllReceivingListAdapter extends RecyclerView.Adapter<ViewAllRec
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (ReceivingList receivingList : masterReceivingList){
                     if (String.valueOf(receivingList.poNumber).contains(filterPattern) || receivingList.supplierName.toLowerCase().contains(filterPattern) ||
-                            String.valueOf(receivingList.status).contains(filterPattern)){
+                            receivingList.status.toLowerCase().contains(filterPattern)){
                         filteredReceivingList.add(receivingList);
                     }
                 }

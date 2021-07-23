@@ -55,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, HomePageActivityRec.class);
                         startActivity(intent);
                     }
+                    else if (response.equals("failure")){
+                        Toast.makeText(LoginActivity.this, "Invalid Username or Password. Please try again!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -74,6 +77,10 @@ public class LoginActivity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             requestQueue.add(stringRequest);
         }
+        else{
+            Toast.makeText(this, "Fields cannot be empty!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 /*        eLogin.setOnClickListener(new View.OnClickListener() {

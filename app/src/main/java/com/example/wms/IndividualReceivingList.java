@@ -1,26 +1,38 @@
 package com.example.wms;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.wms.adapters.ViewAllReceivingListAdapter;
+import com.example.wms.adapters.ViewReceivingListDetailsAdapter;
 import com.example.wms.models.PickingList;
 import com.example.wms.models.ReceivingList;
+import com.example.wms.models.ReceivingListDetails;
+import com.example.wms.util.VerticalSpacingItemDecorator;
 
-public class IndividualReceivingList extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private static final String TAG = "individualpickinglist";
+public class IndividualReceivingList extends AppCompatActivity implements ViewReceivingListDetailsAdapter.OnReceivingListDetailsListener {
+
+    private static final String TAG = "individualreceivinglist";
     private TextView poText, supplierText, etaText;
     private ReceivingList receivingList;
-    private boolean existingPickingList;
+    RecyclerView recyclerViewReceivingListDetails;
+    ViewReceivingListDetailsAdapter viewAllReceivingListDetailsAdapter;
 
     DrawerLayout drawerLayout;
 
@@ -39,6 +51,9 @@ public class IndividualReceivingList extends AppCompatActivity {
         }
 
         setReceivingListProperties();
+
+        recyclerViewReceivingListDetails = findViewById(R.id.recyclerViewReceivingListDetails);
+        setRecyclerView();
     }
 
     private void setReceivingListProperties() {
@@ -67,45 +82,15 @@ public class IndividualReceivingList extends AppCompatActivity {
     }
 
     public void ClickHome(View view){
-        HomePageActivityPp.redirectActivity(this, HomePageActivityPp.class);
+        HomePageActivityRec.redirectActivity(this, HomePageActivityRec.class);
     }
 
     public void ClickAboutUs (View view){
-        redirectActivity(this,AboutUsActivity.class);
+        HomePageActivityRec.redirectActivity(this,AboutUsActivity.class);
     }
 
     public void ClickLogout(View view){
-        Logout(this);
-    }
-
-    public static void Logout(final Activity activity) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Logout");
-        builder.setMessage("Are you sure you want to logout");
-        builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-/*                activity.finishAffinity();
-                System.exit(0);*/
-                Intent intent = new Intent (activity, LoginActivity.class);
-                activity.startActivity(intent);
-            }
-        });
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.show();
-    }
-
-    public static void redirectActivity(Activity activity, Class aClass) {
-        Intent intent = new Intent(activity, aClass);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
+        HomePageActivityRec.Logout(this);
     }
 
     @Override
@@ -113,4 +98,76 @@ public class IndividualReceivingList extends AppCompatActivity {
         super.onPause();
         closeDrawer(drawerLayout);
     }
+
+    private void setRecyclerView(){
+        recyclerViewReceivingListDetails.setHasFixedSize(true);
+        recyclerViewReceivingListDetails.setLayoutManager(new LinearLayoutManager(this));
+        VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
+        recyclerViewReceivingListDetails.addItemDecoration(itemDecorator);
+        viewAllReceivingListDetailsAdapter = new ViewReceivingListDetailsAdapter(this,getList(), this);
+        recyclerViewReceivingListDetails.setAdapter(viewAllReceivingListDetailsAdapter);
+    }
+
+    private ArrayList<ReceivingListDetails> getList(){
+        ArrayList <ReceivingListDetails> receivingListDetails = new ArrayList<>();
+        receivingListDetails.add(new ReceivingListDetails(1,87998, "Exhaust muffler (14')", 60, 60, 0));
+        return receivingListDetails;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewAllReceivingListDetailsAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public void onReceivingListDetailsClick(int position) {
+        //Log.d (TAG, "onPPClick: clicked" + position);
+
+        Intent intent = new Intent (this, IndividualReceivingList.class);
+        intent.putExtra("selectedReceivingListDetails", getList().get(position));
+        startActivity(intent);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

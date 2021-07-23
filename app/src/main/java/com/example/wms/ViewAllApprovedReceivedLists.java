@@ -22,7 +22,7 @@ import com.example.wms.util.VerticalSpacingItemDecorator;
 
 import java.util.ArrayList;
 
-public class ViewAllApprovedReceivedLists extends AppCompatActivity implements ViewAllApprovedReceivedListsAdapter.OnApprovedReceivedListListener {
+public class  ViewAllApprovedReceivedLists extends AppCompatActivity implements ViewAllApprovedReceivedListsAdapter.OnApprovedReceivedListListener {
 
     RecyclerView recyclerviewApprovedReceivedList;
     ViewAllApprovedReceivedListsAdapter viewAllApprovedReceivedListsAdapter;

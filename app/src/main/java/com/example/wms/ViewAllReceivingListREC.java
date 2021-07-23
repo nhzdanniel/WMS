@@ -82,7 +82,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     private ArrayList<ReceivingList> getList(){
         ArrayList <ReceivingList> receivingList = new ArrayList<>();
         receivingList.add(new ReceivingList(1,87998, "ABC CO", "12/07/20", "Not Received"));
-        receivingList.add(new ReceivingList(2,23452, "DFG CO", "24/07/20", "Not Received"));
+        receivingList.add(new ReceivingList(2,23452, "DFG CO", "24/07/20", "Fully Received"));
         receivingList.add(new ReceivingList(3,34634, "GHF CO", "16/07/20", "Not Received"));
         receivingList.add(new ReceivingList(4,57633, "HTT CO", "05/07/20", "Not Received"));
         return receivingList;
