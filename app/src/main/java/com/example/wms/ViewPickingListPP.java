@@ -34,7 +34,7 @@ import org.json.JSONObject;
 public class ViewPickingListPP extends AppCompatActivity implements ViewPickingListsRecyclerViewAdapterPP.OnPickingListListener {
 
     private static final String TAG = "ppactivity";
-    private String URL = "http://13.59.50.74/android_connect/view.php";
+    private String URL = "http://13.59.50.74/android_connect/viewpickinglist.php";
     RecyclerView recyclerviewPickingListPP;
     ViewPickingListsRecyclerViewAdapterPP viewPickingListsRecyclerViewAdapterPP;
     DrawerLayout drawerLayout;
@@ -52,7 +52,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
         recyclerviewPickingListPP = findViewById(R.id.recyclerviewPickingListPP);
         pickingList = new ArrayList<PickingList>();
-        loadProducts();
+        viewList();
     }
 
     //drawer settings
@@ -94,7 +94,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
     }
 
-    private void loadProducts(){
+    private void viewList(){
         Log.d("output", "loadproducts");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
 
@@ -111,8 +111,8 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
                         String company = productObject.getString("company");
                         String date = productObject.getString("date_created");
 
-                        PickingList product = new PickingList(sn, company, PONum, date);
-                        pickingList.add(product);
+                        PickingList pl = new PickingList(sn, company, PONum, date);
+                        pickingList.add(pl);
 
 
                     }
@@ -134,15 +134,6 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-  /*  private ArrayList<PickingList> getList(){
-        ArrayList <PickingList> pickingList = new ArrayList<>();
-        pickingList.add(new PickingList(1, "GBI Limitedddddddddddddd", 123481234, "290920"));
-        pickingList.add(new PickingList(2, "ABC CO.", 12423, "010220"));
-        pickingList.add(new PickingList(3, "GBI Limited", 56744, "240220"));
-        pickingList.add(new PickingList(4, "Test.", 56365, "080220"));
-        return pickingList;
-    }
- */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
