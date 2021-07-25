@@ -31,6 +31,7 @@ public class IndividualPickingList extends AppCompatActivity {
         poText = findViewById(R.id.po_text);
         companyText = findViewById(R.id.company_text);
 
+
         if (getIntent().hasExtra("selectedPickingList")) {
             pickingList = getIntent().getParcelableExtra("selectedPickingList");
         }
