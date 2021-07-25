@@ -134,15 +134,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-  /*  private ArrayList<PickingList> getList(){
-        ArrayList <PickingList> pickingList = new ArrayList<>();
-        pickingList.add(new PickingList(1, "GBI Limitedddddddddddddd", 123481234, "290920"));
-        pickingList.add(new PickingList(2, "ABC CO.", 12423, "010220"));
-        pickingList.add(new PickingList(3, "GBI Limited", 56744, "240220"));
-        pickingList.add(new PickingList(4, "Test.", 56365, "080220"));
-        return pickingList;
-    }
- */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
