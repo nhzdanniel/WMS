@@ -14,19 +14,31 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
 import com.example.wms.models.PickingList;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ViewPickingListPP extends AppCompatActivity implements ViewPickingListsRecyclerViewAdapterPP.OnPickingListListener {
 
     private static final String TAG = "ppactivity";
+    private String URL = "http://13.59.50.74/android_connect/view.php";
     RecyclerView recyclerviewPickingListPP;
     ViewPickingListsRecyclerViewAdapterPP viewPickingListsRecyclerViewAdapterPP;
     DrawerLayout drawerLayout;
+    ArrayList<PickingList> pickingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +51,8 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
         setSupportActionBar(toolbar);
 
         recyclerviewPickingListPP = findViewById(R.id.recyclerviewPickingListPP);
-        setRecyclerView();
+        pickingList = new ArrayList<PickingList>();
+        loadProducts();
     }
 
     //drawer settings
@@ -71,24 +84,65 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
     }
 
     private void setRecyclerView(){
+        Log.d("output", "setrc");
+        viewPickingListsRecyclerViewAdapterPP = new ViewPickingListsRecyclerViewAdapterPP(this, pickingList, this);
+        recyclerviewPickingListPP.setAdapter(viewPickingListsRecyclerViewAdapterPP);
         recyclerviewPickingListPP.setHasFixedSize(true);
         recyclerviewPickingListPP.setLayoutManager(new LinearLayoutManager(this));
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         recyclerviewPickingListPP.addItemDecoration(itemDecorator);
-        viewPickingListsRecyclerViewAdapterPP = new ViewPickingListsRecyclerViewAdapterPP(this,getList(), this);
-        recyclerviewPickingListPP.setAdapter(viewPickingListsRecyclerViewAdapterPP);
 
     }
 
-    private ArrayList<PickingList> getList(){
+    private void loadProducts(){
+        Log.d("output", "loadproducts");
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray products = new JSONArray(response);
+
+                    for(int i = 0; i<products.length(); i++)
+                    {
+                        JSONObject productObject = products.getJSONObject(i);
+                        int sn = productObject.getInt("sn");
+                        int PONum = productObject.getInt("PONum");
+                        String company = productObject.getString("company");
+                        String date = productObject.getString("date_created");
+
+                        PickingList product = new PickingList(sn, company, PONum, date);
+                        pickingList.add(product);
+
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                setRecyclerView();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("output", "rb");
+                Toast.makeText(ViewPickingListPP.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+  /*  private ArrayList<PickingList> getList(){
         ArrayList <PickingList> pickingList = new ArrayList<>();
         pickingList.add(new PickingList(1, "GBI Limitedddddddddddddd", 123481234, "290920"));
         pickingList.add(new PickingList(2, "ABC CO.", 12423, "010220"));
         pickingList.add(new PickingList(3, "GBI Limited", 56744, "240220"));
-        pickingList.add(new PickingList(4, "Ah Beng Automotive.", 56365, "080220"));
+        pickingList.add(new PickingList(4, "Test.", 56365, "080220"));
         return pickingList;
     }
-
+ */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -115,7 +169,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
         Log.d (TAG, "onPPClick: clicked" + position);
 
         Intent intent = new Intent (this, IndividualPickingList.class);
-        intent.putExtra("selectedPickingList", getList().get(position));
+        intent.putExtra("selectedPickingList", pickingList.get(position));
         startActivity(intent);
     }
 }
