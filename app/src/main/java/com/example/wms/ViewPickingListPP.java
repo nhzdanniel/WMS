@@ -52,7 +52,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
         recyclerviewPickingListPP = findViewById(R.id.recyclerviewPickingListPP);
         pickingList = new ArrayList<PickingList>();
-        viewList();
+        loadProducts();
     }
 
     //drawer settings
@@ -94,7 +94,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
     }
 
-    private void viewList(){
+    private void loadProducts(){
         Log.d("output", "loadproducts");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
 
@@ -111,8 +111,8 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
                         String company = productObject.getString("company");
                         String date = productObject.getString("date_created");
 
-                        PickingList pl = new PickingList(sn, company, PONum, date);
-                        pickingList.add(pl);
+                        PickingList product = new PickingList(sn, company, PONum, date);
+                        pickingList.add(product);
 
 
                     }
@@ -133,6 +133,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

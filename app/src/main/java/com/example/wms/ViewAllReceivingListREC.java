@@ -14,19 +14,33 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.wms.adapters.ViewAllReceivingListAdapter;
 import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
+import com.example.wms.models.PickingList;
 import com.example.wms.models.ReceivingList;
 import com.example.wms.util.VerticalSpacingItemDecorator;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAllReceivingListAdapter.OnReceivingListListener{
 
+    private String URL = "http://13.59.50.74/android_connect/viewreceivinglist.php";
     RecyclerView recyclerviewReceivingList;
     ViewAllReceivingListAdapter viewAllReceivingListAdapter;
     DrawerLayout drawerLayout;
+    ArrayList<ReceivingList> receivingList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +53,8 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
         setSupportActionBar(toolbar);
 
         recyclerviewReceivingList = findViewById(R.id.recyclerviewReceivingList);
-        setRecyclerView();
+        receivingList = new ArrayList<ReceivingList>();
+        viewList();
     }
 
     //drawer settings
@@ -71,21 +86,52 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     }
 
     private void setRecyclerView(){
+        viewAllReceivingListAdapter = new ViewAllReceivingListAdapter(this,receivingList, this);
+        recyclerviewReceivingList.setAdapter(viewAllReceivingListAdapter);
         recyclerviewReceivingList.setHasFixedSize(true);
         recyclerviewReceivingList.setLayoutManager(new LinearLayoutManager(this));
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         recyclerviewReceivingList.addItemDecoration(itemDecorator);
-        viewAllReceivingListAdapter = new ViewAllReceivingListAdapter(this,getList(), this);
-        recyclerviewReceivingList.setAdapter(viewAllReceivingListAdapter);
+
     }
 
-    private ArrayList<ReceivingList> getList(){
-        ArrayList <ReceivingList> receivingList = new ArrayList<>();
-        receivingList.add(new ReceivingList(1,87998, "ABC CO", "12/07/20", "Not Received"));
-        receivingList.add(new ReceivingList(2,23452, "DFG CO", "24/07/20", "Fully Received"));
-        receivingList.add(new ReceivingList(3,34634, "GHF CO", "16/07/20", "Not Received"));
-        receivingList.add(new ReceivingList(4,57633, "HTT CO", "05/07/20", "Not Received"));
-        return receivingList;
+    private void viewList(){
+        Log.d("output", "loadproducts");
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray products = new JSONArray(response);
+
+                    for(int i = 0; i<products.length(); i++)
+                    {
+                        JSONObject productObject = products.getJSONObject(i);
+                        int sn = productObject.getInt("sn");
+                        int ponum = productObject.getInt("PONum");
+                        String supplier = productObject.getString("supplier");
+                        String date = productObject.getString("order_date");
+                        String status = productObject.getString("status");
+
+                        ReceivingList rl = new ReceivingList(sn, ponum, supplier, date, status);
+                        receivingList.add(rl);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                setRecyclerView();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("output", "rb");
+                Toast.makeText(ViewAllReceivingListREC.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
     @Override
@@ -97,6 +143,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
@@ -114,7 +161,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
         //Log.d (TAG, "onPPClick: clicked" + position);
 
         Intent intent = new Intent (this, IndividualReceivingList.class);
-        intent.putExtra("selectedReceivingList", getList().get(position));
+        intent.putExtra("selectedReceivingList", receivingList.get(position));
         startActivity(intent);
     }
 }
