@@ -32,7 +32,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
     private TextView poText, supplierText, etaText;
     private ReceivingList receivingList;
     RecyclerView recyclerViewReceivingListDetails;
-    ViewReceivingListDetailsAdapter viewAllReceivingListDetailsAdapter;
+    ViewReceivingListDetailsAdapter viewReceivingListDetailsAdapter;
 
     DrawerLayout drawerLayout;
 
@@ -104,8 +104,8 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         recyclerViewReceivingListDetails.setLayoutManager(new LinearLayoutManager(this));
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         recyclerViewReceivingListDetails.addItemDecoration(itemDecorator);
-        viewAllReceivingListDetailsAdapter = new ViewReceivingListDetailsAdapter(this,getList(), this);
-        recyclerViewReceivingListDetails.setAdapter(viewAllReceivingListDetailsAdapter);
+        viewReceivingListDetailsAdapter = new ViewReceivingListDetailsAdapter(this,getList(), this);
+        recyclerViewReceivingListDetails.setAdapter(viewReceivingListDetailsAdapter);
     }
 
     private ArrayList<ReceivingListDetails> getList(){
@@ -128,7 +128,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                viewAllReceivingListDetailsAdapter.getFilter().filter(newText);
+                viewReceivingListDetailsAdapter.getFilter().filter(newText);
                 return false;
             }
         });

@@ -34,7 +34,7 @@ import org.json.JSONObject;
 public class ViewPickingListPP extends AppCompatActivity implements ViewPickingListsRecyclerViewAdapterPP.OnPickingListListener {
 
     private static final String TAG = "ppactivity";
-    private String URL = "http://13.59.50.74/android_connect/view.php";
+    private String URL = "http://13.59.50.74/android_connect/viewpickinglist.php";
     RecyclerView recyclerviewPickingListPP;
     ViewPickingListsRecyclerViewAdapterPP viewPickingListsRecyclerViewAdapterPP;
     DrawerLayout drawerLayout;
