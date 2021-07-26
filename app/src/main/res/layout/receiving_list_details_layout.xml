@@ -79,11 +79,11 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.029">
+        app:layout_constraintVertical_bias="0.285">
 
     </TextView>
 
-    <TextView
+    <EditText
         android:id="@+id/tv_qty_received"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,6 +91,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="textview_qty_received"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.06"
@@ -98,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_qty_ordered"
         app:layout_constraintVertical_bias="0.029">
 
-    </TextView>
+    </EditText>
 
     <TextView
         android:id="@+id/textView6"
@@ -111,7 +112,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
     </TextView>
 
