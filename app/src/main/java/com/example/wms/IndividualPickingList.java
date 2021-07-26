@@ -138,8 +138,8 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
                         int sn = productObject.getInt("sn");
                         int upc = productObject.getInt("upc");
                         String prod_name = productObject.getString("prod_name");
-                        int sku = productObject.getInt("sku");
-                        int sku_scanned = productObject.getInt("sku_scanned");
+                        String sku = productObject.getString("sku");
+                        String sku_scanned = productObject.getString("sku_scanned");
                         String location = productObject.getString("location");
 
                         PickingListDetails product = new PickingListDetails(sn, location, upc, prod_name, sku,

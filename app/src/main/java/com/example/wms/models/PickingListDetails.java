@@ -4,10 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class PickingListDetails implements Parcelable {
-    public int sn, upc, sku, skuScanned;
-    public String location, productName;
+    public int sn, upc;
+    public String location, productName, sku, skuScanned;
 
-    public PickingListDetails(int sn, String location, int upc, String productName, int sku, int skuScanned) {
+    public PickingListDetails(int sn, String location, int upc, String productName, String sku, String skuScanned) {
         this.sn = sn;
         this.upc = upc;
         this.sku = sku;
@@ -19,8 +19,8 @@ public class PickingListDetails implements Parcelable {
     protected PickingListDetails(Parcel in) {
         sn = in.readInt();
         upc = in.readInt();
-        sku = in.readInt();
-        skuScanned = in.readInt();
+        sku = in.readString();
+        skuScanned = in.readString();
         location = in.readString();
         productName = in.readString();
     }
@@ -53,19 +53,19 @@ public class PickingListDetails implements Parcelable {
         this.upc = upc;
     }
 
-    public int getSku() {
+    public String getSku() {
         return sku;
     }
 
-    public void setSku(int sku) {
+    public void setSku(String sku) {
         this.sku = sku;
     }
 
-    public int getSkuScanned() {
+    public String getSkuScanned() {
         return skuScanned;
     }
 
-    public void setSkuScanned(int skuScanned) {
+    public void setSkuScanned(String skuScanned) {
         this.skuScanned = skuScanned;
     }
 
@@ -94,8 +94,8 @@ public class PickingListDetails implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(sn);
         dest.writeInt(upc);
-        dest.writeInt(sku);
-        dest.writeInt(skuScanned);
+        dest.writeString(sku);
+        dest.writeString(skuScanned);
         dest.writeString(location);
         dest.writeString(productName);
     }
