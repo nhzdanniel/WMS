@@ -12,11 +12,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.wms.adapters.ViewPickingListDetailsAdapter;
 import com.example.wms.adapters.ViewReceivingListDetailsAdapter;
 import com.example.wms.models.PickingList;
@@ -24,14 +31,21 @@ import com.example.wms.models.PickingListDetails;
 import com.example.wms.models.ReceivingListDetails;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class IndividualPickingList extends AppCompatActivity implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener{
     private static final String TAG = "individualpickinglist";
+    private String URL = "http://13.59.50.74/android_connect/viewindividualpl.php";
     private TextView poText, companyText;
     private PickingList pickingList;
     RecyclerView recyclerviewPickingListDetails;
     ViewPickingListDetailsAdapter viewPickingListDetailsAdapter;
+    ArrayList<PickingListDetails> pickingListDetails;
+
 
     private boolean existingPickingList;
 
@@ -54,7 +68,8 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
         setPickingListProperties();
 
         recyclerviewPickingListDetails = findViewById(R.id.recyclerviewPickingListDetails);
-        setRecyclerView();
+        pickingListDetails = new ArrayList<PickingListDetails>();
+        loadProducts();
     }
 
     private void setPickingListProperties() {
@@ -100,19 +115,55 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
     }
 
     private void setRecyclerView(){
-        recyclerviewPickingListDetails.setHasFixedSize(true);
-        recyclerviewPickingListDetails.setLayoutManager(new LinearLayoutManager(this));
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         recyclerviewPickingListDetails.addItemDecoration(itemDecorator);
-        viewPickingListDetailsAdapter = new ViewPickingListDetailsAdapter(this,getList(), this);
+        viewPickingListDetailsAdapter = new ViewPickingListDetailsAdapter(this,pickingListDetails, this);
         recyclerviewPickingListDetails.setAdapter(viewPickingListDetailsAdapter);
+        recyclerviewPickingListDetails.setHasFixedSize(true);
+        recyclerviewPickingListDetails.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private ArrayList<PickingListDetails> getList(){
-        ArrayList <PickingListDetails> pickingListDetails = new ArrayList<>();
-        pickingListDetails.add(new PickingListDetails(1,"A.1.1", 23456, "muffler", 602344, 874383));
-        return pickingListDetails;
+    private void loadProducts(){
+        Log.d("output", "loadproducts");
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray products = new JSONArray(response);
+
+                    for(int i = 0; i<products.length(); i++)
+                    {
+                        JSONObject productObject = products.getJSONObject(i);
+                        int sn = productObject.getInt("sn");
+                        int upc = productObject.getInt("upc");
+                        String prod_name = productObject.getString("prod_name");
+                        int sku = productObject.getInt("sku");
+                        int sku_scanned = productObject.getInt("sku_scanned");
+                        String location = productObject.getString("location");
+
+                        PickingListDetails product = new PickingListDetails(sn, location, upc, prod_name, sku,
+                                                                            sku_scanned);
+                        pickingListDetails.add(product);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                setRecyclerView();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("output", "rb");
+                Toast.makeText(IndividualPickingList.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,8 +190,8 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
     public void onPickingListDetailsClick(int position) {
         //Log.d (TAG, "onPPClick: clicked" + position);
 
-        Intent intent = new Intent (this, IndividualReceivingList.class);
-        intent.putExtra("selectedPickingListDetails", getList().get(position));
+        Intent intent = new Intent (this, IndividualPickingList.class);
+        intent.putExtra("selectedPickingListDetails", pickingListDetails.get(position));
         startActivity(intent);
     }
 }
