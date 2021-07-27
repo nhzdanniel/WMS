@@ -6,12 +6,13 @@ import android.os.Parcelable;
 public class ReceivingListDetails implements Parcelable {
 
     public String productName;
-    public int sn, upc, qtyOrdered, qtyReceived, qtyRemaining;
+    //public String upc;
+    public int sn, qtyOrdered, qtyReceived, qtyRemaining;
 
-    public ReceivingListDetails(int sn, int upc, String productName, int qtyOrdered, int qtyReceived, int qtyRemaining) {
+    public ReceivingListDetails(int sn, String productName, int qtyOrdered, int qtyReceived, int qtyRemaining) {
         this.productName = productName;
         this.sn = sn;
-        this.upc = upc;
+        //this.upc = upc;
         this.qtyOrdered = qtyOrdered;
         this.qtyReceived = qtyReceived;
         this.qtyRemaining = qtyRemaining;
@@ -20,7 +21,7 @@ public class ReceivingListDetails implements Parcelable {
     protected ReceivingListDetails(Parcel in) {
         productName = in.readString();
         sn = in.readInt();
-        upc = in.readInt();
+        //upc = in.readString();
         qtyOrdered = in.readInt();
         qtyReceived = in.readInt();
         qtyRemaining = in.readInt();
@@ -54,13 +55,9 @@ public class ReceivingListDetails implements Parcelable {
         this.sn = sn;
     }
 
-    public int getUpc() {
-        return upc;
-    }
+    //public String getUpc() {return upc;}
 
-    public void setUpc(int upc) {
-        this.upc = upc;
-    }
+    //public void setUpc(String upc) {this.upc = upc;}
 
     public int getQtyOrdered() {
         return qtyOrdered;
@@ -95,7 +92,7 @@ public class ReceivingListDetails implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(productName);
         dest.writeInt(sn);
-        dest.writeInt(upc);
+        //dest.writeString(upc);
         dest.writeInt(qtyOrdered);
         dest.writeInt(qtyReceived);
         dest.writeInt(qtyRemaining);

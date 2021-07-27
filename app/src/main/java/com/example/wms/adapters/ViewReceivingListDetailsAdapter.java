@@ -50,7 +50,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (ReceivingListDetails receivingListDetails : masterReceivingListDetails){
                     if (receivingListDetails.productName.toLowerCase().contains(filterPattern) || String.valueOf(receivingListDetails.sn).contains(filterPattern) ||
-                            String.valueOf(receivingListDetails.upc).contains(filterPattern) || String.valueOf(receivingListDetails.qtyOrdered).contains(filterPattern) ||
+                              String.valueOf(receivingListDetails.qtyOrdered).contains(filterPattern) ||
                             String.valueOf(receivingListDetails.qtyReceived).contains(filterPattern) || String.valueOf(receivingListDetails.qtyRemaining).contains(filterPattern)){
                         filteredReceivingListDetails.add(receivingListDetails);
                     }

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPickingListDetailsAdapter.ViewHolder> implements Filterable {
     Context context;
-
     ArrayList<PickingListDetails> pickingListDetails;
     ArrayList<PickingListDetails> masterPickingListDetails;
 
