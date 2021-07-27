@@ -39,7 +39,7 @@ import java.util.ArrayList;
 
 public class IndividualPickingList extends AppCompatActivity implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener{
     private static final String TAG = "individualpickinglist";
-    private String URL = "http://13.59.50.74/android_connect/viewindividualpl.php";
+    private String URL = "http://13.59.50.74/android_connect/viewindividualpl.php?PONum=";
     private TextView poText, companyText;
     private PickingList pickingList;
     RecyclerView recyclerviewPickingListDetails;
@@ -69,12 +69,12 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
 
         recyclerviewPickingListDetails = findViewById(R.id.recyclerviewPickingListDetails);
         pickingListDetails = new ArrayList<PickingListDetails>();
-        loadProducts();
     }
 
     private void setPickingListProperties() {
         poText.setText(String.valueOf(pickingList.getPoNumber()));
         companyText.setText(pickingList.getCompanyName());
+        loadProducts(String.valueOf(pickingList.getPoNumber()));
     }
 
     //drawer settings
@@ -123,12 +123,14 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
         recyclerviewPickingListDetails.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void loadProducts(){
-        Log.d("output", "loadproducts");
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+    private void loadProducts(String PONumber){
+        Log.d("output", PONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL + PONumber, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
+                Log.d("response", response);
+
                 try {
                     JSONArray products = new JSONArray(response);
 
