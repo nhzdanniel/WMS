@@ -110,7 +110,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
                         int sn = productObject.getInt("sn");
                         int ponum = productObject.getInt("PONum");
                         String supplier = productObject.getString("supplier");
-                        String date = productObject.getString("order_date");
+                        String date = productObject.getString("eta");
                         String status = productObject.getString("status");
 
                         ReceivingList rl = new ReceivingList(sn, ponum, supplier, date, status);

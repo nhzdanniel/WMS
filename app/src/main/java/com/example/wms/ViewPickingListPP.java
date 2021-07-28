@@ -128,11 +128,15 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
                 Log.d("output", "rb");
                 Toast.makeText(ViewPickingListPP.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        })
+         ;
+
+
         Log.d("output", stringRequest.toString());
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
 
 
     @Override

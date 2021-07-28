@@ -2,6 +2,8 @@ package com.example.wms.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +30,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPickingListDetailsAdapter.ViewHolder> implements Filterable {
 
     Context context;
-    ArrayList<PickingListDetails> pickingListDetails;
+    public ArrayList<PickingListDetails> pickingListDetails;
     ArrayList<PickingListDetails> masterPickingListDetails;
 
     private OnPickingListDetailsListener mOnPickingListDetailsListener;
@@ -42,7 +44,7 @@ public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPick
         mOnPickingListDetailsListener = onPickingListDetailsListener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_sn, tv_location, tv_upc, tv_product_name, tv_sku;
         EditText tv_sku_scanned;
@@ -59,6 +61,27 @@ public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPick
             tv_sku = itemView.findViewById(R.id.tv_sku);
             tv_sku_scanned = itemView.findViewById(R.id.tv_sku_scanned);
             scanButton = itemView.findViewById(R.id.scanButton);
+
+            Log.d("tvsku", String.valueOf(tv_sku));
+
+            //added
+            tv_sku_scanned.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    pickingListDetails.get(getAdapterPosition()).setSkuScanned(tv_sku_scanned.getText().toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
 
 
             scanButton.findViewById(R.id.scanButton).setOnClickListener(new View.OnClickListener()
