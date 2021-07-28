@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 
+import com.example.wms.adapters.ViewPickingListDetailsAdapter;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -39,9 +40,9 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
 
 /*        ReceivingItemsREC.resultsET.setText(result.getText());
         onBackPressed();*/
-
+/*
         PickingPP.resultsET.setText(result.getText());
-        onBackPressed();
+        onBackPressed();*/
 
     }
 

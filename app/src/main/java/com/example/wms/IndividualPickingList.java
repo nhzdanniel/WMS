@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,17 +39,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class IndividualPickingList extends AppCompatActivity implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener{
+public class IndividualPickingList extends AppCompatActivity /*implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener*/{
     private static final String TAG = "individualpickinglist";
     private String URL = "http://13.59.50.74/android_connect/viewindividualpl.php?PONum=";
     private TextView poText, companyText;
     private PickingList pickingList;
+    private Button scanButton;
+
+    public static EditText skuScanned;
+
     RecyclerView recyclerviewPickingListDetails;
     ViewPickingListDetailsAdapter viewPickingListDetailsAdapter;
     ArrayList<PickingListDetails> pickingListDetails;
-
-
-    private boolean existingPickingList;
 
     DrawerLayout drawerLayout;
 
@@ -59,6 +62,8 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
 
         poText = findViewById(R.id.po_text);
         companyText = findViewById(R.id.company_text);
+
+        skuScanned = findViewById(R.id.tv_sku_scanned);
 
 
         if (getIntent().hasExtra("selectedPickingList")) {
@@ -114,13 +119,20 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
         closeDrawer(drawerLayout);
     }
 
-    private void setRecyclerView(){
+    public void setRecyclerView(){
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         recyclerviewPickingListDetails.addItemDecoration(itemDecorator);
-        viewPickingListDetailsAdapter = new ViewPickingListDetailsAdapter(this,pickingListDetails, this);
+        viewPickingListDetailsAdapter = new ViewPickingListDetailsAdapter(pickingListDetails);
         recyclerviewPickingListDetails.setAdapter(viewPickingListDetailsAdapter);
         recyclerviewPickingListDetails.setHasFixedSize(true);
         recyclerviewPickingListDetails.setLayoutManager(new LinearLayoutManager(this));
+
+        viewPickingListDetailsAdapter.setOnItemClickListener(new ViewPickingListDetailsAdapter.OnPickingListDetailsListener() {
+            @Override
+            public void onScanClick(int position) {
+                startActivity(new Intent(getApplicationContext(), ScanCode.class));
+            }
+        });
     }
 
     private void loadProducts(String PONumber){
@@ -188,12 +200,7 @@ public class IndividualPickingList extends AppCompatActivity implements ViewPick
         return true;
     }
 
-    @Override
-    public void onPickingListDetailsClick(int position) {
-        //Log.d (TAG, "onPPClick: clicked" + position);
-
-        Intent intent = new Intent (this, IndividualPickingList.class);
-        intent.putExtra("selectedPickingListDetails", pickingListDetails.get(position));
-        startActivity(intent);
+    public void setButton(){
+        scanButton = findViewById(R.id.scanButton);
     }
 }

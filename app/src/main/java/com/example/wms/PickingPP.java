@@ -48,7 +48,7 @@ public class PickingPP extends AppCompatActivity{
         addBtn = findViewById(R.id.addButton);
         scanBtn = findViewById(R.id.scanButton);
         listView = findViewById(R.id.listviewPickedList);
-        resultsET = findViewById(R.id.barcodeET);
+        //resultsET = findViewById(R.id.barcodeET);
 
         arrayList = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this,R.layout.picked_list_layout, R.id.upcCode, arrayList);
