@@ -107,13 +107,13 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
                     for(int i = 0; i<products.length(); i++)
                     {
                         JSONObject productObject = products.getJSONObject(i);
-                        int sn = productObject.getInt("sn");
+                        //int sn = productObject.getInt("sn");
                         int ponum = productObject.getInt("PONum");
                         String supplier = productObject.getString("supplier");
                         String date = productObject.getString("eta");
                         String status = productObject.getString("status");
 
-                        ReceivingList rl = new ReceivingList(sn, ponum, supplier, date, status);
+                        ReceivingList rl = new ReceivingList(i+1, ponum, supplier, date, status);
                         receivingList.add(rl);
                     }
                 } catch (JSONException e) {

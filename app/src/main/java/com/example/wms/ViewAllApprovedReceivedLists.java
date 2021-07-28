@@ -106,13 +106,13 @@ public class  ViewAllApprovedReceivedLists extends AppCompatActivity implements 
                     for(int i = 0; i<products.length(); i++)
                     {
                         JSONObject productObject = products.getJSONObject(i);
-                        int sn = productObject.getInt("sn");
+                        //int sn = productObject.getInt("sn");
                         int ponum = productObject.getInt("PONum");
                         int donum = productObject.getInt("DONum");
                         String supplier = productObject.getString("supplier");
                         String date_rcv = productObject.getString("date_rcv");
 
-                        ApprovedReceivedList rl = new ApprovedReceivedList(sn, ponum, donum, supplier, date_rcv);
+                        ApprovedReceivedList rl = new ApprovedReceivedList(i+1, ponum, donum, supplier, date_rcv);
                         approvedreceivingList.add(rl);
                     }
                 } catch (JSONException e) {

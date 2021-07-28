@@ -135,7 +135,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                     for(int i = 0; i<products.length(); i++)
                     {
                         JSONObject productObject = products.getJSONObject(i);
-                        int sn = productObject.getInt("sn");
+                        //int sn = productObject.getInt("sn");
                         //String upc = productObject.getString("upc");
                         String prod_name = productObject.getString("prod_name");
                         int qty_ordered = productObject.getInt("qty_ordered");
@@ -144,7 +144,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
 
 
-                        ReceivingListDetails product = new ReceivingListDetails(sn, prod_name, qty_ordered, qty_received, qty_remaining);
+                        ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, qty_ordered, qty_received, qty_remaining);
                         receivingListDetails.add(product);
 
 
