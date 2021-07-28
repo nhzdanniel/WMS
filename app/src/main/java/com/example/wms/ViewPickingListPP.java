@@ -106,12 +106,12 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
                     for(int i = 0; i<products.length(); i++)
                     {
                         JSONObject productObject = products.getJSONObject(i);
-                        int sn = productObject.getInt("sn");
+                        //int sn = productObject.getInt("sn");
                         int PONum = productObject.getInt("PONum");
                         String company = productObject.getString("company");
                         String date = productObject.getString("date_created");
 
-                        PickingList product = new PickingList(sn, company, PONum, date);
+                        PickingList product = new PickingList(i+1, company, PONum, date);
                         pickingList.add(product);
 
 
@@ -128,11 +128,15 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
                 Log.d("output", "rb");
                 Toast.makeText(ViewPickingListPP.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        })
+         ;
+
+
         Log.d("output", stringRequest.toString());
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
 
 
     @Override

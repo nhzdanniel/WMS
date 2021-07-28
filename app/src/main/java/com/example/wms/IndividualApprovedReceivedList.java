@@ -133,13 +133,13 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
 
                     for (int i = 0; i < products.length(); i++) {
                         JSONObject productObject = products.getJSONObject(i);
-                        int sn = productObject.getInt("sn");
+                        //int sn = productObject.getInt("sn");
                         int upc = productObject.getInt("upc");
                         String prod_name = productObject.getString("prod_name");
                         String sku = productObject.getString("sku");
                         String location = productObject.getString("location");
 
-                        ApprovedReceivedListDetails product = new ApprovedReceivedListDetails(sn, location, prod_name, upc, sku);
+                        ApprovedReceivedListDetails product = new ApprovedReceivedListDetails(i+1, location, prod_name, upc, sku);
                         approvedReceivedListDetails.add(product);
                     }
                 } catch (JSONException e) {

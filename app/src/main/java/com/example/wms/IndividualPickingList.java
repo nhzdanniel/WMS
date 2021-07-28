@@ -38,13 +38,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class IndividualPickingList extends AppCompatActivity /*implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener*/{
+public class IndividualPickingList extends AppCompatActivity implements View.OnClickListener/*implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener*/{
     private static final String TAG = "individualpickinglist";
-    private String URL = "http://13.59.50.74/android_connect/viewindividualpl.php?PONum=";
+    private String viewIndividualURL = "http://13.59.50.74/android_connect/viewindividualpl.php?PONum=";
+    private String updateStatusURL = "http://13.59.50.74/android_connect/updatePOoutstatus.php?PONum=";
+    private String updatePOoutsku = "http://13.59.50.74/android_connect/updatePOoutsku.php";
+
     private TextView poText, companyText;
     private PickingList pickingList;
     private Button scanButton;
+    private Button updateButton;
 
     public static EditText skuScanned;
 
@@ -64,6 +70,8 @@ public class IndividualPickingList extends AppCompatActivity /*implements ViewPi
         companyText = findViewById(R.id.company_text);
 
         skuScanned = findViewById(R.id.tv_sku_scanned);
+        updateButton = findViewById(R.id.btn_update);
+        updateButton.setOnClickListener(this);
 
 
         if (getIntent().hasExtra("selectedPickingList")) {
@@ -119,6 +127,21 @@ public class IndividualPickingList extends AppCompatActivity /*implements ViewPi
         closeDrawer(drawerLayout);
     }
 
+    @Override
+    public void onClick(View v) {
+        Log.d("output", String.valueOf(pickingList.getPoNumber()));
+        updateStatus(String.valueOf(pickingList.getPoNumber()));
+
+        Log.d("Help", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
+        ArrayList<String> skuscans= new ArrayList<String>();
+        for(int i=0; i<viewPickingListDetailsAdapter.pickingListDetails.size();i++){
+            skuscans.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getSkuScanned());
+        }
+        Log.d("suicide", String.valueOf(skuscans));
+        updatesku(skuscans);
+
+    }
+
     public void setRecyclerView(){
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         recyclerviewPickingListDetails.addItemDecoration(itemDecorator);
@@ -137,7 +160,7 @@ public class IndividualPickingList extends AppCompatActivity /*implements ViewPi
 
     private void loadProducts(String PONumber){
         Log.d("output", PONumber);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL + PONumber, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, viewIndividualURL + PONumber, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -149,14 +172,14 @@ public class IndividualPickingList extends AppCompatActivity /*implements ViewPi
                     for(int i = 0; i<products.length(); i++)
                     {
                         JSONObject productObject = products.getJSONObject(i);
-                        int sn = productObject.getInt("sn");
+                        //int sn = productObject.getInt("sn");
                         int upc = productObject.getInt("upc");
                         String prod_name = productObject.getString("prod_name");
                         String sku = productObject.getString("sku");
                         String sku_scanned = productObject.getString("sku_scanned");
                         String location = productObject.getString("location");
 
-                        PickingListDetails product = new PickingListDetails(sn, location, upc, prod_name, sku,
+                        PickingListDetails product = new PickingListDetails(i+1, location, upc, prod_name, sku,
                                                                             sku_scanned);
                         pickingListDetails.add(product);
                     }
@@ -172,11 +195,97 @@ public class IndividualPickingList extends AppCompatActivity /*implements ViewPi
                 Log.d("output", "rb");
                 Toast.makeText(IndividualPickingList.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
+        })
+                       /*{
+        @Override
+        protected Map<String,String> getParams(){
+        Map<String,String> params = new HashMap<String, String>();
+        params.put(KEY_USERNAME,username);
+        params.put(KEY_PASSWORD,password);
+        params.put(KEY_EMAIL, email);
+        return params;
+    }
+
+    }; */;
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+
+
+
+
+
+
+
+
+    private void updateStatus(String PONumber){
+        Log.d("output", PONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, updateStatusURL + PONumber, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
         });
         Log.d("output", stringRequest.toString());
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
+
+    private void updatesku(ArrayList<String> skuscans){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, updatePOoutsku, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        })
+                       {
+        @Override
+        protected Map<String,String> getParams(){
+        Map<String,String> params = new HashMap<String, String>();
+        for(int i=0; i<skuscans.size();i++)
+        {
+            params.put("skuscans"+i,skuscans.get(i));
+
+        }
+        return params;
+    }
+
+    }; ;
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+
+
+
+
+
 
 
     @Override
