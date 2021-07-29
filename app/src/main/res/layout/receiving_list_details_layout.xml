@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12"
-        app:layout_constraintVertical_bias="0.112">
+        app:layout_constraintVertical_bias="0.227">
 
     </TextView>
 
@@ -54,13 +54,14 @@
         android:id="@+id/tv_qty_ordered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="textview_qty_ordered"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_expiry_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_expiry_date"
-        app:layout_constraintVertical_bias="0.117">
+        app:layout_constraintVertical_bias="0.104">
 
     </TextView>
 
@@ -114,7 +115,7 @@
         android:id="@+id/tv_qty_remaining"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="textview_qty_remaining"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -161,12 +162,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Expiry Date:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sn" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_expiry_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -174,6 +175,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
         android:text="tv_expiry_date"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/tv_sn" />
 
