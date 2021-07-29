@@ -6,8 +6,10 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 
 import com.example.wms.adapters.ViewPickingListDetailsAdapter;
@@ -29,20 +31,25 @@ public class ScanCode extends AppCompatActivity implements ZXingScannerView.Resu
 
     }
 
+/*    @Override
+    public void onActivityResult(int reqCode, int resCode, Intent intent) {
+        if (requestCode == 0) {
+            if (resCode == RESULT_OK) {
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                Toast toast = Toast.makeText("Content:" + contents + " Format:" + format, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }*/
+
     @Override
     public void handleResult(Result result) {
-/*        if (PickingPP.resultsET.callOnClick()){
-            PickingPP.resultsET.setText(result.getText());
-        }else{
-            ReceivingItemsREC.resultsET.setText(result.getText());
-        }
-        onBackPressed();*/
 
-/*        ReceivingItemsREC.resultsET.setText(result.getText());
-        onBackPressed();*/
-/*
-        PickingPP.resultsET.setText(result.getText());
-        onBackPressed();*/
+        Intent mainActivity = new Intent(this,IndividualPickingList.class);
+        mainActivity.putExtra("tvresult1",result.getText());
+        mainActivity.putExtra("clickPosition", getIntent().getExtras().getInt("clickPosition"));
+        setResult(Activity.RESULT_OK, mainActivity);
+        finish();
 
     }
 

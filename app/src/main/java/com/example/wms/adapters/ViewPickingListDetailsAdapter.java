@@ -1,14 +1,12 @@
 package com.example.wms.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -19,18 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wms.R;
-import com.example.wms.ScanCode;
 import com.example.wms.models.PickingListDetails;
-import com.example.wms.models.ReceivingListDetails;
 
 import java.util.ArrayList;
-
-import static androidx.core.content.ContextCompat.startActivity;
 
 public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPickingListDetailsAdapter.ViewHolder> implements Filterable {
 
     Context context;
-    public ArrayList<PickingListDetails> pickingListDetails;
+    public ArrayList<PickingListDetails> pickingListDetails = new ArrayList<>();
     ArrayList<PickingListDetails> masterPickingListDetails;
 
     private OnPickingListDetailsListener mOnPickingListDetailsListener;
@@ -101,7 +95,16 @@ public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPick
     }
 
     public ViewPickingListDetailsAdapter (ArrayList<PickingListDetails>pickingListDetails){
-        this.pickingListDetails = pickingListDetails;
+        this.pickingListDetails.clear();
+        this.pickingListDetails.addAll(pickingListDetails);
+    }
+
+    public void updateList (int position, String barcodeResult){
+        if (position != -1 && barcodeResult != null || barcodeResult != ""){
+            PickingListDetails pld = this.pickingListDetails.get(position);
+            pld.skuScanned = barcodeResult;
+            notifyDataSetChanged();
+        }
     }
 
     @NonNull

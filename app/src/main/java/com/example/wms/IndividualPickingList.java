@@ -60,6 +60,8 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
     DrawerLayout drawerLayout;
 
+    final int BARCODE_ACTIVITY_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,9 +155,27 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         viewPickingListDetailsAdapter.setOnItemClickListener(new ViewPickingListDetailsAdapter.OnPickingListDetailsListener() {
             @Override
             public void onScanClick(int position) {
-                startActivity(new Intent(getApplicationContext(), ScanCode.class));
+                //startActivity(new Intent(getApplicationContext(), ScanCode.class));
+                Intent intent = new Intent(IndividualPickingList.this, ScanCode.class);
+                intent.putExtra("clickPosition", position);
+                startActivityForResult(intent, 500);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 500) { //Remember the result code we set in startActivityForResult()? This is how we identify our incoming data
+            if (resultCode == Activity.RESULT_OK) {  //Data is received
+                String result = data.getStringExtra("tvresult1");
+                //Your result is received
+                int adapterPosition = data.getIntExtra("clickPosition", -1);
+                viewPickingListDetailsAdapter.updateList(adapterPosition, result);
+                Log.d("scanning", result);
+            }
+        }
     }
 
     private void loadProducts(String PONumber){
@@ -211,13 +231,6 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
-
-
-
-
-
-
-
 
 
     private void updateStatus(String PONumber){
@@ -280,7 +293,6 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
-
 
 
 
