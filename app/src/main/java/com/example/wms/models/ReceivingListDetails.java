@@ -6,13 +6,13 @@ import android.os.Parcelable;
 public class ReceivingListDetails implements Parcelable {
 
     public String productName;
-    //public String upc;
-    public int sn, qtyOrdered, qtyReceived, qtyRemaining;
+    public String upc, qtyReceived;
+    public int sn, qtyOrdered, qtyRemaining;
 
-    public ReceivingListDetails(int sn, String productName, int qtyOrdered, int qtyReceived, int qtyRemaining) {
+    public ReceivingListDetails(int sn, String productName, int qtyOrdered, String upc,String qtyReceived, int qtyRemaining) {
         this.productName = productName;
         this.sn = sn;
-        //this.upc = upc;
+        this.upc = upc;
         this.qtyOrdered = qtyOrdered;
         this.qtyReceived = qtyReceived;
         this.qtyRemaining = qtyRemaining;
@@ -21,9 +21,9 @@ public class ReceivingListDetails implements Parcelable {
     protected ReceivingListDetails(Parcel in) {
         productName = in.readString();
         sn = in.readInt();
-        //upc = in.readString();
+        upc = in.readString();
         qtyOrdered = in.readInt();
-        qtyReceived = in.readInt();
+        qtyReceived = in.readString();
         qtyRemaining = in.readInt();
     }
 
@@ -55,9 +55,9 @@ public class ReceivingListDetails implements Parcelable {
         this.sn = sn;
     }
 
-    //public String getUpc() {return upc;}
+    public String getUpc() {return upc;}
 
-    //public void setUpc(String upc) {this.upc = upc;}
+    public void setUpc(String upc) {this.upc = upc;}
 
     public int getQtyOrdered() {
         return qtyOrdered;
@@ -67,11 +67,11 @@ public class ReceivingListDetails implements Parcelable {
         this.qtyOrdered = qtyOrdered;
     }
 
-    public int getQtyReceived() {
+    public String getQtyReceived() {
         return qtyReceived;
     }
 
-    public void setQtyReceived(int qtyReceived) {
+    public void setQtyReceived(String qtyReceived) {
         this.qtyReceived = qtyReceived;
     }
 
@@ -94,7 +94,7 @@ public class ReceivingListDetails implements Parcelable {
         dest.writeInt(sn);
         //dest.writeString(upc);
         dest.writeInt(qtyOrdered);
-        dest.writeInt(qtyReceived);
+        dest.writeString(qtyReceived);
         dest.writeInt(qtyRemaining);
     }
 }

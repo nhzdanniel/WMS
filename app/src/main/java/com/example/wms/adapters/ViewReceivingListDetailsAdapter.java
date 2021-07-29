@@ -1,6 +1,8 @@
 package com.example.wms.adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
 
     Context context;
 
-    ArrayList<ReceivingListDetails> receivingListDetails;
+    public ArrayList<ReceivingListDetails> receivingListDetails;
     ArrayList<ReceivingListDetails> masterReceivingListDetails;
 
     private OnReceivingListDetailsListener mOnReceivingListDetailsListener;
@@ -118,6 +120,25 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
 
             this.onReceivingListDetailsListener = onReceivingListDetailsListener;
             itemView.setOnClickListener(this);
+
+            tv_qty_received.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    receivingListDetails.get(getAdapterPosition()).setQtyReceived((tv_qty_received.getText().toString()));
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
         }
 
         @Override
