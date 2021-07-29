@@ -148,7 +148,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.d("output", String.valueOf(pickingList.getPoNumber()));
-                //updateStatus(String.valueOf(pickingList.getPoNumber()));
+                updateStatus(String.valueOf(pickingList.getPoNumber()));
 
                 Log.d("Help", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
                 ArrayList<String> skuscans= new ArrayList<String>();

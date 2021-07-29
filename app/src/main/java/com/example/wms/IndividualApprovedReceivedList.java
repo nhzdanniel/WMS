@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +40,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class IndividualApprovedReceivedList extends AppCompatActivity implements ViewApprovedReceivedListDetailsAdapter.OnApprovedReceivedListDetailsListener {
+public class IndividualApprovedReceivedList extends AppCompatActivity implements ViewApprovedReceivedListDetailsAdapter.OnApprovedReceivedListDetailsListener, View.OnClickListener {
 
     private static final String TAG = "individualpickinglist";
     private String URL = "http://13.59.50.74/android_connect/viewindividualapproverl.php";
     private TextView poText, doText;
+    private Button buttonPrint;
+
     private ApprovedReceivedList approvedReceivedList;
 
     RecyclerView recyclerViewApprovedReceivedListDetails;
@@ -59,6 +62,8 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
 
         poText = findViewById(R.id.po_text);
         doText = findViewById(R.id.do_text);
+        buttonPrint = findViewById(R.id.buttonPrint);
+        buttonPrint.setOnClickListener(this);
 
         if (getIntent().hasExtra("selectedApprovedReceivedList")) {
             approvedReceivedList = getIntent().getParcelableExtra("selectedApprovedReceivedList");
@@ -189,5 +194,27 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
         Intent intent = new Intent (this, IndividualReceivingList.class);
         intent.putExtra("selectedApprovedReceivedListDetails", approvedReceivedListDetails.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(true);
+        builder.setTitle("Printing in progress.");
+        builder.setMessage("Head over to the printing station to collect.");
+
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent (IndividualApprovedReceivedList.this, HomePageActivityRec.class);
+                startActivity(intent);
+            }
+        });
+        builder.show();
+
+
+
     }
 }
