@@ -81,36 +81,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
- <!--           <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="S/N" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="UPC" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Product Name" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="SKU" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Location" />
-
-            </TableRow>-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewApprovedReceivedListDetails"
@@ -121,6 +91,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </TableLayout>
+
+        <Button
+            android:id="@+id/buttonPrint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Print Label"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.897"
+            app:layout_constraintStart_toEndOf="@+id/po_text"
+            app:layout_constraintTop_toBottomOf="@+id/mainToolbar"
+            app:layout_constraintVertical_bias="0.514" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

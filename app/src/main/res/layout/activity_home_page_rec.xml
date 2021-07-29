@@ -34,7 +34,7 @@
                 android:layout_gravity="fill"
                 android:layout_margin="10sp"
                 app:cardCornerRadius="10sp"
-                app:cardBackgroundColor="#FFC107">
+                app:cardBackgroundColor="#4B0082">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -44,7 +44,8 @@
                     android:paddingBottom="30sp"
                     android:text="View All Receiving Lists"
                     android:textAlignment="center"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:textColor="@color/white"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -56,7 +57,7 @@
                 android:layout_gravity="fill"
                 android:layout_margin="10sp"
                 app:cardCornerRadius="10sp"
-                app:cardBackgroundColor="#FFC107">
+                app:cardBackgroundColor="#4B0082">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,7 +67,8 @@
                     android:paddingBottom="30sp"
                     android:text="View Approved Received List"
                     android:textAlignment="center"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:textColor="@color/white"/>
 
             </androidx.cardview.widget.CardView>
 
