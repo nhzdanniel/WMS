@@ -143,7 +143,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
 
         @Override
         public void onClick(View v) {
-            onReceivingListDetailsListener.onReceivingListDetailsClick(getAdapterPosition());
+            //onReceivingListDetailsListener.onReceivingListDetailsClick(getAdapterPosition());
         }
     }
 
