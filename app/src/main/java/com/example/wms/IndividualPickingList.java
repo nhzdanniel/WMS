@@ -52,7 +52,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
     private Button scanButton;
     private Button updateButton;
 
-    public static EditText skuScanned;
+
 
     RecyclerView recyclerviewPickingListDetails;
     ViewPickingListDetailsAdapter viewPickingListDetailsAdapter;
@@ -69,7 +69,6 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         poText = findViewById(R.id.po_text);
         companyText = findViewById(R.id.company_text);
 
-        skuScanned = findViewById(R.id.tv_sku_scanned);
         updateButton = findViewById(R.id.btn_update);
         updateButton.setOnClickListener(this);
 
@@ -129,16 +128,45 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        Log.d("output", String.valueOf(pickingList.getPoNumber()));
-        updateStatus(String.valueOf(pickingList.getPoNumber()));
 
-        Log.d("Help", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
-        ArrayList<String> skuscans= new ArrayList<String>();
-        for(int i=0; i<viewPickingListDetailsAdapter.pickingListDetails.size();i++){
-            skuscans.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getSkuScanned());
-        }
-        Log.d("suicide", String.valueOf(skuscans));
-        updatesku(skuscans);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(true);
+        builder.setTitle("Please ensure that all SKU is filled.");
+        builder.setMessage("If the SKU can't be found, use another SKU and notify Supervisor.");
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("output", String.valueOf(pickingList.getPoNumber()));
+                //updateStatus(String.valueOf(pickingList.getPoNumber()));
+
+                Log.d("Help", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
+                ArrayList<String> skuscans= new ArrayList<String>();
+                ArrayList<String> skulist = new ArrayList<String>();
+                for(int i=0; i<viewPickingListDetailsAdapter.pickingListDetails.size();i++){
+                    skuscans.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getSkuScanned());
+                }
+                for(int i=0; i<viewPickingListDetailsAdapter.pickingListDetails.size();i++){
+                    skulist.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getSku());
+                }
+
+                Log.d("suicide", String.valueOf(skuscans));
+                updatesku(skuscans, skulist);
+                Intent intent = new Intent (IndividualPickingList.this, HomePageActivityPp.class);
+                IndividualPickingList.this.startActivity(intent);
+
+            }
+        });
+        builder.show();
+
 
     }
 
@@ -176,7 +204,8 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
                         int upc = productObject.getInt("upc");
                         String prod_name = productObject.getString("prod_name");
                         String sku = productObject.getString("sku");
-                        String sku_scanned = productObject.getString("sku_scanned");
+                        String sku_scanned = "";
+                        //String sku_scanned = productObject.getString("sku_scanned");
                         String location = productObject.getString("location");
 
                         PickingListDetails product = new PickingListDetails(i+1, location, upc, prod_name, sku,
@@ -244,7 +273,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
     }
 
 
-    private void updatesku(ArrayList<String> skuscans){
+    private void updatesku(ArrayList<String> skuscans, ArrayList<String> skulist){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, updatePOoutsku, new Response.Listener<String>() {
 
             @Override
@@ -269,10 +298,11 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         Map<String,String> params = new HashMap<String, String>();
         for(int i=0; i<skuscans.size();i++)
         {
-            params.put("skuscans"+i,skuscans.get(i));
-
+            params.put(skulist.get(i),skuscans.get(i));
         }
-        return params;
+            Log.d("params", String.valueOf(params));
+
+            return params;
     }
 
     }; ;

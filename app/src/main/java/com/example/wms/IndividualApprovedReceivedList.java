@@ -42,7 +42,7 @@ import java.util.ArrayList;
 public class IndividualApprovedReceivedList extends AppCompatActivity implements ViewApprovedReceivedListDetailsAdapter.OnApprovedReceivedListDetailsListener {
 
     private static final String TAG = "individualpickinglist";
-    private String URL = "http://13.59.50.74/android_connect/viewindividualapproverl.php";
+    private String URL = "http://13.59.50.74/android_connect/viewindividualapproverl.php?DONum=";
     private TextView poText, doText;
     private ApprovedReceivedList approvedReceivedList;
 
@@ -68,12 +68,13 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
 
         recyclerViewApprovedReceivedListDetails = findViewById(R.id.recyclerViewApprovedReceivedListDetails);
         approvedReceivedListDetails = new ArrayList<ApprovedReceivedListDetails>();
-        loadProducts();
     }
 
     private void setReceivingListProperties() {
         poText.setText(String.valueOf(approvedReceivedList.getPoNumber()));
         doText.setText(String.valueOf(approvedReceivedList.getDoNumber()));
+        loadProducts(String.valueOf(approvedReceivedList.getDoNumber()));
+
     }
 
     //drawer settings
@@ -122,9 +123,9 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
         recyclerViewApprovedReceivedListDetails.setAdapter(viewApprovedReceivedListDetailsAdapter);
     }
 
-    private void loadProducts() {
+    private void loadProducts(String DONumber) {
         Log.d("output", "loadproducts");
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+ DONumber, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
