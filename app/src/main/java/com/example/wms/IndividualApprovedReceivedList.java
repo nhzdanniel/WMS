@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +44,6 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
     private static final String TAG = "individualpickinglist";
     private String URL = "http://13.59.50.74/android_connect/viewindividualapproverl.php";
     private TextView poText, doText;
-    private Button buttonPrint;
     private ApprovedReceivedList approvedReceivedList;
 
     RecyclerView recyclerViewApprovedReceivedListDetails;
@@ -61,7 +59,6 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
 
         poText = findViewById(R.id.po_text);
         doText = findViewById(R.id.do_text);
-        buttonPrint = findViewById(R.id.buttonPrint);
 
         if (getIntent().hasExtra("selectedApprovedReceivedList")) {
             approvedReceivedList = getIntent().getParcelableExtra("selectedApprovedReceivedList");
@@ -72,8 +69,6 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
         recyclerViewApprovedReceivedListDetails = findViewById(R.id.recyclerViewApprovedReceivedListDetails);
         approvedReceivedListDetails = new ArrayList<ApprovedReceivedListDetails>();
         loadProducts();
-
-
     }
 
     private void setReceivingListProperties() {

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,14 +37,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class IndividualReceivingList extends AppCompatActivity implements ViewReceivingListDetailsAdapter.OnReceivingListDetailsListener {
+public class IndividualReceivingList extends AppCompatActivity implements ViewReceivingListDetailsAdapter.OnReceivingListDetailsListener, View.OnClickListener {
 
     private static final String TAG = "individualreceivinglist";
     private String URL = "http://13.59.50.74/android_connect/viewindividualrl.php?PONum=";
+    private String updateqty = "http://13.59.50.74/android_connect/updateqtyrcv.php";
 
     private TextView poText, supplierText, etaText;
     private ReceivingList receivingList;
+    private Button updateButton;
+
     RecyclerView recyclerViewReceivingListDetails;
     ViewReceivingListDetailsAdapter viewReceivingListDetailsAdapter;
     ArrayList<ReceivingListDetails> receivingListDetails;
@@ -59,6 +65,10 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         poText = findViewById(R.id.po_text);
         supplierText = findViewById(R.id.supplier_text);
         etaText = findViewById(R.id.eta_text);
+
+        updateButton = findViewById(R.id.btn_update);
+        //might be problem
+        updateButton.setOnClickListener(this);
 
         if (getIntent().hasExtra("selectedReceivingList")) {
             receivingList = getIntent().getParcelableExtra("selectedReceivingList");
@@ -114,6 +124,21 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         closeDrawer(drawerLayout);
     }
 
+    @Override
+    public void onClick(View v){
+        ArrayList<String> upc = new ArrayList<String>();
+        ArrayList<String> qtylist = new ArrayList<String>();
+        for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
+        {
+            upc.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getUpc());
+        }
+        for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
+        {
+            qtylist.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getQtyReceived());
+        }
+        updatequantity(upc, qtylist);
+    }
+
     private void setRecyclerView(){
         recyclerViewReceivingListDetails.setHasFixedSize(true);
         recyclerViewReceivingListDetails.setLayoutManager(new LinearLayoutManager(this));
@@ -122,6 +147,56 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         viewReceivingListDetailsAdapter = new ViewReceivingListDetailsAdapter(this,receivingListDetails, this);
         recyclerViewReceivingListDetails.setAdapter(viewReceivingListDetailsAdapter);
     }
+
+    private void updatequantity(ArrayList<String> upc, ArrayList<String> qtylist){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, updateqty, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        })
+        {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                String PONum = String.valueOf(receivingList.getPoNumber());
+                ArrayList<String>PONumupc = new ArrayList<String>();
+                for(int i=0; i<upc.size();i++)
+                {
+                    PONumupc.add(PONum+'-'+upc.get(i));
+                }
+                Log.d("PONumupc", String.valueOf(PONumupc));
+
+                for(int i=0; i<qtylist.size();i++)
+                {
+                    params.put(PONumupc.get(i), String.valueOf(qtylist.get(i)));
+                }
+
+
+                return params;
+            }
+
+        }; ;
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+
+
+
 
     private void loadProducts(String PONumber){
         Log.d("output", "loadproducts");
@@ -136,15 +211,15 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                     {
                         JSONObject productObject = products.getJSONObject(i);
                         //int sn = productObject.getInt("sn");
-                        //String upc = productObject.getString("upc");
+                        String upc = productObject.getString("upc");
                         String prod_name = productObject.getString("prod_name");
                         int qty_ordered = productObject.getInt("qty_ordered");
-                        int qty_received = productObject.getInt("qty_rcv");
+                        String qty_received = productObject.getString("qty_rcv");
                         int qty_remaining = productObject.getInt("qty_remaining");
 
 
 
-                        ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, qty_ordered, qty_received, qty_remaining);
+                        ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, qty_ordered, upc, qty_received, qty_remaining);
                         receivingListDetails.add(product);
 
 
