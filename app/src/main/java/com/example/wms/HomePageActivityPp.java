@@ -30,7 +30,6 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
         setSupportActionBar(toolbar);
 
         c1.setOnClickListener(this);
-        c2.setOnClickListener(this);
     }
 
     //drawer settings
