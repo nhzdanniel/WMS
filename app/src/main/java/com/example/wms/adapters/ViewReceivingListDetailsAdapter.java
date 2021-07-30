@@ -98,9 +98,10 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
             holder.tv_qty_ordered.setText(String.valueOf(rld.getQtyOrdered()));
             holder.tv_qty_received.setText(String.valueOf(rld.getQtyReceived()));
             holder.tv_qty_remaining.setText(String.valueOf(rld.getQtyRemaining()));
-            holder.et_year.setText(String.valueOf(rld.getYear()));
+            holder.expiryDate.setText("");
 
-            holder.et_month.setText(String.valueOf(rld.getMonth()));            holder.et_day.setText(String.valueOf(rld.getDay()));
+            //holder.et_month.setText(String.valueOf(rld.getMonth()));
+            //holder.et_day.setText(String.valueOf(rld.getDay()));
 
 /*            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,7 +120,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tv_sn, tv_product_name, tv_qty_ordered, tv_qty_remaining;
-        EditText tv_qty_received, et_year, et_month, et_day;
+        EditText tv_qty_received, expiryDate, et_month, et_day;
         DatePickerDialog.OnDateSetListener dateSetListener;
         OnReceivingListDetailsListener onReceivingListDetailsListener;
 
@@ -131,9 +132,9 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
             tv_qty_ordered = itemView.findViewById(R.id.tv_qty_ordered);
             tv_qty_received = itemView.findViewById(R.id.tv_qty_received);
             tv_qty_remaining = itemView.findViewById(R.id.tv_qty_remaining);
-            et_year = itemView.findViewById(R.id.et_year);
-            et_month = itemView.findViewById(R.id.et_month);
-            et_day = itemView.findViewById(R.id.et_day);
+            expiryDate = itemView.findViewById(R.id.et_year);
+            //et_month = itemView.findViewById(R.id.et_month);
+            //et_day = itemView.findViewById(R.id.et_day);
 
             this.onReceivingListDetailsListener = onReceivingListDetailsListener;
             itemView.setOnClickListener(this);
@@ -156,7 +157,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
                 }
             });
 
-/*            expiryDate.setOnClickListener(new View.OnClickListener() {
+            expiryDate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Calendar cal = Calendar.getInstance();
@@ -179,10 +180,11 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
                     month = month + 1;
                     //Log.d(Tag, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
 
-                    String date = month + "/" + day + "/" + year;
+                    String date = year + "-" + month + "-" + day;
                     expiryDate.setText(date);
+                    receivingListDetails.get(getAdapterPosition()).setExpirydate(date);
                 }
-            };*/
+            };
 
         }
 

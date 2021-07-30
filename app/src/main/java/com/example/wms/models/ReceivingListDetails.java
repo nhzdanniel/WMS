@@ -3,6 +3,8 @@ package com.example.wms.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.android.volley.toolbox.StringRequest;
+
 import java.util.Date;
 
 public class ReceivingListDetails implements Parcelable {
@@ -11,6 +13,7 @@ public class ReceivingListDetails implements Parcelable {
     public String upc, qtyReceived;
     public String year, month, day;
     public int sn, qtyOrdered, qtyRemaining;
+    public String expirydate;
 
 
 /*    public ReceivingListDetails(int sn, String productName, , String year, String month, String day, int qtyOrdered, String upc, String qtyReceived, int qtyRemaining) {
@@ -25,13 +28,14 @@ public class ReceivingListDetails implements Parcelable {
         this.qtyRemaining = qtyRemaining;
     }*/
 
-    public ReceivingListDetails(int sn, String productName, int qtyOrdered, String upc, String qtyReceived, int qtyRemaining) {
+    public ReceivingListDetails(int sn, String productName, int qtyOrdered, String upc, String qtyReceived, int qtyRemaining, String expirydate) {
         this.productName = productName;
         this.sn = sn;
         this.upc = upc;
         this.qtyOrdered = qtyOrdered;
         this.qtyReceived = qtyReceived;
         this.qtyRemaining = qtyRemaining;
+        this.expirydate = expirydate;
     }
 
 
@@ -45,6 +49,7 @@ public class ReceivingListDetails implements Parcelable {
         year = in.readString();
         month = in.readString();
         day = in.readString();
+        expirydate= in.readString();
     }
 
     public static final Creator<ReceivingListDetails> CREATOR = new Creator<ReceivingListDetails>() {
@@ -128,6 +133,10 @@ public class ReceivingListDetails implements Parcelable {
         this.day = day;
     }
 
+    public String getExpirydate() {return expirydate;}
+
+    public void setExpirydate(String expirydate){this.expirydate= expirydate;}
+
     @Override
     public int describeContents() {
         return 0;
@@ -145,6 +154,7 @@ public class ReceivingListDetails implements Parcelable {
         dest.writeString(year);
         dest.writeString(month);
         dest.writeString(day);
+        dest.writeString(expirydate);
     }
 
 }

@@ -12,11 +12,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,10 +50,15 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
     private static final String TAG = "individualreceivinglist";
     private String URL = "http://13.59.50.74/android_connect/viewindividualrl.php?PONum=";
     private String updateqty = "http://13.59.50.74/android_connect/updateqtyrcv.php";
+    private String addinfourl = "http://13.59.50.74/android_connect/addinfo.php";
+
 
     private TextView poText, supplierText, etaText;
     private ReceivingList receivingList;
     private Button updateButton;
+    private String myText;
+    String username;
+
 
     RecyclerView recyclerViewReceivingListDetails;
     ViewReceivingListDetailsAdapter viewReceivingListDetailsAdapter;
@@ -70,6 +79,10 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         updateButton = findViewById(R.id.btn_update);
         //might be problem
         updateButton.setOnClickListener(this);
+
+        if (getIntent().hasExtra("username")) {
+            username = getIntent().getStringExtra("username");
+        }
 
         if (getIntent().hasExtra("selectedReceivingList")) {
             receivingList = getIntent().getParcelableExtra("selectedReceivingList");
@@ -128,36 +141,44 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
     @Override
     public void onClick(View v){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder donum = new AlertDialog.Builder(this);
 
-        builder.setCancelable(true);
-        builder.setTitle("Is everything being delivered?");
-        builder.setMessage("Please ensure that everything is accounted for properly.");
+        donum.setTitle("DO Number: ");
+        final EditText donumber = new EditText(IndividualReceivingList.this);
+        donumber.setInputType(InputType.TYPE_CLASS_TEXT);
+        donum.setView(donumber);
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        donum.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("adapter", viewReceivingListDetailsAdapter.receivingListDetails.get(0).getExpirydate());
+
+                myText=donumber.getText().toString();
+                Toast.makeText(IndividualReceivingList.this, "DO Number entered is "+ myText, Toast.LENGTH_LONG).show();
+                ArrayList<String> upc = new ArrayList<String>();
+                ArrayList<String> qtylist = new ArrayList<String>();
+                ArrayList<String> expirydates = new ArrayList<String>();
+
+                for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
+                {
+                    upc.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getUpc());
+                    qtylist.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getQtyReceived());
+                    expirydates.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getExpirydate());
+                }
+                updatequantity(upc, qtylist);
+                addinfo(upc, qtylist,expirydates);
+
+                Intent intent = new Intent (IndividualReceivingList.this, HomePageActivityRec.class);
+                IndividualReceivingList.this.startActivity(intent);
+            }
+        });
+        donum.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ArrayList<String> upc = new ArrayList<String>();
-                ArrayList<String> qtylist = new ArrayList<String>();
-                for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
-                {
-                    upc.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getUpc());
-                }
-                for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
-                {
-                    qtylist.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getQtyReceived());
-                }
-                updatequantity(upc, qtylist);
-            }
-        });
-        builder.show();
+        donum.show();
 
     }
 
@@ -193,6 +214,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                 Map<String,String> params = new HashMap<String, String>();
                 String PONum = String.valueOf(receivingList.getPoNumber());
                 ArrayList<String>PONumupc = new ArrayList<String>();
+
                 for(int i=0; i<upc.size();i++)
                 {
                     PONumupc.add(PONum+'-'+upc.get(i));
@@ -213,6 +235,82 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
+
+    private void addinfo(ArrayList<String> upc, ArrayList<String> qtylist, ArrayList<String> expirydates){
+        Log.d("expdate", String.valueOf(expirydates));
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, addinfourl, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        })
+        {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                String PONum = String.valueOf(receivingList.getPoNumber());
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String todaydate=String.valueOf(dateFormat.format(new Date()));
+
+                ArrayList<String>PONumupc = new ArrayList<String>();
+                for(int i=0; i<upc.size();i++)
+                {
+                    PONumupc.add(PONum+'-'+upc.get(i));
+                }
+                Log.d("PONumupc", String.valueOf(PONumupc));
+
+                JSONArray jsonArray = new JSONArray();
+                for(int i=0; i<qtylist.size();i++)
+                {
+                    JSONObject jsonObject = new JSONObject();
+                    try{
+                        jsonObject.put("PONumupc", String.valueOf(PONumupc.get(i)));
+                        jsonObject.put("DONum", myText);
+                        jsonObject.put("Qtyreceive", String.valueOf(qtylist.get(i)));
+                        jsonObject.put("Receivedby", username);
+                        jsonObject.put("Todaydate", todaydate);
+                        jsonObject.put("Expirydate", String.valueOf(expirydates.get(i)));
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                    /*
+                    params.put("PONumupc", String.valueOf(PONumupc.get(i)));
+                    params.put("DONum", myText);
+                    params.put("Qtyreceive", String.valueOf(qtylist.get(i)));
+                    params.put("Receivedby", username);
+                    params.put("Todaydate", todaydate);
+                    params.put("Expirydate", String.valueOf(expirydates.get(i)));
+
+                     */
+                    jsonArray.put(jsonObject);
+                }
+                params.put("JsonArray", String.valueOf(jsonArray));
+
+
+                return params;
+            }
+
+        }; ;
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+
+
+
 
 
 
@@ -239,7 +337,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                         //String expiryDate = productObject.getString("expiry_date");
 
 
-                        ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, qty_ordered, upc, qty_received, qty_remaining);
+                        ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, qty_ordered, upc, qty_received, qty_remaining,"");
                         //ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, expiryDate, upc, qty_received, qty_ordered, qty_remaining);
                         receivingListDetails.add(product);
 

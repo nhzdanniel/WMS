@@ -161,7 +161,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
                 }
 
                 Log.d("suicide", String.valueOf(skuscans));
-                updateprodindv(skulist);
+                updateprodindv(skuscans);
                 //updatesku(skuscans, skulist);
                 Intent intent = new Intent (IndividualPickingList.this, HomePageActivityPp.class);
                 IndividualPickingList.this.startActivity(intent);
@@ -286,13 +286,13 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-    private void updateprodindv(ArrayList<String> skulist){
+    private void updateprodindv(ArrayList<String> skuscans){
         //Log.d("output", skulist);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, updateprodinvurl, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, updateprodinvurl, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d("response", "request success");
+                Log.d("response", response);
 
 
 
@@ -303,7 +303,21 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
                 Log.d("error", error.getMessage());
 
             }
-        });
+        })
+        {
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                for(int i=0; i<skuscans.size();i++)
+                {
+                    params.put("skuscan"+i, skuscans.get(i));
+                }
+                Log.d("params", String.valueOf(params));
+
+                return params;
+            }
+
+        };;
         Log.d("output", stringRequest.toString());
 
         Volley.newRequestQueue(this).add(stringRequest);
