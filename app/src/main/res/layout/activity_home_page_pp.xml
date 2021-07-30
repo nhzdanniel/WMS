@@ -49,7 +49,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+<!--            <androidx.cardview.widget.CardView
                 android:id="@+id/pickingPp"
                 android:layout_gravity="fill"
                 android:layout_rowWeight="1"
@@ -69,7 +69,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"/>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
         </GridLayout>
 
