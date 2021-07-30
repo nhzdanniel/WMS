@@ -40,6 +40,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     ViewAllReceivingListAdapter viewAllReceivingListAdapter;
     DrawerLayout drawerLayout;
     ArrayList<ReceivingList> receivingList;
+    String username;
 
 
     @Override
@@ -51,6 +52,10 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
 
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
+
+        if (getIntent().hasExtra("username")) {
+            username = getIntent().getStringExtra("username");
+        }
 
         recyclerviewReceivingList = findViewById(R.id.recyclerviewReceivingList);
         receivingList = new ArrayList<ReceivingList>();
@@ -162,6 +167,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
 
         Intent intent = new Intent (this, IndividualReceivingList.class);
         intent.putExtra("selectedReceivingList", receivingList.get(position));
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }

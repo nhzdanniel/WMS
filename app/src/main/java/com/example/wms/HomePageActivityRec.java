@@ -17,6 +17,7 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
 
     public CardView c1, c2;
     DrawerLayout drawerLayout;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,10 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
 
         c1.setOnClickListener(this);
         c2.setOnClickListener(this);
+
+        if (getIntent().hasExtra("username")) {
+            username = getIntent().getStringExtra("username");
+        }
     }
 
     //drawer settings
@@ -108,6 +113,7 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         switch(v.getId()) {
             case R.id.viewAllReceivingLists:
                 i = new Intent(this, ViewAllReceivingListREC.class);
+                i.putExtra("username", username);
                 startActivity(i);
                 break;
 
