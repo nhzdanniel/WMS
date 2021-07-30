@@ -162,7 +162,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
                 Log.d("suicide", String.valueOf(skuscans));
                 updateprodindv(skuscans);
-                //updatesku(skuscans, skulist);
+                updatesku(skuscans, skulist);
                 Intent intent = new Intent (IndividualPickingList.this, HomePageActivityPp.class);
                 IndividualPickingList.this.startActivity(intent);
 
