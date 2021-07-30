@@ -24,7 +24,6 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_home_page_pp);
 
         c1 = (CardView) findViewById(R.id.viewPickingList);
-        c2 = (CardView) findViewById(R.id.pickingPp);
         drawerLayout = findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = findViewById(R.id.mainToolbar);
@@ -108,11 +107,6 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
         switch(v.getId()){
             case R.id.viewPickingList:
                 i = new Intent(this, ViewPickingListPP.class);
-                startActivity(i);
-                break;
-
-            case R.id.pickingPp:
-                i = new Intent(this, PickingPP.class);
                 startActivity(i);
                 break;
         }
