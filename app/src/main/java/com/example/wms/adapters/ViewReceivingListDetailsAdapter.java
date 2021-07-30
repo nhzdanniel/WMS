@@ -98,6 +98,9 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
             holder.tv_qty_ordered.setText(String.valueOf(rld.getQtyOrdered()));
             holder.tv_qty_received.setText(String.valueOf(rld.getQtyReceived()));
             holder.tv_qty_remaining.setText(String.valueOf(rld.getQtyRemaining()));
+            holder.et_year.setText(String.valueOf(rld.getYear()));
+
+            holder.et_month.setText(String.valueOf(rld.getMonth()));            holder.et_day.setText(String.valueOf(rld.getDay()));
 
 /*            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,8 +118,8 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView tv_sn, tv_product_name, tv_qty_ordered, tv_qty_remaining, expiryDate;
-        EditText tv_qty_received;
+        TextView tv_sn, tv_product_name, tv_qty_ordered, tv_qty_remaining;
+        EditText tv_qty_received, et_year, et_month, et_day;
         DatePickerDialog.OnDateSetListener dateSetListener;
         OnReceivingListDetailsListener onReceivingListDetailsListener;
 
@@ -128,7 +131,9 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
             tv_qty_ordered = itemView.findViewById(R.id.tv_qty_ordered);
             tv_qty_received = itemView.findViewById(R.id.tv_qty_received);
             tv_qty_remaining = itemView.findViewById(R.id.tv_qty_remaining);
-            expiryDate = itemView.findViewById(R.id.tv_expiry_date);
+            et_year = itemView.findViewById(R.id.et_year);
+            et_month = itemView.findViewById(R.id.et_month);
+            et_day = itemView.findViewById(R.id.et_day);
 
             this.onReceivingListDetailsListener = onReceivingListDetailsListener;
             itemView.setOnClickListener(this);
