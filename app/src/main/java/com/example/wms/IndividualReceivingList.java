@@ -126,17 +126,38 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
     @Override
     public void onClick(View v){
-        ArrayList<String> upc = new ArrayList<String>();
-        ArrayList<String> qtylist = new ArrayList<String>();
-        for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
-        {
-            upc.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getUpc());
-        }
-        for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
-        {
-            qtylist.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getQtyReceived());
-        }
-        updatequantity(upc, qtylist);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(true);
+        builder.setTitle("Is everything being delivered?");
+        builder.setMessage("Please ensure that everything is accounted for properly.");
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ArrayList<String> upc = new ArrayList<String>();
+                ArrayList<String> qtylist = new ArrayList<String>();
+                for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
+                {
+                    upc.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getUpc());
+                }
+                for(int i=0; i<viewReceivingListDetailsAdapter.receivingListDetails.size();i++)
+                {
+                    qtylist.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getQtyReceived());
+                }
+                updatequantity(upc, qtylist);
+            }
+        });
+        builder.show();
+
     }
 
     private void setRecyclerView(){
