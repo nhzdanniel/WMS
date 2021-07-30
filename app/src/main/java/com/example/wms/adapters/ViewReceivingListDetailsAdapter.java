@@ -1,11 +1,18 @@
 package com.example.wms.adapters;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.nfc.Tag;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
@@ -13,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wms.IndividualReceivingList;
 import com.example.wms.R;
 import com.example.wms.models.ReceivingList;
 import com.example.wms.models.ReceivingListDetails;
@@ -20,6 +28,7 @@ import com.example.wms.models.ReceivingListDetails;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewReceivingListDetailsAdapter.ViewHolder> implements Filterable {
 
@@ -106,7 +115,9 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView tv_sn, tv_product_name, tv_qty_ordered, tv_qty_received, tv_qty_remaining;
+        TextView tv_sn, tv_product_name, tv_qty_ordered, tv_qty_remaining, expiryDate;
+        EditText tv_qty_received;
+        DatePickerDialog.OnDateSetListener dateSetListener;
         OnReceivingListDetailsListener onReceivingListDetailsListener;
 
         public ViewHolder(@NonNull View itemView, OnReceivingListDetailsListener onReceivingListDetailsListener) {
@@ -117,6 +128,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
             tv_qty_ordered = itemView.findViewById(R.id.tv_qty_ordered);
             tv_qty_received = itemView.findViewById(R.id.tv_qty_received);
             tv_qty_remaining = itemView.findViewById(R.id.tv_qty_remaining);
+            expiryDate = itemView.findViewById(R.id.tv_expiry_date);
 
             this.onReceivingListDetailsListener = onReceivingListDetailsListener;
             itemView.setOnClickListener(this);
@@ -138,6 +150,34 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
 
                 }
             });
+
+/*            expiryDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar cal = Calendar.getInstance();
+                    int year = cal.get(Calendar.YEAR);
+                    int month = cal.get(Calendar.MONTH);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                    DatePickerDialog dialog = new DatePickerDialog((Context) onReceivingListDetailsListener,
+                            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                            dateSetListener,
+                            year,month,day);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                }
+            });
+
+            dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    month = month + 1;
+                    //Log.d(Tag, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                    String date = month + "/" + day + "/" + year;
+                    expiryDate.setText(date);
+                }
+            };*/
 
         }
 
