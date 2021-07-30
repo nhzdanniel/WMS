@@ -3,13 +3,29 @@ package com.example.wms.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 public class ReceivingListDetails implements Parcelable {
 
     public String productName;
     public String upc, qtyReceived;
+    public String year, month, day;
     public int sn, qtyOrdered, qtyRemaining;
 
-    public ReceivingListDetails(int sn, String productName, int qtyOrdered, String upc,String qtyReceived, int qtyRemaining) {
+
+/*    public ReceivingListDetails(int sn, String productName, , String year, String month, String day, int qtyOrdered, String upc, String qtyReceived, int qtyRemaining) {
+        this.productName = productName;
+        this.upc = upc;
+        this.qtyReceived = qtyReceived;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.sn = sn;
+        this.qtyOrdered = qtyOrdered;
+        this.qtyRemaining = qtyRemaining;
+    }*/
+
+    public ReceivingListDetails(int sn, String productName, int qtyOrdered, String upc, String qtyReceived, int qtyRemaining) {
         this.productName = productName;
         this.sn = sn;
         this.upc = upc;
@@ -18,13 +34,17 @@ public class ReceivingListDetails implements Parcelable {
         this.qtyRemaining = qtyRemaining;
     }
 
+
     protected ReceivingListDetails(Parcel in) {
         productName = in.readString();
-        sn = in.readInt();
         upc = in.readString();
-        qtyOrdered = in.readInt();
         qtyReceived = in.readString();
+        sn = in.readInt();
+        qtyOrdered = in.readInt();
         qtyRemaining = in.readInt();
+        year = in.readString();
+        month = in.readString();
+        day = in.readString();
     }
 
     public static final Creator<ReceivingListDetails> CREATOR = new Creator<ReceivingListDetails>() {
@@ -38,6 +58,7 @@ public class ReceivingListDetails implements Parcelable {
             return new ReceivingListDetails[size];
         }
     };
+
 
     public String getProductName() {
         return productName;
@@ -83,6 +104,30 @@ public class ReceivingListDetails implements Parcelable {
         this.qtyRemaining = qtyRemaining;
     }
 
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -90,11 +135,16 @@ public class ReceivingListDetails implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeString(productName);
-        dest.writeInt(sn);
-        //dest.writeString(upc);
-        dest.writeInt(qtyOrdered);
+        dest.writeString(upc);
         dest.writeString(qtyReceived);
+        dest.writeInt(sn);
+        dest.writeInt(qtyOrdered);
         dest.writeInt(qtyRemaining);
+        dest.writeString(year);
+        dest.writeString(month);
+        dest.writeString(day);
     }
+
 }

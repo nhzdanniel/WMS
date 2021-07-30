@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -178,8 +179,6 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                 Log.d("response", response);
 
 
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -237,10 +236,11 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                         int qty_ordered = productObject.getInt("qty_ordered");
                         String qty_received = productObject.getString("qty_rcv");
                         int qty_remaining = productObject.getInt("qty_remaining");
-
+                        //String expiryDate = productObject.getString("expiry_date");
 
 
                         ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, qty_ordered, upc, qty_received, qty_remaining);
+                        //ReceivingListDetails product = new ReceivingListDetails(i+1, prod_name, expiryDate, upc, qty_received, qty_ordered, qty_remaining);
                         receivingListDetails.add(product);
 
 
