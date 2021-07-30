@@ -158,8 +158,6 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                 Log.d("response", response);
 
 
-
-
             }
         }, new Response.ErrorListener() {
             @Override

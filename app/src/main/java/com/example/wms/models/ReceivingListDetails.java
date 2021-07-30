@@ -9,16 +9,17 @@ public class ReceivingListDetails implements Parcelable {
 
     public String productName;
     public String upc, qtyReceived;
-    public String expiryDate;
+    public String year, month, day;
     public int sn, qtyOrdered, qtyRemaining;
 
 
-
-/*    public ReceivingListDetails(int sn, String productName, String expiryDate, String upc, String qtyReceived, int qtyOrdered, int qtyRemaining) {
+/*    public ReceivingListDetails(int sn, String productName, , String year, String month, String day, int qtyOrdered, String upc, String qtyReceived, int qtyRemaining) {
         this.productName = productName;
         this.upc = upc;
         this.qtyReceived = qtyReceived;
-        this.expiryDate = expiryDate;
+        this.year = year;
+        this.month = month;
+        this.day = day;
         this.sn = sn;
         this.qtyOrdered = qtyOrdered;
         this.qtyRemaining = qtyRemaining;
@@ -41,7 +42,9 @@ public class ReceivingListDetails implements Parcelable {
         sn = in.readInt();
         qtyOrdered = in.readInt();
         qtyRemaining = in.readInt();
-        expiryDate = in.readString();
+        year = in.readString();
+        month = in.readString();
+        day = in.readString();
     }
 
     public static final Creator<ReceivingListDetails> CREATOR = new Creator<ReceivingListDetails>() {
@@ -101,12 +104,28 @@ public class ReceivingListDetails implements Parcelable {
         this.qtyRemaining = qtyRemaining;
     }
 
-    public String getExpiryDate() {
-        return expiryDate;
+    public String getYear() {
+        return year;
     }
 
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     @Override
@@ -123,7 +142,9 @@ public class ReceivingListDetails implements Parcelable {
         dest.writeInt(sn);
         dest.writeInt(qtyOrdered);
         dest.writeInt(qtyRemaining);
-        dest.writeString(expiryDate);
+        dest.writeString(year);
+        dest.writeString(month);
+        dest.writeString(day);
     }
 
 }
