@@ -12,12 +12,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class HomePageActivityRec extends AppCompatActivity implements View.OnClickListener{
 
     public CardView c1, c2;
     DrawerLayout drawerLayout;
     String username;
+    //private long backPressedTime;
+    //private Toast backToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,22 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         if (getIntent().hasExtra("username")) {
             username = getIntent().getStringExtra("username");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getBaseContext(), "Please click the logout button to exit", Toast.LENGTH_SHORT).show();
+        return;
+       /*if(backPressedTime+2000 >System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        }else{
+            backToast= Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
+*/
     }
 
     //drawer settings

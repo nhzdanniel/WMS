@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText eName, ePassword;
     private String username, password;
     private String URL = "http://13.59.50.74/android_connect/login.php";
+
     //private Button eLogin;
 
     @Override
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         //eLogin = findViewById(R.id.btnLogin);
     }
 
+
     public void login(View view) {
         username = eName.getText().toString().trim();
         password = ePassword.getText().toString().trim();
@@ -52,13 +54,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.equals("pp")) {
                         Intent intent = new Intent(LoginActivity.this, HomePageActivityPp.class);
                         startActivity(intent);
-                        finish();
                     }
                     else if (response.equals("rec")) {
                         Intent intent = new Intent(LoginActivity.this, HomePageActivityRec.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
-                        finish();
                     }
                     else if (response.equals("failure")){
                         Toast.makeText(LoginActivity.this, "Invalid Username or Password. Please try again!", Toast.LENGTH_SHORT).show();
