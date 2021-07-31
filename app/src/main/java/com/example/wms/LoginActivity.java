@@ -52,11 +52,13 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.equals("pp")) {
                         Intent intent = new Intent(LoginActivity.this, HomePageActivityPp.class);
                         startActivity(intent);
+                        finish();
                     }
                     else if (response.equals("rec")) {
                         Intent intent = new Intent(LoginActivity.this, HomePageActivityRec.class);
                         intent.putExtra("username", username);
                         startActivity(intent);
+                        finish();
                     }
                     else if (response.equals("failure")){
                         Toast.makeText(LoginActivity.this, "Invalid Username or Password. Please try again!", Toast.LENGTH_SHORT).show();
