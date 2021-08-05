@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("response", response);
                     if (response.equals("pp")) {
                         Intent intent = new Intent(LoginActivity.this, HomePageActivityPp.class);
+                        intent.putExtra("username", username);
                         startActivity(intent);
                     }
                     else if (response.equals("rec")) {

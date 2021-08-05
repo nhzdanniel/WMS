@@ -44,7 +44,7 @@ import java.util.Map;
 public class IndividualPickingList extends AppCompatActivity implements View.OnClickListener/*implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener*/{
     private static final String TAG = "individualpickinglist";
     private String viewIndividualURL = "http://13.59.50.74/android_connect/viewindividualpl.php?PONum=";
-    private String updateStatusURL = "http://13.59.50.74/android_connect/updatePOoutstatus.php?PONum=";
+    private String updateStatusURL = "http://13.59.50.74/android_connect/updatePOoutstatus.php";
     private String updatePOoutsku = "http://13.59.50.74/android_connect/updatePOoutsku.php";
     private String updateprodinvurl = "http://13.59.50.74/android_connect/updateprodindv.php";
 
@@ -52,6 +52,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
     private PickingList pickingList;
     private Button scanButton;
     private Button updateButton;
+    String username;
 
 
 
@@ -75,7 +76,9 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         updateButton = findViewById(R.id.btn_update);
         updateButton.setOnClickListener(this);
 
-
+        if (getIntent().hasExtra("username")) {
+            username = getIntent().getStringExtra("username");
+        }
         if (getIntent().hasExtra("selectedPickingList")) {
             pickingList = getIntent().getParcelableExtra("selectedPickingList");
         }
@@ -149,7 +152,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.d("output", String.valueOf(pickingList.getPoNumber()));
-                //updateStatus(String.valueOf(pickingList.getPoNumber()));
+                updateStatus(String.valueOf(pickingList.getPoNumber()));
                 Log.d("Help", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
                 ArrayList<String> skuscans= new ArrayList<String>();
                 ArrayList<String> skulist = new ArrayList<String>();
@@ -265,11 +268,13 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
     private void updateStatus(String PONumber){
         Log.d("output", PONumber);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, updateStatusURL + PONumber, new Response.Listener<String>() {
+        String params = "?PONum="+PONumber+ "&username="+username;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, updateStatusURL + params, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 Log.d("response", "request success");
+                Log.d("response", response);
 
 
 

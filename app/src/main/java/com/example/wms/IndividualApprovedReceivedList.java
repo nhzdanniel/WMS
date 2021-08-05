@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class IndividualApprovedReceivedList extends AppCompatActivity implements ViewApprovedReceivedListDetailsAdapter.OnApprovedReceivedListDetailsListener, View.OnClickListener {
 
     private static final String TAG = "individualpickinglist";
-    private String URL = "http://13.59.50.74/android_connect/viewindividualapproverl.php";
+    private String URL = "http://13.59.50.74/android_connect/viewindividualapproverl.php?DONum=";
     private TextView poText, doText;
     private Button buttonPrint;
 
@@ -73,7 +73,7 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
 
         recyclerViewApprovedReceivedListDetails = findViewById(R.id.recyclerViewApprovedReceivedListDetails);
         approvedReceivedListDetails = new ArrayList<ApprovedReceivedListDetails>();
-        loadProducts();
+        loadProducts(String.valueOf(approvedReceivedList.getDoNumber()));
     }
 
     private void setReceivingListProperties() {
@@ -127,9 +127,9 @@ public class IndividualApprovedReceivedList extends AppCompatActivity implements
         recyclerViewApprovedReceivedListDetails.setAdapter(viewApprovedReceivedListDetailsAdapter);
     }
 
-    private void loadProducts() {
+    private void loadProducts(String DONum) {
         Log.d("output", "loadproducts");
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+ DONum, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
