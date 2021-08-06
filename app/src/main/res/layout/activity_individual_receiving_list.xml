@@ -93,62 +93,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <TableLayout
-            android:id="@+id/tableLayout2"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewReceivingListDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            android:stretchColumns="1, 2, 3, 4, 5"
+            android:layout_height="0dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
-
-            <!--<TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="S/N" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="UPC" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Product \nName" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Qty \nOrdered" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Qty \nReceive" />
-
-                <TextView
-                    android:layout_column="1"
-                    android:gravity="center"
-                    android:text="Qty \nRemaining" />
-
-            </TableRow>-->
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewReceivingListDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </TableLayout>
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <Button
             android:id="@+id/btn_update"
