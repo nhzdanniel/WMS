@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -80,9 +82,12 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         //might be problem
         updateButton.setOnClickListener(this);
 
-        if (getIntent().hasExtra("username")) {
+        /*if (getIntent().hasExtra("username")) {
             username = getIntent().getStringExtra("username");
-        }
+        }*/
+
+        SharedPreferences userDetails= getApplicationContext().getSharedPreferences("Myuser", Context.MODE_PRIVATE);
+        username = userDetails.getString("username", "");
 
         if (getIntent().hasExtra("selectedReceivingList")) {
             receivingList = getIntent().getParcelableExtra("selectedReceivingList");
@@ -389,6 +394,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
         Intent intent = new Intent (this, IndividualReceivingList.class);
         intent.putExtra("selectedReceivingListDetails", receivingListDetails.get(position));
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }

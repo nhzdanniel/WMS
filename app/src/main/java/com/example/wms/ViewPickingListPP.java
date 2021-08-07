@@ -39,7 +39,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
     ViewPickingListsRecyclerViewAdapterPP viewPickingListsRecyclerViewAdapterPP;
     DrawerLayout drawerLayout;
     ArrayList<PickingList> pickingList;
-    String username;
+    //String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +51,9 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
-        if (getIntent().hasExtra("username")) {
-            username = getIntent().getStringExtra("username");
-        }
+       // if (getIntent().hasExtra("username")) {
+       //     username = getIntent().getStringExtra("username");
+        //}
 
         recyclerviewPickingListPP = findViewById(R.id.recyclerviewPickingListPP);
         pickingList = new ArrayList<PickingList>();
@@ -171,7 +171,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
         Intent intent = new Intent (this, IndividualPickingList.class);
         intent.putExtra("selectedPickingList", pickingList.get(position));
-        intent.putExtra("username", username);
+        //intent.putExtra("username", username);
         startActivity(intent);
     }
 }

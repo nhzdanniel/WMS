@@ -8,9 +8,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,7 +21,6 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
 
     public CardView c1, c2;
     DrawerLayout drawerLayout;
-    String username;
     //private long backPressedTime;
     //private Toast backToast;
 
@@ -34,9 +36,7 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
         setSupportActionBar(toolbar);
 
         c1.setOnClickListener(this);
-        if (getIntent().hasExtra("username")) {
-            username = getIntent().getStringExtra("username");
-        }
+
     }
 
     @Override
@@ -129,7 +129,7 @@ public class HomePageActivityPp extends AppCompatActivity implements View.OnClic
         switch(v.getId()){
             case R.id.viewPickingList:
                 i = new Intent(this, ViewPickingListPP.class);
-                i.putExtra("username", username);
+                //i.putExtra("username", username);
                 startActivity(i);
                 break;
         }

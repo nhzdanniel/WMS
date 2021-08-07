@@ -8,8 +8,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -37,9 +39,11 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         c1.setOnClickListener(this);
         c2.setOnClickListener(this);
 
-        if (getIntent().hasExtra("username")) {
+        /*if (getIntent().hasExtra("username")) {
             username = getIntent().getStringExtra("username");
-        }
+        }*/
+        SharedPreferences userDetails= getApplicationContext().getSharedPreferences("Myuser", Context.MODE_PRIVATE);
+        username = userDetails.getString("username", "");
     }
 
     @Override
@@ -132,7 +136,7 @@ public class HomePageActivityRec extends AppCompatActivity implements View.OnCli
         switch(v.getId()) {
             case R.id.viewAllReceivingLists:
                 i = new Intent(this, ViewAllReceivingListREC.class);
-                i.putExtra("username", username);
+                //i.putExtra("username", username);
                 startActivity(i);
                 break;
 

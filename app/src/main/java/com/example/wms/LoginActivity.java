@@ -2,7 +2,9 @@ package com.example.wms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,12 +41,25 @@ public class LoginActivity extends AppCompatActivity {
         eName = findViewById(R.id.eTName);
         ePassword = findViewById(R.id.eTPassword);
         //eLogin = findViewById(R.id.btnLogin);
+
+
+
     }
 
 
     public void login(View view) {
         username = eName.getText().toString().trim();
         password = ePassword.getText().toString().trim();
+
+        SharedPreferences userDetails = getSharedPreferences("Myuser", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = userDetails.edit();
+
+        editor.putString("username", username);
+        editor.commit();
+        String stored = userDetails.getString("username","");
+        Log.d("oks",stored);
+
+
 
         if(!username.equals("") && !password.equals("")){
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -53,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("response", response);
                     if (response.equals("pp")) {
                         Intent intent = new Intent(LoginActivity.this, HomePageActivityPp.class);
-                        intent.putExtra("username", username);
+                        //intent.putExtra("username", username);
                         startActivity(intent);
                     }
                     else if (response.equals("rec")) {

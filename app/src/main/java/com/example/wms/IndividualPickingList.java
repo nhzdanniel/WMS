@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -56,6 +58,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
 
 
+
     RecyclerView recyclerviewPickingListDetails;
     ViewPickingListDetailsAdapter viewPickingListDetailsAdapter;
     ArrayList<PickingListDetails> pickingListDetails;
@@ -76,12 +79,16 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         updateButton = findViewById(R.id.btn_update);
         updateButton.setOnClickListener(this);
 
-        if (getIntent().hasExtra("username")) {
-            username = getIntent().getStringExtra("username");
-        }
+       // if (getIntent().hasExtra("username")) {
+       //     username = getIntent().getStringExtra("username");
+       // }
         if (getIntent().hasExtra("selectedPickingList")) {
             pickingList = getIntent().getParcelableExtra("selectedPickingList");
         }
+        SharedPreferences userDetails= getApplicationContext().getSharedPreferences("Myuser",Context.MODE_PRIVATE);
+        username = userDetails.getString("username", "");
+
+
 
         setPickingListProperties();
 
