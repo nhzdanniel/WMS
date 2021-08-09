@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("oks",stored);
 
 
-
         if(!username.equals("") && !password.equals("")){
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
