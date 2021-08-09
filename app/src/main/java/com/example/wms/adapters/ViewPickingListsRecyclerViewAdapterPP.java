@@ -45,7 +45,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
         if (pickingList != null && pickingList.size() > 0) {
             PickingList pl = pickingList.get(position);
             holder.tv_sn.setText(String.valueOf(pl.getSn()));
-            holder.tv_po_number.setText(String.valueOf(pl.getPoNumber()));
+            holder.tv_po_number.setText(String.valueOf(pl.getSoNumber()));
             holder.tv_company_name.setText(pl.getCompanyName());
             holder.tv_date.setText(pl.getDate());
 
@@ -77,7 +77,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for (PickingList pickingList : masterPickingList){
-                    if (String.valueOf(pickingList.poNumber).contains(filterPattern) || pickingList.companyName.toLowerCase().contains(filterPattern) ||
+                    if (String.valueOf(pickingList.soNumber).contains(filterPattern) || pickingList.companyName.toLowerCase().contains(filterPattern) ||
                             String.valueOf(pickingList.date).contains(filterPattern)){
                         filteredPickingList.add(pickingList);
                     }

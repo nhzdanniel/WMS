@@ -115,8 +115,9 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
                         int PONum = productObject.getInt("PONum");
                         String company = productObject.getString("company");
                         String date = productObject.getString("date_created");
+                        int SONum = productObject.getInt("SONum");
 
-                        PickingList product = new PickingList(i+1, company, PONum, date);
+                        PickingList product = new PickingList(i+1, company, PONum, date, SONum);
                         pickingList.add(product);
 
 

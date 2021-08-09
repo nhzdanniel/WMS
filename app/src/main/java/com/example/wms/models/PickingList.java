@@ -6,19 +6,21 @@ import android.os.Parcelable;
 public class PickingList implements Parcelable {
 
     public String companyName,date;
-    public int poNumber, sn;
+    public int poNumber, sn, soNumber;
 
-    public PickingList(int sn, String companyName, int poNumber, String date) {
+    public PickingList(int sn, String companyName, int poNumber, String date, int soNumber) {
         this.sn = sn;
         this.companyName = companyName;
         this.poNumber = poNumber;
         this.date = date;
+        this.soNumber=soNumber;
     }
 
     protected PickingList(Parcel in) {
         companyName = in.readString();
         date = in.readString();
         poNumber = in.readInt();
+        soNumber = in.readInt();
     }
 
     public static final Creator<PickingList> CREATOR = new Creator<PickingList>() {
@@ -65,6 +67,9 @@ public class PickingList implements Parcelable {
         this.date = date;
     }
 
+    public int getSoNumber() {return soNumber;}
+    public void setSoNumber(int soNumber) {this.soNumber= soNumber;}
+
     @Override
     public int describeContents() {
         return 0;
@@ -75,5 +80,6 @@ public class PickingList implements Parcelable {
         dest.writeString(companyName);
         dest.writeString(date);
         dest.writeInt(poNumber);
+        dest.writeInt(soNumber);
     }
 }
