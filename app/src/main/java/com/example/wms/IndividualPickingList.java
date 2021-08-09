@@ -45,7 +45,7 @@ import java.util.Map;
 
 public class IndividualPickingList extends AppCompatActivity implements View.OnClickListener/*implements ViewPickingListDetailsAdapter.OnPickingListDetailsListener*/{
     private static final String TAG = "individualpickinglist";
-    private String viewIndividualURL = "http://13.59.50.74/android_connect/viewindividualpl.php?PONum=";
+    private String viewIndividualURL = "http://13.59.50.74/android_connect/viewindividualpl.php?SONum=";
     private String updateStatusURL = "http://13.59.50.74/android_connect/updatePOoutstatus.php";
     private String updatePOoutsku = "http://13.59.50.74/android_connect/updatePOoutsku.php";
     private String updateprodinvurl = "http://13.59.50.74/android_connect/updateprodindv.php";
@@ -97,9 +97,9 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
     }
 
     private void setPickingListProperties() {
-        poText.setText(String.valueOf(pickingList.getPoNumber()));
+        poText.setText(String.valueOf(pickingList.getSoNumber()));
         companyText.setText(pickingList.getCompanyName());
-        loadProducts(String.valueOf(pickingList.getPoNumber()));
+        loadProducts(String.valueOf(pickingList.getSoNumber()));
     }
 
     //drawer settings
@@ -217,9 +217,9 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void loadProducts(String PONumber){
-        Log.d("output", PONumber);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, viewIndividualURL + PONumber, new Response.Listener<String>() {
+    private void loadProducts(String SONumber){
+        Log.d("output", SONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, viewIndividualURL + SONumber, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
