@@ -128,7 +128,7 @@
 
     </TextView>
 
-    <TextView
+<!--    <TextView
         android:id="@+id/tv_product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_sn"
         app:layout_constraintVertical_bias="0.103">
 
-    </TextView>
+    </TextView>-->
 
     <TextView
         android:id="@+id/textView7"
@@ -158,17 +158,17 @@
 
     </TextView>
 
-<!--    <ScrollView
+    <ScrollView
         android:id="@+id/sv_prod_name"
         android:layout_width="282dp"
         android:layout_height="20dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/et_year"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/tv_sn"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/tv_product_name"
@@ -177,7 +177,7 @@
             android:text="textview_product_name">
 
         </TextView>
-    </ScrollView>-->
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView12"
@@ -199,8 +199,8 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tv_product_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+        app:layout_constraintStart_toStartOf="@+id/sv_prod_name"
+        app:layout_constraintTop_toBottomOf="@+id/sv_prod_name" />
 
     <TextView
         android:id="@+id/textView13"
