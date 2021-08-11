@@ -62,7 +62,8 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
                 for (ReceivingListDetails receivingListDetails : masterReceivingListDetails){
                     if (receivingListDetails.productName.toLowerCase().contains(filterPattern) || String.valueOf(receivingListDetails.sn).contains(filterPattern) ||
                               String.valueOf(receivingListDetails.qtyOrdered).contains(filterPattern) ||
-                            String.valueOf(receivingListDetails.qtyReceived).contains(filterPattern) || String.valueOf(receivingListDetails.qtyRemaining).contains(filterPattern)){
+                            String.valueOf(receivingListDetails.qtyReceived).contains(filterPattern) || String.valueOf(receivingListDetails.qtyRemaining).contains(filterPattern)
+                    ||String.valueOf(receivingListDetails.upc).contains(filterPattern)){
                         filteredReceivingListDetails.add(receivingListDetails);
                     }
                 }
@@ -99,6 +100,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
             holder.tv_qty_received.setText(String.valueOf(rld.getQtyReceived()));
             holder.tv_qty_remaining.setText(String.valueOf(rld.getQtyRemaining()));
             holder.expiryDate.setText("");
+            holder.tv_upc.setText(String.valueOf(rld.getUpc()));
 
             //holder.et_month.setText(String.valueOf(rld.getMonth()));
             //holder.et_day.setText(String.valueOf(rld.getDay()));
@@ -119,7 +121,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView tv_sn, tv_product_name, tv_qty_ordered, tv_qty_remaining;
+        TextView tv_sn, tv_product_name, tv_qty_ordered, tv_qty_remaining, tv_upc;
         EditText tv_qty_received, expiryDate, et_month, et_day;
         DatePickerDialog.OnDateSetListener dateSetListener;
         OnReceivingListDetailsListener onReceivingListDetailsListener;
@@ -133,6 +135,7 @@ public class ViewReceivingListDetailsAdapter extends RecyclerView.Adapter<ViewRe
             tv_qty_received = itemView.findViewById(R.id.tv_qty_received);
             tv_qty_remaining = itemView.findViewById(R.id.tv_qty_remaining);
             expiryDate = itemView.findViewById(R.id.et_year);
+            tv_upc = itemView.findViewById(R.id.tv_upc);
             //et_month = itemView.findViewById(R.id.et_month);
             //et_day = itemView.findViewById(R.id.et_day);
 

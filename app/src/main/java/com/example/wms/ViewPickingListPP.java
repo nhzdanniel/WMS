@@ -107,18 +107,22 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
             public void onResponse(String response) {
                 try {
                     JSONArray products = new JSONArray(response);
-
                     for(int i = 0; i<products.length(); i++)
                     {
                         JSONObject productObject = products.getJSONObject(i);
+                        Log.d("prdobj", String.valueOf(productObject));
                         //int sn = productObject.getInt("sn");
                         int PONum = productObject.getInt("PONum");
                         String company = productObject.getString("company");
                         String date = productObject.getString("date_created");
-                        int SONum = productObject.getInt("SONum");
+                        Log.d("ifnull", String.valueOf(productObject.isNull("SONum")));
+                        if(!productObject.isNull("SONum") && !(productObject.getString("SONum").isEmpty())) {
+                            Log.d("obj", String.valueOf(productObject.get("SONum")));
+                            int SONum = Integer.parseInt(productObject.getString("SONum"));
+                            PickingList product = new PickingList(i + 1, company, PONum, date, SONum);
+                            pickingList.add(product);
+                        }
 
-                        PickingList product = new PickingList(i+1, company, PONum, date, SONum);
-                        pickingList.add(product);
 
 
                     }
