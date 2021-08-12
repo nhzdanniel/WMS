@@ -203,14 +203,11 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
             public void onResponse(String response) {
                 Log.d("response", "request success");
                 Log.d("response", response);
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("error", error.getMessage());
-
             }
         })
         {
@@ -230,7 +227,6 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                 {
                     params.put(PONumupc.get(i), String.valueOf(qtylist.get(i)));
                 }
-
 
                 return params;
             }
@@ -398,30 +394,3 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         startActivity(intent);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

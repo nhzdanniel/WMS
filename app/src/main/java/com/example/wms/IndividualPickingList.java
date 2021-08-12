@@ -159,10 +159,10 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.d("output", String.valueOf(pickingList.getPoNumber()));
-                updateStatus(String.valueOf(pickingList.getPoNumber()));
                 Log.d("Help", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
                 ArrayList<String> skuscans= new ArrayList<String>();
                 ArrayList<String> skulist = new ArrayList<String>();
+                ArrayList<Integer> upclist = new ArrayList<Integer>();
                 for(int i=0; i<viewPickingListDetailsAdapter.pickingListDetails.size();i++){
                     skuscans.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getSkuScanned());
                 }
@@ -170,11 +170,13 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
                     skulist.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getSku());
                 }
 
+                for(int i =0; i<viewPickingListDetailsAdapter.pickingListDetails.size();i++){
+                    upclist.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getUpc());
+                }
+
                 Log.d("suicide", String.valueOf(skuscans));
-                updateprodindv(skuscans);
-                updatesku(skuscans, skulist);
-                Intent intent = new Intent (IndividualPickingList.this, HomePageActivityPp.class);
-                IndividualPickingList.this.startActivity(intent);
+                updateprodindv(skuscans, skulist, upclist);
+
 
             }
         });
@@ -298,15 +300,36 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
-    private void updateprodindv(ArrayList<String> skuscans){
+    private void updateprodindv(ArrayList<String> skuscans, ArrayList<String> skulist,  ArrayList<Integer> upclist ){
         //Log.d("output", skulist);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, updateprodinvurl, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d("response", response);
+                Log.d("coitus", response);
+                if(response.equals("Failure"))
+                {
+                    Log.d("jef", "insideif");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(IndividualPickingList.this);
 
+                    builder.setCancelable(true);
+                    builder.setTitle("Fail");
+                    builder.setMessage("The SKU picked is either not of the same type of product.");
 
+                    builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                }
+                else{
+                    updateStatus(String.valueOf(pickingList.getPoNumber()));
+                    updatesku(skuscans, skulist);
+                    Intent intent = new Intent (IndividualPickingList.this, HomePageActivityPp.class);
+                    IndividualPickingList.this.startActivity(intent);
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -320,9 +343,10 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
+                //int upc = Integer.valueOf(pickingList.ge);
                 for(int i=0; i<skuscans.size();i++)
                 {
-                    params.put("skuscan"+i, skuscans.get(i));
+                    params.put(skulist.get(i), upclist.get(i)+"-"+skuscans.get(i));
                 }
                 Log.d("params", String.valueOf(params));
 
