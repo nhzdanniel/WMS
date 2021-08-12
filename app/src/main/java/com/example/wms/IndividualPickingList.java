@@ -146,7 +146,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
         builder.setCancelable(true);
         builder.setTitle("Please ensure that all SKU is filled.");
-        builder.setMessage("If the SKU can't be found, use another SKU and notify Supervisor.");
+        builder.setMessage("If the SKU can't be found, use another SKU of the same product.");
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -159,7 +159,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.d("output", String.valueOf(pickingList.getPoNumber()));
-                Log.d("Help", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
+                Log.d("output", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
                 ArrayList<String> skuscans= new ArrayList<String>();
                 ArrayList<String> skulist = new ArrayList<String>();
                 ArrayList<Integer> upclist = new ArrayList<Integer>();
@@ -174,7 +174,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
                     upclist.add(viewPickingListDetailsAdapter.pickingListDetails.get(i).getUpc());
                 }
 
-                Log.d("suicide", String.valueOf(skuscans));
+                Log.d("output", String.valueOf(skuscans));
                 updateprodindv(skuscans, skulist, upclist);
 
 
@@ -306,15 +306,30 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
             @Override
             public void onResponse(String response) {
-                Log.d("coitus", response);
+                Log.d("try", response);
                 if(response.equals("Failure"))
                 {
                     Log.d("jef", "insideif");
                     AlertDialog.Builder builder = new AlertDialog.Builder(IndividualPickingList.this);
 
                     builder.setCancelable(true);
+                    builder.setTitle("Unsucessful");
+                    builder.setMessage("The SKU picked not of the same product or has been packed or delivered. Please pick another SKU. ");
+
+                    builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                }
+                else if (response.equals("Fail")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(IndividualPickingList.this);
+
+                    builder.setCancelable(true);
                     builder.setTitle("Fail");
-                    builder.setMessage("The SKU picked is either not of the same type of product.");
+                    builder.setMessage("The SKU typed is not available in the system's database. Please pick another SKU.");
 
                     builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
