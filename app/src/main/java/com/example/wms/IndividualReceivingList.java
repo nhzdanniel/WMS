@@ -53,6 +53,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
     private String URL = "http://13.59.50.74/android_connect/viewindividualrl.php?PONum=";
     private String updateqty = "http://13.59.50.74/android_connect/updateqtyrcv.php";
     private String addinfourl = "http://13.59.50.74/android_connect/addinfo.php";
+    private String updateStatusURL = "http://13.59.50.74/android_connect/updatePOinstatus.php?PONum=";
 
 
     private TextView poText, supplierText, etaText;
@@ -170,6 +171,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
                     qtylist.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getQtyReceived());
                     expirydates.add(viewReceivingListDetailsAdapter.receivingListDetails.get(i).getExpirydate());
                 }
+                updateStatus(String.valueOf(receivingList.getPoNumber()));
                 updatequantity(upc, qtylist);
                 addinfo(upc, qtylist,expirydates);
 
@@ -195,6 +197,31 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         viewReceivingListDetailsAdapter = new ViewReceivingListDetailsAdapter(this,receivingListDetails, this);
         recyclerViewReceivingListDetails.setAdapter(viewReceivingListDetailsAdapter);
     }
+
+    private void updateStatus(String PONumber){
+        Log.d("output", PONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, updateStatusURL + PONumber, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
 
     private void updatequantity(ArrayList<String> upc, ArrayList<String> qtylist){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, updateqty, new Response.Listener<String>() {

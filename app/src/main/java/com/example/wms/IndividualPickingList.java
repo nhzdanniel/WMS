@@ -401,7 +401,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         {
             params.put(skulist.get(i),skuscans.get(i));
         }
-            Log.d("params", String.valueOf(params));
+            Log.d("hehe", String.valueOf(params));
 
             return params;
     }
