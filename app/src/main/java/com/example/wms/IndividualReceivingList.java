@@ -54,7 +54,8 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
     private String updateqty = "http://13.59.50.74/android_connect/updateqtyrcv.php";
     private String addinfourl = "http://13.59.50.74/android_connect/addinfo.php";
     private String updateStatusURL = "http://13.59.50.74/android_connect/updatePOinstatus.php?PONum=";
-
+    private String updatewip = "http://13.59.50.74/android_connect/receiverwip.php?PONum=";
+    private String wiprevert = "http://13.59.50.74/android_connect/receiverrevert.php?PONum=";
 
     private TextView poText, supplierText, etaText;
     private ReceivingList receivingList;
@@ -98,6 +99,7 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
         recyclerViewReceivingListDetails = findViewById(R.id.recyclerViewReceivingListDetails);
         receivingListDetails = new ArrayList<ReceivingListDetails>();
+        updatewip(String.valueOf(receivingList.getPoNumber()));
     }
 
     private void setReceivingListProperties() {
@@ -189,6 +191,13 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
     }
 
+    @Override
+    public void onBackPressed() {
+        revertwip(String.valueOf(receivingList.getPoNumber()));
+        Intent intent = new Intent (this, HomePageActivityRec.class);
+        startActivity(intent);
+    }
+
     private void setRecyclerView(){
         recyclerViewReceivingListDetails.setHasFixedSize(true);
         recyclerViewReceivingListDetails.setLayoutManager(new LinearLayoutManager(this));
@@ -197,6 +206,56 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
         viewReceivingListDetailsAdapter = new ViewReceivingListDetailsAdapter(this,receivingListDetails, this);
         recyclerViewReceivingListDetails.setAdapter(viewReceivingListDetailsAdapter);
     }
+
+    private void updatewip(String PONumber){
+        Log.d("output", PONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, updatewip + PONumber, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    private void revertwip(String PONumber){
+        Log.d("output", PONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, wiprevert + PONumber, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+
 
     private void updateStatus(String PONumber){
         Log.d("output", PONumber);

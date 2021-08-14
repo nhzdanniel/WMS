@@ -154,6 +154,7 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                Log.d("search",newText);
                 viewAllReceivingListAdapter.getFilter().filter(newText);
                 return false;
             }
@@ -164,7 +165,6 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     @Override
     public void onReceivingListClick(int position) {
         //Log.d (TAG, "onPPClick: clicked" + position);
-
         Intent intent = new Intent (this, IndividualReceivingList.class);
         intent.putExtra("selectedReceivingList", receivingList.get(position));
         //intent.putExtra("username", username);

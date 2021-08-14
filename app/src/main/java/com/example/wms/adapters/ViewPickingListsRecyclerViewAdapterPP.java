@@ -1,6 +1,7 @@
 package com.example.wms.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.wms.models.PickingList;
 import com.example.wms.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<ViewPickingListsRecyclerViewAdapterPP.ViewHolder> implements Filterable {
 
@@ -23,6 +25,8 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
 
     ArrayList<PickingList> pickingList;
     ArrayList<PickingList> masterPickingList;
+    ArrayList<PickingList> filteredPickingList;
+
 
     private OnPickingListListener mOnPickingListListener;
 
@@ -70,7 +74,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     private final Filter pickingListFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<PickingList> filteredPickingList = new ArrayList<>();
+            filteredPickingList = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0){
                 filteredPickingList.addAll(masterPickingList);
@@ -93,7 +97,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             pickingList.clear();
-            pickingList.addAll((ArrayList)results.values);
+            pickingList.addAll((ArrayList) results.values);
             notifyDataSetChanged();
         }
     };

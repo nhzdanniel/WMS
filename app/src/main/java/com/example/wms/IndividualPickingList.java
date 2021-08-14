@@ -49,6 +49,8 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
     private String updateStatusURL = "http://13.59.50.74/android_connect/updatePOoutstatus.php";
     private String updatePOoutsku = "http://13.59.50.74/android_connect/updatePOoutsku.php";
     private String updateprodinvurl = "http://13.59.50.74/android_connect/updateprodindv.php";
+    private String updatewip = "http://13.59.50.74/android_connect/pickerwip.php?PONum=";
+    private String wiprevert = "http://13.59.50.74/android_connect/pickerrevert.php?PONum=";
 
     private TextView poText, companyText;
     private PickingList pickingList;
@@ -94,6 +96,8 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
         recyclerviewPickingListDetails = findViewById(R.id.recyclerviewPickingListDetails);
         pickingListDetails = new ArrayList<PickingListDetails>();
+        updatewip(String.valueOf(pickingList.getPoNumber()));
+
     }
 
     private void setPickingListProperties() {
@@ -185,6 +189,13 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
     }
 
+    @Override
+    public void onBackPressed() {
+        revertwip(String.valueOf(pickingList.getPoNumber()));
+        Intent intent = new Intent (this, HomePageActivityPp.class);
+        startActivity(intent);
+    }
+
     public void setRecyclerView(){
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         recyclerviewPickingListDetails.addItemDecoration(itemDecorator);
@@ -273,6 +284,55 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
         Volley.newRequestQueue(this).add(stringRequest);
     }
+
+    private void updatewip(String PONumber){
+        Log.d("output", PONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, updatewip + PONumber, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    private void revertwip(String PONumber){
+        Log.d("output", PONumber);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, wiprevert + PONumber, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", "request success");
+                Log.d("response", response);
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error.getMessage());
+
+            }
+        });
+        Log.d("output", stringRequest.toString());
+
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
+
 
 
     private void updateStatus(String PONumber){

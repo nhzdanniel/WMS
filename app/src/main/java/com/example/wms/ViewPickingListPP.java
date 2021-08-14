@@ -158,12 +158,14 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 viewPickingListsRecyclerViewAdapterPP.getFilter().filter(newText);
+                Log.d("pickinglist", String.valueOf(pickingList.get(0).getSoNumber()));
                 return false;
             }
         });
@@ -173,6 +175,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
     @Override
     public void onPickingListClick(int position) {
         Log.d (TAG, "onPPClick: clicked" + position);
+        Log.d("results", String.valueOf(pickingList.get(position).getSoNumber()));
 
         Intent intent = new Intent (this, IndividualPickingList.class);
         intent.putExtra("selectedPickingList", pickingList.get(position));
