@@ -21,17 +21,21 @@ import java.util.ArrayList;
 public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<ViewAllApprovedReceivedListsAdapter.ViewHolder> implements Filterable {
 
     Context context;
-
-    ArrayList<ApprovedReceivedList> approvedReceivedList;
-    ArrayList<ApprovedReceivedList> masterApprovedReceivedList;
-
+    ArrayList<ApprovedReceivedList> approvedReceivedList = new ArrayList<>();
+    ArrayList<ApprovedReceivedList> masterApprovedReceivedList = new ArrayList<>();
     private OnApprovedReceivedListListener mOnApprovedReceivedListListener;
 
-    public ViewAllApprovedReceivedListsAdapter (Context context, ArrayList<ApprovedReceivedList> approvedReceivedList, OnApprovedReceivedListListener onApprovedReceivedListListener){
+    public ViewAllApprovedReceivedListsAdapter (Context context, OnApprovedReceivedListListener onApprovedReceivedListListener){
         this.context = context;
-        this.masterApprovedReceivedList = approvedReceivedList;
-        this.approvedReceivedList = new ArrayList<>(masterApprovedReceivedList);
         this.mOnApprovedReceivedListListener = onApprovedReceivedListListener;
+    }
+
+    public void submitList(ArrayList<ApprovedReceivedList> listItem){
+        approvedReceivedList.clear();
+        approvedReceivedList.addAll(listItem);
+        masterApprovedReceivedList.clear();
+        masterApprovedReceivedList.addAll(approvedReceivedList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -45,18 +49,12 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
     public void onBindViewHolder(@NonNull ViewAllApprovedReceivedListsAdapter.ViewHolder holder, int position) {
         if (approvedReceivedList != null && approvedReceivedList.size() > 0) {
             ApprovedReceivedList arl = approvedReceivedList.get(position);
-            holder.tv_sn.setText(String.valueOf(arl.getSn()));
+            holder.bindArl(arl);
+/*            holder.tv_sn.setText(String.valueOf(arl.getSn()));
             holder.tv_po_number.setText(String.valueOf(arl.getPoNumber()));
             holder.tv_do_number.setText(String.valueOf(arl.getDoNumber()));
             holder.tv_supplier_name.setText(arl.getSupplierName());
-            holder.tv_eta.setText(arl.getEta());
-
-/*            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, )
-                }
-            });*/
+            holder.tv_eta.setText(arl.getEta());*/
         }
     }
 
@@ -69,6 +67,7 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
     public Filter getFilter() {
         return approvedReceivedListFilter;
     }
+
     private final Filter approvedReceivedListFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -76,9 +75,11 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
 
             if (constraint == null || constraint.length() == 0){
                 filteredApprovedReceivedList.addAll(masterApprovedReceivedList);
-            } else {
+            }
+            else{
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (ApprovedReceivedList approvedReceivedList : masterApprovedReceivedList){
+
+                for (ApprovedReceivedList approvedReceivedList : approvedReceivedList){
                     if (String.valueOf(approvedReceivedList.poNumber).contains(filterPattern) || approvedReceivedList.supplierName.toLowerCase().contains(filterPattern) ||
                             String.valueOf(approvedReceivedList.doNumber).contains(filterPattern)){
                         filteredApprovedReceivedList.add(approvedReceivedList);
@@ -94,18 +95,40 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            approvedReceivedList.clear();
-            approvedReceivedList.addAll((ArrayList)results.values);
-            notifyDataSetChanged();
+            ArrayList<ApprovedReceivedList> searchResult = (ArrayList<ApprovedReceivedList>) results.values;
+            if (searchResult != null && ! searchResult.isEmpty()){
+                approvedReceivedList.clear();
+                approvedReceivedList.addAll(searchResult);
+                notifyDataSetChanged();
+            }
+            else {
+                approvedReceivedList.clear();
+                approvedReceivedList.addAll(masterApprovedReceivedList);
+                notifyDataSetChanged();
+            }
         }
     };
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_sn, tv_po_number, tv_do_number, tv_supplier_name, tv_eta;
         OnApprovedReceivedListListener onApprovedReceivedListListener;
         //ConstraintLayout parentLayout;
+
+        public void bindArl (ApprovedReceivedList arl){
+            tv_sn.setText(String.valueOf(arl.getSn()));
+            tv_po_number.setText(String.valueOf(arl.getPoNumber()));
+            tv_do_number.setText(String.valueOf(arl.getDoNumber()));
+            tv_supplier_name.setText(arl.getSupplierName());
+            tv_eta.setText(arl.getEta());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onApprovedReceivedListListener.onApprovedReceivedListClick(arl);
+                }
+            });
+        }
 
         public ViewHolder(@NonNull View itemView, OnApprovedReceivedListListener onApprovedReceivedListListener) {
             super(itemView);
@@ -117,16 +140,10 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
             tv_do_number = itemView.findViewById(R.id.tv_do_number);
             this.onApprovedReceivedListListener = onApprovedReceivedListListener;
             //parentLayout = itemView.findViewById(R.id.pickingListLayout);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            onApprovedReceivedListListener.onApprovedReceivedListClick(getAdapterPosition());
         }
     }
 
     public interface OnApprovedReceivedListListener{
-        void onApprovedReceivedListClick(int position);
+        void onApprovedReceivedListClick(ApprovedReceivedList arl);
     }
 }

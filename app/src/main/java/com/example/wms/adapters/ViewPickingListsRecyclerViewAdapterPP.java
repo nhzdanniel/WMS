@@ -20,11 +20,8 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
 
     Context context;
     private static final String TAG = "ViewPickingListsRecyclerViewAdapterPP";
-
     ArrayList<PickingList> currentList = new ArrayList<>();
     ArrayList<PickingList> currentListBackup = new ArrayList<>();
-
-
     private OnPickingListListener mOnPickingListListener;
 
     public ViewPickingListsRecyclerViewAdapterPP (Context context, OnPickingListListener onPickingListListener){
@@ -64,13 +61,17 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     public Filter getFilter() {
         return pickingListFilter;
     }
+
     private final Filter pickingListFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-
             ArrayList<PickingList> filterResult = new ArrayList<>();
 
-            if (constraint != null || constraint.length() != 0){
+            if (constraint == null || constraint.length() == 0){
+                filterResult.addAll(currentListBackup);
+            }
+            else{
+
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (PickingList pickedItem : currentList){
@@ -108,7 +109,6 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
 
         TextView tv_sn, tv_po_number, tv_company_name, tv_date;
         OnPickingListListener onPickingListListener;
-
         //ConstraintLayout parentLayout;
 
         public void bind (PickingList pl){
@@ -133,13 +133,10 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
             tv_date = itemView.findViewById(R.id.tv_date);
             this.onPickingListListener = onPickingListListener;
             //parentLayout = itemView.findViewById(R.id.pickingListLayout);
-
         }
-
     }
 
     public interface OnPickingListListener{
         void onPickingListClick(PickingList pl);
     }
-
 }

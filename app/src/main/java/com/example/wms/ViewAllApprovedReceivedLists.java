@@ -22,9 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wms.adapters.ViewAllApprovedReceivedListsAdapter;
-import com.example.wms.adapters.ViewAllReceivingListAdapter;
 import com.example.wms.models.ApprovedReceivedList;
-import com.example.wms.models.ReceivingList;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 
 import org.json.JSONArray;
@@ -86,7 +84,8 @@ public class  ViewAllApprovedReceivedLists extends AppCompatActivity implements 
     }
 
     private void setRecyclerView(){
-        viewAllApprovedReceivedListsAdapter = new ViewAllApprovedReceivedListsAdapter(this,approvedreceivingList, this);
+        viewAllApprovedReceivedListsAdapter = new ViewAllApprovedReceivedListsAdapter(this, this);
+        viewAllApprovedReceivedListsAdapter.submitList(approvedreceivingList);
         recyclerviewApprovedReceivedList.setAdapter(viewAllApprovedReceivedListsAdapter);
         recyclerviewApprovedReceivedList.setHasFixedSize(true);
         recyclerviewApprovedReceivedList.setLayoutManager(new LinearLayoutManager(this));
@@ -156,11 +155,11 @@ public class  ViewAllApprovedReceivedLists extends AppCompatActivity implements 
     }
 
     @Override
-    public void onApprovedReceivedListClick(int position) {
+    public void onApprovedReceivedListClick(ApprovedReceivedList arl) {
         //Log.d (TAG, "onPPClick: clicked" + position);
 
         Intent intent = new Intent (this, IndividualApprovedReceivedList.class);
-        intent.putExtra("selectedApprovedReceivedList", approvedreceivingList.get(position));
+        intent.putExtra("selectedApprovedReceivedList", arl);
         startActivity(intent);
     }
 }
