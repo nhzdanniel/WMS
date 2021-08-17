@@ -70,12 +70,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
 
             ArrayList<PickingItem> filterResult = new ArrayList<>();
 
-            if (constraint == null || constraint.length() == 0){
-                currentList.clear();
-                currentList.addAll(currentListBackup);
-                notifyDataSetChanged();
-
-            } else {
+            if (constraint != null || constraint.length() != 0){
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (PickingItem pickedItem : currentList){
@@ -99,6 +94,11 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
             if (searchResult != null && ! searchResult.isEmpty()){
                 currentList.clear();
                 currentList.addAll(searchResult);
+                notifyDataSetChanged();
+            }
+            else {
+                currentList.clear();
+                currentList.addAll(currentListBackup);
                 notifyDataSetChanged();
             }
         }
