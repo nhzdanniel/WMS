@@ -89,7 +89,8 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     }
 
     private void setRecyclerView(){
-        viewAllReceivingListAdapter = new ViewAllReceivingListAdapter(this,receivingList, this);
+        viewAllReceivingListAdapter = new ViewAllReceivingListAdapter(this, this);
+        viewAllReceivingListAdapter.submitList(receivingList);
         recyclerviewReceivingList.setAdapter(viewAllReceivingListAdapter);
         recyclerviewReceivingList.setHasFixedSize(true);
         recyclerviewReceivingList.setLayoutManager(new LinearLayoutManager(this));
@@ -161,10 +162,10 @@ public class ViewAllReceivingListREC extends AppCompatActivity implements ViewAl
     }
 
     @Override
-    public void onReceivingListClick(int position) {
+    public void onReceivingListClick(ReceivingList rl) {
         //Log.d (TAG, "onPPClick: clicked" + position);
         Intent intent = new Intent (this, IndividualReceivingList.class);
-        intent.putExtra("selectedReceivingList", receivingList.get(position));
+        intent.putExtra("selectedReceivingList", rl);
         //intent.putExtra("username", username);
         startActivity(intent);
     }

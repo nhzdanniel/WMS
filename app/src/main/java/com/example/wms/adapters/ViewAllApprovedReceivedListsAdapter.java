@@ -109,7 +109,6 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
         }
     };
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_sn, tv_po_number, tv_do_number, tv_supplier_name, tv_eta;

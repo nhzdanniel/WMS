@@ -17,18 +17,23 @@ import com.example.wms.models.ReceivingList;
 import java.util.ArrayList;
 
 public class ViewAllReceivingListAdapter extends RecyclerView.Adapter<ViewAllReceivingListAdapter.ViewHolder> implements Filterable {
+
     Context context;
-
-    ArrayList<ReceivingList> receivingList;
-    ArrayList<ReceivingList> masterReceivingList;
-
+    ArrayList<ReceivingList> receivingList = new ArrayList<>();
+    ArrayList<ReceivingList> masterReceivingList = new ArrayList<>();
     private OnReceivingListListener mOnReceivingListListener;
 
-    public ViewAllReceivingListAdapter (Context context, ArrayList<ReceivingList> receivingList, OnReceivingListListener onReceivingListListener){
+    public ViewAllReceivingListAdapter (Context context, OnReceivingListListener onReceivingListListener){
         this.context = context;
-        this.masterReceivingList = receivingList;
-        this.receivingList = new ArrayList<>(masterReceivingList);
         this.mOnReceivingListListener = onReceivingListListener;
+    }
+
+    public void submitList (ArrayList<ReceivingList> listItem){
+        receivingList.clear();
+        receivingList.addAll(listItem);
+        masterReceivingList.clear();
+        masterReceivingList.addAll(receivingList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -42,18 +47,7 @@ public class ViewAllReceivingListAdapter extends RecyclerView.Adapter<ViewAllRec
     public void onBindViewHolder(@NonNull ViewAllReceivingListAdapter.ViewHolder holder, int position) {
         if (receivingList != null && receivingList.size() > 0) {
             ReceivingList rl = receivingList.get(position);
-            holder.tv_sn.setText(String.valueOf(rl.getSn()));
-            holder.tv_po_number.setText(String.valueOf(rl.getPoNumber()));
-            holder.tv_supplier_name.setText(rl.getSupplierName());
-            holder.tv_eta.setText(rl.getEta());
-            holder.tv_status.setText(rl.getStatus());
-
-/*            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, )
-                }
-            });*/
+            holder.bindrl(rl);
         }
     }
 
@@ -75,7 +69,7 @@ public class ViewAllReceivingListAdapter extends RecyclerView.Adapter<ViewAllRec
                 filteredReceivingList.addAll(masterReceivingList);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (ReceivingList receivingList : masterReceivingList){
+                for (ReceivingList receivingList : receivingList){
                     if (String.valueOf(receivingList.poNumber).contains(filterPattern) || receivingList.supplierName.toLowerCase().contains(filterPattern) ||
                             receivingList.status.toLowerCase().contains(filterPattern)){
                         filteredReceivingList.add(receivingList);
@@ -91,17 +85,39 @@ public class ViewAllReceivingListAdapter extends RecyclerView.Adapter<ViewAllRec
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            receivingList.clear();
-            receivingList.addAll((ArrayList)results.values);
-            notifyDataSetChanged();
+            ArrayList<ReceivingList> searchResult = (ArrayList<ReceivingList>) results.values;
+            if (searchResult != null && ! searchResult.isEmpty()){
+                receivingList.clear();
+                receivingList.addAll(searchResult);
+                notifyDataSetChanged();
+            }
+            else{
+                receivingList.clear();
+                receivingList.addAll(masterReceivingList);
+                notifyDataSetChanged();
+            }
         }
     };
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_sn, tv_po_number, tv_supplier_name, tv_eta, tv_status;
         OnReceivingListListener onReceivingListListener;
         //ConstraintLayout parentLayout;
+
+        public void bindrl (ReceivingList rl){
+            tv_sn.setText(String.valueOf(rl.getSn()));
+            tv_po_number.setText(String.valueOf(rl.getPoNumber()));
+            tv_supplier_name.setText(rl.getSupplierName());
+            tv_eta.setText(rl.getEta());
+            tv_status.setText(rl.getStatus());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onReceivingListListener.onReceivingListClick(rl);
+                }
+            });
+        }
 
         public ViewHolder(@NonNull View itemView, OnReceivingListListener onReceivingListListener) {
             super(itemView);
@@ -112,17 +128,10 @@ public class ViewAllReceivingListAdapter extends RecyclerView.Adapter<ViewAllRec
             tv_eta = itemView.findViewById(R.id.tv_eta);
             tv_status = itemView.findViewById(R.id.tv_status);
             this.onReceivingListListener = onReceivingListListener;
-            //parentLayout = itemView.findViewById(R.id.pickingListLayout);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            onReceivingListListener.onReceivingListClick(getAdapterPosition());
         }
     }
 
     public interface OnReceivingListListener{
-        void onReceivingListClick(int position);
+        void onReceivingListClick(ReceivingList rl);
     }
 }
