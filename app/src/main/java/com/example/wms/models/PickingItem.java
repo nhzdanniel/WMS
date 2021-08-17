@@ -3,12 +3,12 @@ package com.example.wms.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PickingList implements Parcelable {
+public class PickingItem implements Parcelable {
 
     public String companyName,date;
     public int poNumber, sn, soNumber;
 
-    public PickingList(int sn, String companyName, int poNumber, String date, int soNumber) {
+    public PickingItem(int sn, String companyName, int poNumber, String date, int soNumber) {
         this.sn = sn;
         this.companyName = companyName;
         this.poNumber = poNumber;
@@ -16,22 +16,22 @@ public class PickingList implements Parcelable {
         this.soNumber=soNumber;
     }
 
-    protected PickingList(Parcel in) {
+    protected PickingItem(Parcel in) {
         companyName = in.readString();
         date = in.readString();
         poNumber = in.readInt();
         soNumber = in.readInt();
     }
 
-    public static final Creator<PickingList> CREATOR = new Creator<PickingList>() {
+    public static final Creator<PickingItem> CREATOR = new Creator<PickingItem>() {
         @Override
-        public PickingList createFromParcel(Parcel in) {
-            return new PickingList(in);
+        public PickingItem createFromParcel(Parcel in) {
+            return new PickingItem(in);
         }
 
         @Override
-        public PickingList[] newArray(int size) {
-            return new PickingList[size];
+        public PickingItem[] newArray(int size) {
+            return new PickingItem[size];
         }
     };
 

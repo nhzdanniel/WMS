@@ -24,7 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
-import com.example.wms.models.PickingList;
+import com.example.wms.models.PickingItem;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 
 import org.json.JSONArray;
@@ -38,7 +38,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
     RecyclerView recyclerviewPickingListPP;
     ViewPickingListsRecyclerViewAdapterPP viewPickingListsRecyclerViewAdapterPP;
     DrawerLayout drawerLayout;
-    ArrayList<PickingList> pickingList;
+    ArrayList<PickingItem> pickingItem;
     //String username;
 
     @Override
@@ -56,7 +56,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
         //}
 
         recyclerviewPickingListPP = findViewById(R.id.recyclerviewPickingListPP);
-        pickingList = new ArrayList<PickingList>();
+        pickingItem = new ArrayList<PickingItem>();
         loadProducts();
     }
 
@@ -90,7 +90,8 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
 
     private void setRecyclerView(){
         Log.d("output", "setrc");
-        viewPickingListsRecyclerViewAdapterPP = new ViewPickingListsRecyclerViewAdapterPP(this, pickingList, this);
+        viewPickingListsRecyclerViewAdapterPP = new ViewPickingListsRecyclerViewAdapterPP(this, this);
+        viewPickingListsRecyclerViewAdapterPP.submitList(pickingItem);
         recyclerviewPickingListPP.setAdapter(viewPickingListsRecyclerViewAdapterPP);
         recyclerviewPickingListPP.setHasFixedSize(true);
         recyclerviewPickingListPP.setLayoutManager(new LinearLayoutManager(this));
@@ -119,8 +120,8 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
                         if(!productObject.isNull("SONum") && !(productObject.getString("SONum").isEmpty())) {
                             Log.d("obj", String.valueOf(productObject.get("SONum")));
                             int SONum = Integer.parseInt(productObject.getString("SONum"));
-                            PickingList product = new PickingList(i + 1, company, PONum, date, SONum);
-                            pickingList.add(product);
+                            PickingItem product = new PickingItem(i + 1, company, PONum, date, SONum);
+                            pickingItem.add(product);
                         }
 
 
@@ -165,7 +166,7 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
             @Override
             public boolean onQueryTextChange(String newText) {
                 viewPickingListsRecyclerViewAdapterPP.getFilter().filter(newText);
-                Log.d("pickinglist", String.valueOf(pickingList.get(0).getSoNumber()));
+                Log.d("pickinglist", String.valueOf(pickingItem.get(0).getSoNumber()));
                 return false;
             }
         });
@@ -173,12 +174,12 @@ public class ViewPickingListPP extends AppCompatActivity implements ViewPickingL
     }
 
     @Override
-    public void onPickingListClick(int position) {
-        Log.d (TAG, "onPPClick: clicked" + position);
-        Log.d("results", String.valueOf(pickingList.get(position).getSoNumber()));
+    public void onPickingListClick(PickingItem pl) {
+        Log.d (TAG, "onPPClick: clicked" + pl);
+        Log.d("results", String.valueOf(pl.getSoNumber()));
 
         Intent intent = new Intent (this, IndividualPickingList.class);
-        intent.putExtra("selectedPickingList", pickingList.get(position));
+        intent.putExtra("selectedPickingList", pl);
         //intent.putExtra("username", username);
         startActivity(intent);
     }

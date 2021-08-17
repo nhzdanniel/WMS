@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wms.R;
-import com.example.wms.models.PickingList;
 import com.example.wms.models.ReceivingList;
 
 import java.util.ArrayList;

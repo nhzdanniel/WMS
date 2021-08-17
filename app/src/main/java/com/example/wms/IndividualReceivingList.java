@@ -7,7 +7,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,9 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.wms.adapters.ViewAllReceivingListAdapter;
 import com.example.wms.adapters.ViewReceivingListDetailsAdapter;
-import com.example.wms.models.PickingList;
 import com.example.wms.models.ReceivingList;
 import com.example.wms.models.ReceivingListDetails;
 import com.example.wms.util.VerticalSpacingItemDecorator;

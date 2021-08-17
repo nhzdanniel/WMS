@@ -22,8 +22,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wms.adapters.ViewAllReceivingListAdapter;
-import com.example.wms.adapters.ViewPickingListsRecyclerViewAdapterPP;
-import com.example.wms.models.PickingList;
 import com.example.wms.models.ReceivingList;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 

@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +28,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wms.adapters.ViewPickingListDetailsAdapter;
-import com.example.wms.adapters.ViewReceivingListDetailsAdapter;
-import com.example.wms.models.PickingList;
+import com.example.wms.models.PickingItem;
 import com.example.wms.models.PickingListDetails;
-import com.example.wms.models.ReceivingListDetails;
 import com.example.wms.util.VerticalSpacingItemDecorator;
 
 import org.json.JSONArray;
@@ -53,7 +50,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
     private String wiprevert = "http://13.59.50.74/android_connect/pickerrevert.php?PONum=";
 
     private TextView poText, companyText;
-    private PickingList pickingList;
+    private PickingItem pickingItem;
     private Button scanButton;
     private Button updateButton;
     String username;
@@ -78,6 +75,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         poText = findViewById(R.id.po_text);
         companyText = findViewById(R.id.company_text);
 
+
         updateButton = findViewById(R.id.btn_update);
         updateButton.setOnClickListener(this);
 
@@ -85,7 +83,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
        //     username = getIntent().getStringExtra("username");
        // }
         if (getIntent().hasExtra("selectedPickingList")) {
-            pickingList = getIntent().getParcelableExtra("selectedPickingList");
+            pickingItem = getIntent().getParcelableExtra("selectedPickingList");
         }
         SharedPreferences userDetails= getApplicationContext().getSharedPreferences("Myuser",Context.MODE_PRIVATE);
         username = userDetails.getString("username", "");
@@ -96,14 +94,14 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
         recyclerviewPickingListDetails = findViewById(R.id.recyclerviewPickingListDetails);
         pickingListDetails = new ArrayList<PickingListDetails>();
-        updatewip(String.valueOf(pickingList.getPoNumber()));
+        updatewip(String.valueOf(pickingItem.getPoNumber()));
 
     }
 
     private void setPickingListProperties() {
-        poText.setText(String.valueOf(pickingList.getSoNumber()));
-        companyText.setText(pickingList.getCompanyName());
-        loadProducts(String.valueOf(pickingList.getSoNumber()));
+        poText.setText(String.valueOf(pickingItem.getSoNumber()));
+        companyText.setText(pickingItem.getCompanyName());
+        loadProducts(String.valueOf(pickingItem.getSoNumber()));
     }
 
     //drawer settings
@@ -162,7 +160,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.d("output", String.valueOf(pickingList.getPoNumber()));
+                Log.d("output", String.valueOf(pickingItem.getPoNumber()));
                 Log.d("output", viewPickingListDetailsAdapter.pickingListDetails.get(0).getSkuScanned());
                 ArrayList<String> skuscans= new ArrayList<String>();
                 ArrayList<String> skulist = new ArrayList<String>();
@@ -191,7 +189,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
     @Override
     public void onBackPressed() {
-        revertwip(String.valueOf(pickingList.getPoNumber()));
+        revertwip(String.valueOf(pickingItem.getPoNumber()));
         Intent intent = new Intent (this, HomePageActivityPp.class);
         startActivity(intent);
     }
@@ -400,7 +398,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
                     builder.show();
                 }
                 else{
-                    updateStatus(String.valueOf(pickingList.getPoNumber()));
+                    updateStatus(String.valueOf(pickingItem.getPoNumber()));
                     updatesku(skuscans, skulist);
                     Intent intent = new Intent (IndividualPickingList.this, HomePageActivityPp.class);
                     IndividualPickingList.this.startActivity(intent);
@@ -418,7 +416,7 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
-                //int upc = Integer.valueOf(pickingList.ge);
+                //int upc = Integer.valueOf(pickingItem.ge);
                 for(int i=0; i<skuscans.size();i++)
                 {
                     params.put(skulist.get(i), upclist.get(i)+"-"+skuscans.get(i));

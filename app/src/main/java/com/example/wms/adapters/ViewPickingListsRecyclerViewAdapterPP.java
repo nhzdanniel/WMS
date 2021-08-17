@@ -1,7 +1,6 @@
 package com.example.wms.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,29 +11,33 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wms.models.PickingList;
+import com.example.wms.models.PickingItem;
 import com.example.wms.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<ViewPickingListsRecyclerViewAdapterPP.ViewHolder> implements Filterable {
 
     Context context;
     private static final String TAG = "ViewPickingListsRecyclerViewAdapterPP";
 
-    ArrayList<PickingList> pickingList;
-    ArrayList<PickingList> masterPickingList;
-    ArrayList<PickingList> filteredPickingList;
+    ArrayList<PickingItem> currentList = new ArrayList<>();
+    ArrayList<PickingItem> currentListBackup = new ArrayList<>();
 
 
     private OnPickingListListener mOnPickingListListener;
 
-    public ViewPickingListsRecyclerViewAdapterPP (Context context, ArrayList<PickingList> pickingList, OnPickingListListener onPickingListListener){
+    public ViewPickingListsRecyclerViewAdapterPP (Context context, OnPickingListListener onPickingListListener){
         this.context = context;
-        this.masterPickingList = pickingList;
-        this.pickingList = new ArrayList<>(masterPickingList);
         this.mOnPickingListListener = onPickingListListener;
+    }
+
+    public void submitList(ArrayList<PickingItem> listItems){
+        currentList.clear();
+        currentList.addAll(listItems);
+        currentListBackup.clear();
+        currentListBackup.addAll(currentList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -46,25 +49,15 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull ViewPickingListsRecyclerViewAdapterPP.ViewHolder holder, int position) {
-        if (pickingList != null && pickingList.size() > 0) {
-            PickingList pl = pickingList.get(position);
-            holder.tv_sn.setText(String.valueOf(pl.getSn()));
-            holder.tv_po_number.setText(String.valueOf(pl.getSoNumber()));
-            holder.tv_company_name.setText(pl.getCompanyName());
-            holder.tv_date.setText(pl.getDate());
-
-/*            holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, )
-                }
-            });*/
+        if (currentList != null && currentList.size() > 0) {
+            PickingItem pl = currentList.get(position);
+            holder.bind(pl);
         }
     }
 
     @Override
     public int getItemCount() {
-        return pickingList.size();
+        return currentList.size();
     }
 
     @Override
@@ -74,40 +67,62 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     private final Filter pickingListFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            filteredPickingList = new ArrayList<>();
+
+            ArrayList<PickingItem> filterResult = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0){
-                filteredPickingList.addAll(masterPickingList);
+                currentList.clear();
+                currentList.addAll(currentListBackup);
+                notifyDataSetChanged();
+
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (PickingList pickingList : masterPickingList){
-                    if (String.valueOf(pickingList.soNumber).contains(filterPattern) || pickingList.companyName.toLowerCase().contains(filterPattern) ||
-                            String.valueOf(pickingList.date).contains(filterPattern)){
-                        filteredPickingList.add(pickingList);
+
+                for (PickingItem pickedItem : currentList){
+                    if (String.valueOf(pickedItem.soNumber).contains(filterPattern) || pickedItem.companyName.toLowerCase().contains(filterPattern) ||
+                            String.valueOf(pickedItem.date).contains(filterPattern)){
+                        filterResult.add(pickedItem);
                     }
                 }
             }
 
             FilterResults results = new FilterResults();
-            results.values = filteredPickingList;
-            results.count = filteredPickingList.size();
+            results.values = filterResult;
+            results.count = filterResult.size();
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            pickingList.clear();
-            pickingList.addAll((ArrayList) results.values);
-            notifyDataSetChanged();
+
+            ArrayList<PickingItem> searchResult = (ArrayList<PickingItem>) results.values;
+            if (searchResult != null && ! searchResult.isEmpty()){
+                currentList.clear();
+                currentList.addAll(searchResult);
+                notifyDataSetChanged();
+            }
         }
     };
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_sn, tv_po_number, tv_company_name, tv_date;
         OnPickingListListener onPickingListListener;
 
         //ConstraintLayout parentLayout;
+
+        public void bind (PickingItem pl){
+            tv_sn.setText(String.valueOf(pl.getSn()));
+            tv_po_number.setText(String.valueOf(pl.getSoNumber()));
+            tv_company_name.setText(pl.getCompanyName());
+            tv_date.setText(pl.getDate());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onPickingListListener.onPickingListClick(pl);
+                }
+            });
+        }
 
         public ViewHolder(@NonNull View itemView, OnPickingListListener onPickingListListener) {
             super(itemView);
@@ -118,17 +133,13 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
             tv_date = itemView.findViewById(R.id.tv_date);
             this.onPickingListListener = onPickingListListener;
             //parentLayout = itemView.findViewById(R.id.pickingListLayout);
-            itemView.setOnClickListener(this);
+
         }
 
-        @Override
-        public void onClick(View v) {
-            onPickingListListener.onPickingListClick(getAdapterPosition());
-        }
     }
 
     public interface OnPickingListListener{
-        void onPickingListClick(int position);
+        void onPickingListClick(PickingItem pl);
     }
 
 }
