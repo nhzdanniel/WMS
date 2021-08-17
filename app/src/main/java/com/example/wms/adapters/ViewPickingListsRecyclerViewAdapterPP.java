@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.wms.models.PickingItem;
+import com.example.wms.models.PickingList;
 import com.example.wms.R;
 
 import java.util.ArrayList;
@@ -21,8 +21,8 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     Context context;
     private static final String TAG = "ViewPickingListsRecyclerViewAdapterPP";
 
-    ArrayList<PickingItem> currentList = new ArrayList<>();
-    ArrayList<PickingItem> currentListBackup = new ArrayList<>();
+    ArrayList<PickingList> currentList = new ArrayList<>();
+    ArrayList<PickingList> currentListBackup = new ArrayList<>();
 
 
     private OnPickingListListener mOnPickingListListener;
@@ -32,7 +32,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
         this.mOnPickingListListener = onPickingListListener;
     }
 
-    public void submitList(ArrayList<PickingItem> listItems){
+    public void submitList(ArrayList<PickingList> listItems){
         currentList.clear();
         currentList.addAll(listItems);
         currentListBackup.clear();
@@ -50,7 +50,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(@NonNull ViewPickingListsRecyclerViewAdapterPP.ViewHolder holder, int position) {
         if (currentList != null && currentList.size() > 0) {
-            PickingItem pl = currentList.get(position);
+            PickingList pl = currentList.get(position);
             holder.bind(pl);
         }
     }
@@ -68,12 +68,12 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
-            ArrayList<PickingItem> filterResult = new ArrayList<>();
+            ArrayList<PickingList> filterResult = new ArrayList<>();
 
             if (constraint != null || constraint.length() != 0){
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (PickingItem pickedItem : currentList){
+                for (PickingList pickedItem : currentList){
                     if (String.valueOf(pickedItem.soNumber).contains(filterPattern) || pickedItem.companyName.toLowerCase().contains(filterPattern) ||
                             String.valueOf(pickedItem.date).contains(filterPattern)){
                         filterResult.add(pickedItem);
@@ -90,7 +90,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            ArrayList<PickingItem> searchResult = (ArrayList<PickingItem>) results.values;
+            ArrayList<PickingList> searchResult = (ArrayList<PickingList>) results.values;
             if (searchResult != null && ! searchResult.isEmpty()){
                 currentList.clear();
                 currentList.addAll(searchResult);
@@ -111,7 +111,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
 
         //ConstraintLayout parentLayout;
 
-        public void bind (PickingItem pl){
+        public void bind (PickingList pl){
             tv_sn.setText(String.valueOf(pl.getSn()));
             tv_po_number.setText(String.valueOf(pl.getSoNumber()));
             tv_company_name.setText(pl.getCompanyName());
@@ -139,7 +139,7 @@ public class ViewPickingListsRecyclerViewAdapterPP extends RecyclerView.Adapter<
     }
 
     public interface OnPickingListListener{
-        void onPickingListClick(PickingItem pl);
+        void onPickingListClick(PickingList pl);
     }
 
 }
