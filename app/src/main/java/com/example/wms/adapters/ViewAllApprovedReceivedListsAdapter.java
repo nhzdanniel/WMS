@@ -50,11 +50,6 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
         if (approvedReceivedList != null && approvedReceivedList.size() > 0) {
             ApprovedReceivedList arl = approvedReceivedList.get(position);
             holder.bindArl(arl);
-/*            holder.tv_sn.setText(String.valueOf(arl.getSn()));
-            holder.tv_po_number.setText(String.valueOf(arl.getPoNumber()));
-            holder.tv_do_number.setText(String.valueOf(arl.getDoNumber()));
-            holder.tv_supplier_name.setText(arl.getSupplierName());
-            holder.tv_eta.setText(arl.getEta());*/
         }
     }
 
@@ -138,7 +133,6 @@ public class ViewAllApprovedReceivedListsAdapter extends RecyclerView.Adapter<Vi
             tv_eta = itemView.findViewById(R.id.tv_eta);
             tv_do_number = itemView.findViewById(R.id.tv_do_number);
             this.onApprovedReceivedListListener = onApprovedReceivedListListener;
-            //parentLayout = itemView.findViewById(R.id.pickingListLayout);
         }
     }
 
