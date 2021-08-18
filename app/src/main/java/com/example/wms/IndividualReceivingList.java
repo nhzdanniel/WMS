@@ -127,14 +127,17 @@ public class IndividualReceivingList extends AppCompatActivity implements ViewRe
 
     public void ClickHome(View view){
         HomePageActivityRec.redirectActivity(this, HomePageActivityRec.class);
+        revertwip(String.valueOf(receivingList.getPoNumber()));
     }
 
     public void ClickAboutUs (View view){
         HomePageActivityRec.redirectActivity(this,AboutUsActivity.class);
+        revertwip(String.valueOf(receivingList.getPoNumber()));
     }
 
     public void ClickLogout(View view){
         HomePageActivityRec.Logout(this);
+        revertwip(String.valueOf(receivingList.getPoNumber()));
     }
 
     @Override

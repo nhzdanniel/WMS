@@ -125,14 +125,17 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
     public void ClickHome(View view){
         HomePageActivityPp.redirectActivity(this, HomePageActivityPp.class);
+        revertwip(String.valueOf(pickingList.getPoNumber()));
     }
 
     public void ClickAboutUs (View view){
         HomePageActivityPp.redirectActivity(this,AboutUsActivity.class);
+        revertwip(String.valueOf(pickingList.getPoNumber()));
     }
 
     public void ClickLogout(View view){
         HomePageActivityPp.Logout(this);
+        revertwip(String.valueOf(pickingList.getPoNumber()));
     }
 
     @Override

@@ -20,17 +20,13 @@
         <activity android:name=".IndividualApprovedReceivedList"></activity>
         <activity android:name=".ViewAllApprovedReceivedLists" />
         <activity android:name=".IndividualReceivingList" />
-        <activity android:name=".IndividualPickingList" />
+        <activity android:name=".IndividualPickingList" /><![CDATA[
             //android:screenOrientation="landscape"/>
-        <activity android:name=".PickedListPP" />
+        ]]>
         <activity
             android:name=".ScanCode"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-        <activity android:name=".PickingPP" />
-        <activity android:name=".ViewPoREC" />
-        <activity android:name=".PrintLabelREC" />
-        <activity android:name=".ReceivingItemsREC" />
         <activity android:name=".ViewAllReceivingListREC" />
         <activity android:name=".ViewPickingListPP" />
         <activity android:name=".AboutUsActivity" />

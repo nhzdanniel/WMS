@@ -131,6 +131,8 @@ public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPick
                     Intent intent = new Intent(context, )
                 }
             });*/
+            //notifyItemChanged(holder.getAdapterPosition());
+
         }
     }
 
@@ -174,5 +176,7 @@ public class ViewPickingListDetailsAdapter extends RecyclerView.Adapter<ViewPick
             notifyDataSetChanged();
         }
     };
+
+
 
 }
