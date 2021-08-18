@@ -130,7 +130,6 @@ public class IndividualPickingList extends AppCompatActivity implements View.OnC
 
     public void ClickAboutUs (View view){
         HomePageActivityPp.redirectActivity(this,AboutUsActivity.class);
-        revertwip(String.valueOf(pickingList.getPoNumber()));
     }
 
     public void ClickLogout(View view){
